@@ -20,7 +20,7 @@ brew install starship
 
 </details>
 
-<!-- 
+<!--
 <details>
 <summary>Windows</summary>
 
@@ -29,12 +29,12 @@ brew install starship
 Install software and copy config
 
 ```bat
-winget install --id Starship.Starship
-xcopy starship.toml "%"USERPROFILE%\.config\starship.toml"
+winget install --exact --id Starship.Starship
+xcopy starship.toml "%USERPROFILE%\.config\starship.toml"
 ```
 
 
-</details> 
+</details>
 -->
 
 ## Uninstall
@@ -51,7 +51,7 @@ rm -f ~/.config/starship.toml
 
 </details>
 
-<!-- 
+<!--
 <details>
 <summary>Windows</summary>
 
@@ -62,5 +62,5 @@ winget uninstall --id Starship.Starship
 del /f "%"USERPROFILE%\.config\starship.toml"
 ```
 
-</details> 
+</details>
 -->
