@@ -10,7 +10,7 @@ Install software and create symlink
 
 ```bash
 brew install koekeishiya/formulae/yabai
-brew insatll jq
+brew install jq
 [ -d $(pwd)/yabai ] && ln -s $(pwd)/yabai ~/.config/yabai
 yabai --restart-service
 ```
