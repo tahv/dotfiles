@@ -8,8 +8,7 @@
 <summary>macOS</summary>
 
 ```bash
-brew tap homebrew/cask-fonts
-brew install font-fira-code-nerd-font
+brew install homebrew/cask-fonts/font-fira-code-nerd-font
 ```
 
 </details>
@@ -20,8 +19,7 @@ brew install font-fira-code-nerd-font
 <summary>macOS</summary>
 
 ```bash
-brew uninstall font-fira-code-nerd-font
-brew untap homebrew/cask-fonts
+brew uninstall homebrew/cask-fonts/font-fira-code-nerd-font
 ```
 
 </details>
