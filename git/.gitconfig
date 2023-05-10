@@ -1,3 +1,5 @@
+[core]
+	excludesfile = ~/.gitignore_global
 [alias]
 	adog = log --all --decorate --oneline --graph
 [user]

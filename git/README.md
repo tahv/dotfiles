@@ -10,6 +10,7 @@ Install software and create symlink
 ```bash
 brew install git
 [ -f $(pwd)/.gitconfig ] && ln -s $(pwd)/.gitconfig ~/.gitconfig
+[ -f $(pwd)/.gitignore_global ] && ln -s $(pwd)/.gitignore_global ~/.gitignore_global
 ```
 
 </details>
@@ -18,13 +19,15 @@ brew install git
 <details>
 <summary>Windows</summary>
 
-> require powershell dotfile
-
 Install software and copy config
+
+> the `.gitignore_global` won't work automatically on Windows, the `excludesfile` option
+> in `.gitconfig` must be a full path.
 
 ```bat
 winget install --exact --id Git.Git
 xcopy .gitconfig "%USERPROFILE%\.gitconfig"
+xcopy .gitignore_global "%USERPROFILE%\.gitignore_global"
 ```
 
 
@@ -40,7 +43,7 @@ Uninstall software and remove config
 
 ```bash
 brew uninstall git
-rm -f ~/.gitconfig
+rm -f ~/.gitconfig ~/.gitignore_global
 ```
 
 </details>
@@ -53,7 +56,8 @@ Uninstall software and remove config
 
 ```bat
 winget uninstall --exact --id Git.Git
-del /f "%"USERPROFILE%\.gitconfig"
+del /f "%USERPROFILE%\.gitconfig"
+del /f "%USERPROFILE%\.gitignore_global"
 ```
 
 </details>
