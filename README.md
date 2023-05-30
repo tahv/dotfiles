@@ -17,7 +17,7 @@ Install individual software and config by following the README in each directori
 Configurations left to do:
 
 - bashrc
-- tmux
+- vscode
 -->
 
 <!--
