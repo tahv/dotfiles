@@ -47,8 +47,6 @@ brew uninstall homebrew/cask-fonts/font-fira-code-nerd-font
 <details>
 <summary>Windows</summary>
 
-> require **admin**.
-
 You have to remove the fonts manually in `Font settings`.
 
 <!--
