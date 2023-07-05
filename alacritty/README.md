@@ -9,7 +9,7 @@
 
 > require [nerd-fonts](../nerdfonts)
 
-Install software and create symlink
+Install software and create symlink.
 
 ```bash
 brew install alacritty
@@ -18,22 +18,22 @@ brew install alacritty
 
 </details>
 
-<!--
 <details>
 <summary>Windows</summary>
 
-> require powershell dotfile
+> require [nerd-fonts](../nerdfonts)
 
-Install software and copy config
+Install software and create symlink.
+
+> mklink require **admin**.
 
 ```bat
-winget install --exact --id Alacritty.Alacritty
-xcopy alacritty.yml "%APPDATA%\alacritty\alacritty.yml"
+winget install Alacritty.Alacritty
+if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
+if exist alacritty.yml (mkdir %APPDATA%\alacritty & mklink %APPDATA%\alacritty\alacritty.yml %cd%\alacritty.yml)
 ```
 
-
 </details>
--->
 
 ## Uninstall
 
@@ -49,16 +49,14 @@ rm -rf ~/.config/alacritty
 
 </details>
 
-<!--
 <details>
 <summary>Windows</summary>
 
-Uninstall software and remove config
+Uninstall software and remove config.
 
 ```bat
-winget uninstall --exact --id Alacritty.Alacritty
-rmdir "%APPDATA%\alacritty"
+winget uninstall Alacritty.Alacritty
+if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
 ```
 
 </details>
--->
