@@ -1,4 +1,4 @@
-# Rember to allow execution of this file:
+# Allow execution of this file:
 # chmod +x ~/.config/yabai/set-split.sh
 
 num_windows=$(yabai -m query --windows --display 1 | jq '[.[] | select(."is-visible"==true and ."is-floating"==false)] | length')

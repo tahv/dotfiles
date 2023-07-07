@@ -8,21 +8,28 @@ yabai -m config window_placement second_child
 # floating windows are always on top (default: off)
 yabai -m config window_topmost on
 
+yabai -m config window_gap 10
+
 # disable specific apps
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Cisco AnyConnect Secure Mobility Client$" manage=off
 yabai -m rule --add app="^Firefox$" title="^(Picture-in-Picture)$" manage=off
+yabai -m rule --add app="^System Information$" manage=off
+
 
 # padding
 set_padding="~/.config/yabai/set-padding.sh"
 sh -c $set_padding  # set on startup
-yabai -m signal --add event=window_minimized action=$set_padding
-yabai -m signal --add event=window_deminimized action=$set_padding
 yabai -m signal --add event=window_created action=$set_padding
 yabai -m signal --add event=window_destroyed action=$set_padding
+yabai -m signal --add event=window_minimized action=$set_padding
+yabai -m signal --add event=window_deminimized action=$set_padding
 yabai -m signal --add event=space_changed action=$set_padding
+yabai -m signal --add event=display_added action=$set_padding
+yabai -m signal --add event=display_removed action=$set_padding
+yabai -m signal --add event=display_changed action=$set_padding
 
 # split
 set_split="~/.config/yabai/set-split.sh"
