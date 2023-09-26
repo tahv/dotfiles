@@ -28,7 +28,7 @@ Install software and create symlink.
 > mklink require **admin**.
 
 ```bat
-winget install Alacritty.Alacritty
+winget install --exact --id Alacritty.Alacritty
 if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
 if exist alacritty.yml (mkdir %APPDATA%\alacritty & mklink %APPDATA%\alacritty\alacritty.yml %cd%\alacritty.yml)
 ```
@@ -55,7 +55,7 @@ rm -rf ~/.config/alacritty
 Uninstall software and remove config.
 
 ```bat
-winget uninstall Alacritty.Alacritty
+winget uninstall --exact --id Alacritty.Alacritty
 if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
 ```
 
