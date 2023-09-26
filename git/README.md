@@ -15,7 +15,6 @@ brew install git
 
 </details>
 
-<!--
 <details>
 <summary>Windows</summary>
 
@@ -30,9 +29,7 @@ xcopy .gitconfig "%USERPROFILE%\.gitconfig"
 xcopy .gitignore_global "%USERPROFILE%\.gitignore_global"
 ```
 
-
 </details>
--->
 
 ## Uninstall
 
