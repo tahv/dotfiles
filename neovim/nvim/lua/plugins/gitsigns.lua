@@ -1,6 +1,7 @@
 return {
   'lewis6991/gitsigns.nvim',
   opts = {
+    -- TODO: show change in yellow ?
     signs = {
       add          = { text = '+' },
       change       = { text = '~' },
