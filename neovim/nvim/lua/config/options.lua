@@ -10,7 +10,7 @@ vim.o.relativenumber = true
 vim.o.mouse = 'a'
 
 -- Vertical rulers
-vim. .colorcolumn = "80,88"
+vim.o.colorcolumn = "80,88"
 
 -- Deactivate line wrap
 vim.o.wrap = false
