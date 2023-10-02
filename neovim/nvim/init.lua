@@ -47,6 +47,8 @@ require('lazy').setup({
     },
   },
 
+  require('plugins.null-ls'),
+
   -- Remove buffers
   require('plugins.mini-bufremove'),
 
