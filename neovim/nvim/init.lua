@@ -130,6 +130,16 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- Center buffer when moving
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Move half screen up' } )
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Move half screen down' } )
+vim.keymap.set('n', 'gg', 'ggzz', { desc = 'Go to the first line of the document' } )
+vim.keymap.set('n', 'G', 'Gzz', { desc = 'Go to the last line of the document' } )
+vim.keymap.set('n', 'n', 'nzz', { desc = 'Repeat search in same direction' } )
+vim.keymap.set('n', 'N', 'Nzz', { desc = 'Repeat search in opposite direction' } )
+vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to older position in jump list' } )
+vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to newer position in jump list' } )
+
 -- [[ Configure LSP ]]
 
 --  This function gets run when an LSP connects to a particular buffer.
