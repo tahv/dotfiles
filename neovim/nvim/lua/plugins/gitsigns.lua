@@ -1,7 +1,8 @@
+-- Git integration for buffers.
 return {
   'lewis6991/gitsigns.nvim',
+  event = { "BufReadPre", "BufNewFile" },
   opts = {
-    -- TODO: show change in yellow ?
     signs = {
       add          = { text = '+' },
       change       = { text = '~' },
@@ -11,20 +12,23 @@ return {
       untracked    = { text = '┆' },
     },
     on_attach = function(bufnr)
-      vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+      local gitsigns = package.loaded.gitsigns
 
-      -- don't override the built-in and fugitive keymaps
+      -- Navigation, extend the build-in vimdiff keymapp
       vim.keymap.set({'n', 'v'}, ']c', function()
         if vim.wo.diff then return ']c' end
-        vim.schedule(function() package.loaded.gitsigns.next_hunk() end)
+        vim.schedule(function() gitsigns.next_hunk() end)
         return '<Ignore>'
-      end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
+      end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
 
       vim.keymap.set({'n', 'v'}, '[c', function()
         if vim.wo.diff then return '[c' end
-        vim.schedule(function() package.loaded.gitsigns.prev_hunk() end)
+        vim.schedule(function() gitsigns.prev_hunk() end)
         return '<Ignore>'
-      end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+      end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+
+      -- Actions
+      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, { buffer = bufnr, desc = '[P]review git hunk' })
 
     end,
   },
