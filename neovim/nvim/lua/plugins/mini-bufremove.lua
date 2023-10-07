@@ -1,6 +1,7 @@
+-- Neovim Lua plugin to remove buffers. 
 return {
   'echasnovski/mini.bufremove',
-  version = '*', -- stable version
+  version = '*', -- Stable version
   config = function()
     local bufremove = require('mini.bufremove')
     vim.keymap.set('n', '<leader>bd', function() bufremove.delete(0, false) end, { desc = '[B]uffer [D]elete' })
