@@ -1,3 +1,4 @@
+-- Indent guides for Neovim.
 return {
   'lukas-reineke/indent-blankline.nvim',
   opts = {
