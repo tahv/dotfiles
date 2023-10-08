@@ -2,29 +2,29 @@ return {
   'hrsh7th/nvim-cmp',
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
+    'L3MON4D3/LuaSnip',  -- Snippet engine
+    'saadparwaiz1/cmp_luasnip',  -- LuaSnip completion source
+
+    'rafamadriz/friendly-snippets',  -- pre-configured snippets for different languages
 
     -- Adds LSP completion capabilities
-    'hrsh7th/cmp-nvim-lsp',
-
-    -- Adds a number of user-friendly snippets
-    'rafamadriz/friendly-snippets',
+    'hrsh7th/cmp-nvim-lsp',  --  nvim-cmp source for neovim builtin LSP client 
   },
   config = function ()
+    local cmp = require('cmp')
+    local luasnip = require('luasnip')
+
+    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+    require('luasnip.loaders.from_vscode').lazy_load()
+
+    -- luasnip.config.setup {}  -- TODO: remove
 
     local has_words_before = function()
       unpack = unpack or table.unpack
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
-
-    local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
-
-    require('luasnip.loaders.from_vscode').lazy_load()
-    luasnip.config.setup {}
-
+    
     -- See `:help cmp`
     cmp.setup {
       snippet = {

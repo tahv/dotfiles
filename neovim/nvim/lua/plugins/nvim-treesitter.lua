@@ -1,77 +1,46 @@
+-- Treesitter configurations and abstraction layer for Neovim. 
 return {
   'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',  -- When installed or updated, update all the installed parsers.
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
-  build = ':TSUpdate',
   config = function ()
-    require('nvim-treesitter.configs').setup {
-      -- Add languages to be installed here that you want installed for treesitter
+    require('nvim-treesitter.configs').setup({
+      highlight = { enable = true }, -- Enable syntax highlighting.
+      indent = { enable = true }, -- Enable indendation based on the `=` operator.
+
+      auto_install = true, -- Autoinstall languages.
       ensure_installed = {
+        'bash',
+        'dockerfile',
+        'gitignore',
+        'json',
         'lua',
+        'make',
+        'markdown',
+        'markdown_inline',
+        -- 'mermaid,'
         'python',
-        'vimdoc',
+        -- 'regex',
+        'requirements', -- pip requirements
+        -- 'rust',
+        'toml',
         'vim',
+        'vimdoc',
+        'yaml',
       },
 
-      -- Autoinstall languages that are not installed.
-      auto_install = false,
-
-      highlight = { enable = true },
-      indent = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<c-space>',
-          node_incremental = '<c-space>',
-          scope_incremental = '<c-s>',
-          node_decremental = '<M-space>',
+          init_selection = '<c-space>', -- Start incremental selection.
+          node_incremental = '<c-space>', -- Increment to the upper named parent.
+          scope_incremental = false, -- Decrement to the upper scope.
+          node_decremental = '<C-BS>', -- Decrement to the previous named node.
         },
       },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = '@class.outer',
-          },
-          goto_next_end = {
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
-          },
-          goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
-          },
-          goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ['<leader>a'] = '@parameter.inner',
-          },
-          swap_previous = {
-            ['<leader>A'] = '@parameter.inner',
-          },
-        },
-      },
-    }
+    })
   end
 }
