@@ -19,6 +19,7 @@ return {
     -- See `:help telescope` and `:help telescope.setup()`
     telescope.setup({
       defaults = {
+        path_display = { "truncate" },
         mappings = {
           i = {
             -- Disable 'Next item' and 'Previous item' in insert mode
