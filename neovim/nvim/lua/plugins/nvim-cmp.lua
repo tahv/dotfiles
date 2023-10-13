@@ -1,76 +1,71 @@
 return {
   'hrsh7th/nvim-cmp',
+  event = "InsertEnter",
   dependencies = {
-    -- Snippet Engine & its associated nvim-cmp source
     'L3MON4D3/LuaSnip',  -- Snippet engine
-    'saadparwaiz1/cmp_luasnip',  -- LuaSnip completion source
+    'rafamadriz/friendly-snippets',  -- Pre-configured snippets for different languages
 
-    'rafamadriz/friendly-snippets',  -- pre-configured snippets for different languages
-
-    -- Adds LSP completion capabilities
-    'hrsh7th/cmp-nvim-lsp',  --  nvim-cmp source for neovim builtin LSP client 
+    'saadparwaiz1/cmp_luasnip',  -- Source for LuaSnip snippets
+    -- 'hrsh7th/cmp-buffer',  -- Source for text in current buffer
+    -- 'hrsh7th/cmp-path',  -- Source for file system paths
+    'hrsh7th/cmp-nvim-lsp',  -- Source for neovim builtin LSP client 
   },
   config = function ()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
-    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+    -- Loads vscode style snippets from installed plugins (e.g. friendly-snippets)
     require('luasnip.loaders.from_vscode').lazy_load()
-
+        
     -- luasnip.config.setup {}  -- TODO: remove
-
-    local has_words_before = function()
-      unpack = unpack or table.unpack
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-    end
-    
+        
     -- See `:help cmp`
-    cmp.setup {
+    cmp.setup({
+      completion = {
+        -- autocomplete = false,
+        -- completeopt = 'menuone,preview,noselect',
+      },
+
+      -- Configure how nvim-cmp interacts with the snippet engine.
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
       },
+      
+      -- Sources for autocompletion, order matters.
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
       },
 
       mapping = cmp.mapping.preset.insert {
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(), -- Previous suggestion
+        ['<C-n>'] = cmp.mapping.select_next_item(), -- Next suggestion
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete {},
-        -- ['<CR>'] = cmp.mapping.confirm {
-        --   behavior = cmp.ConfirmBehavior.Replace,
-        --   select = true,
-        -- },
+        ['<C-Space>'] = cmp.mapping.complete(), -- Show completion suggestion
+        ['<C-e>'] = cmp.mapping.abort(), -- Close the completion window
+        ['<CR>'] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace, -- Replace adjacent text with selected item.
+          select = false, -- Automatically select the first item (`true`), or only confirm explicitly selected item (`false`)
+        },
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            -- cmp.confirm({ select = true })
             cmp.select_next_item()
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
           else
             fallback()
           end
-        end, { 'i', 's' }),
+        end, { "i", "s" }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
           else
             fallback()
           end
-        end, { 'i', 's' }),
-
+        end, { "i", "s" }),
       },
-    }
+    })
 
   end,
 }
