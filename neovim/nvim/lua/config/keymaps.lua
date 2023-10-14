@@ -1,6 +1,9 @@
 vim.keymap.set('n', '<leader>bb', "<cmd>e #<cr>", { desc = 'Switch to other [B]uffer' })
 -- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { desc = 'Open [E]xplorer' })
 
+-- Clear search with <esc>
+vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -36,7 +39,8 @@ vim.keymap.set('n', 'N', 'Nzz', { desc = 'Repeat search in opposite direction' }
 vim.keymap.set('n', '<C-o>', '<C-o>zz', { desc = 'Go to older position in jump list' })
 vim.keymap.set('n', '<C-i>', '<C-i>zz', { desc = 'Go to newer position in jump list' })
 
--- Better indenting in visual mode by re-selecting previous selection 
+-- Don't lose selection when shifting sidewards
+-- https://github.com/mhinz/vim-galore#dont-lose-selection-when-shifting-sidewards
 vim.keymap.set("v", "<", "<gv", { desc = 'Dedent' })
 vim.keymap.set("v", ">", ">gv", { desc = 'Indent' })
 
