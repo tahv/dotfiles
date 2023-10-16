@@ -24,7 +24,7 @@ return {
       -- TODO: test visual mode
       vim.keymap.set({'n', 'v'},'<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: [C]ode [A]ction' })
 
-      vim.keymap.set('n','gd', vim.lsp.buf.definition, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
+      vim.keymap.set('n','gd', require('telescope.builtin').lsp_definitions, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
       vim.keymap.set('n','gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
       vim.keymap.set('n','gr', require('telescope.builtin').lsp_references, { buffer = bufnr, desc = 'LSP: [G]oto [R]eferences' })
       vim.keymap.set('n','gI', require('telescope.builtin').lsp_implementations, { buffer = bufnr, desc = 'LSP: [G]oto [I]mplementation' })
@@ -53,6 +53,15 @@ return {
     lspconfig["pyright"].setup({
       capabilities = capabilities,
       on_attach = on_attach
+    })
+
+    lspconfig["ruff_lsp"].setup({
+      capabilities = capabilities,
+      on_attach = function(client, bufnr)
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+        -- on_attach(client, bufnr)
+      end,
     })
 
     lspconfig["lua_ls"].setup({
