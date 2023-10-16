@@ -5,4 +5,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
   pattern = '*',
-})
+})  
+
