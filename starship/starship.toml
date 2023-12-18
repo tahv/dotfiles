@@ -26,10 +26,13 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [git_status]
-format = "[($ahead_behind )]($style)"
+format = "[($untracked$modified$staged$renamed$deleted )](218)[($ahead_behind )]($style)"
+# format = "[($ahead_behind )]($style)"
 style = "cyan"
 ahead = "${count}⇡"
 behind = "${count}⇣"
+deleted = "-"
+# deleted = "✕"
 diverged = "${behind_count}⇣${ahead_count}⇡"
 
 [character]
