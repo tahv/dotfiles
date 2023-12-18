@@ -38,12 +38,15 @@ require('lazy').setup({
   require("plugins.lualine"), -- Set lualine as statusline
   require('plugins.mini-bufremove'),  -- Remove buffers
   require('plugins.mini-pairs'),
+  require('plugins.vim-illuminate'), -- Highlight symbol under cursor
   -- require('plugins.null-ls'),
   require('plugins.onedark'), -- Theme inspired by Atom
+  -- require('plugins.solarized-osaka'), -- Theme
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
   require("plugins.which-key"),  -- Show pending keybinds
   require('plugins.dressing'), -- Improve the default vim.ui interfaces 
-  require('plugins.nvim-tree'), -- File explorer
+  -- require('plugins.nvim-tree'), -- File explorer
+  require('plugins.neo-tree'), -- File explorer
   require("plugins.nvim-cmp"), -- Autocompletion
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
   require('plugins.nvim-treesitter-textobjects')

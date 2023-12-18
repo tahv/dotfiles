@@ -23,6 +23,7 @@ return {
       },
       filters = {
         git_ignored = false,
+        custom = { "\\.pyc", "^\\.DS_Store" }
       },
 
       renderer = {
