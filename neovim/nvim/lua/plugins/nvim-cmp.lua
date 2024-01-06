@@ -21,10 +21,7 @@ return {
         
     -- See `:help cmp`
     cmp.setup({
-      completion = {
-        -- autocomplete = false,
-        -- completeopt = 'menuone,preview,noselect',
-      },
+      preselect = cmp.PreselectMode.None,
 
       -- Configure how nvim-cmp interacts with the snippet engine.
       snippet = {
@@ -40,15 +37,15 @@ return {
       },
 
       mapping = cmp.mapping.preset.insert {
-        ['<C-p>'] = cmp.mapping.select_prev_item(), -- Previous suggestion
-        ['<C-n>'] = cmp.mapping.select_next_item(), -- Next suggestion
+        -- ['<C-p>'] = cmp.mapping.select_prev_item(), -- Previous suggestion
+        -- ['<C-n>'] = cmp.mapping.select_next_item(), -- Next suggestion
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(), -- Show completion suggestion
         ['<C-e>'] = cmp.mapping.abort(), -- Close the completion window
         ['<CR>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace, -- Replace adjacent text with selected item.
-          select = false, -- Automatically select the first item (`true`), or only confirm explicitly selected item (`false`)
+          select = false, -- Only confirm explicitly selected item
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
