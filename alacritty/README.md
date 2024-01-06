@@ -13,7 +13,7 @@ Install software and create symlink.
 
 ```bash
 brew install alacritty
-[ -f $(pwd)/alacritty.yml ] && mkdir ~/.config/alacritty && ln -s $(pwd)/alacritty.yml ~/.config/alacritty/alacritty.yml
+[ -f $(pwd)/alacritty.toml ] && mkdir ~/.config/alacritty && ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 ```
 
 </details>
