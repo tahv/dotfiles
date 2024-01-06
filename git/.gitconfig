@@ -2,6 +2,7 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	adog = log --all --decorate --oneline --graph
+	s = status --short --branch
 [user]
 	name = Thibaud Gambier
 	email = thibaud.gambier@gmail.com
