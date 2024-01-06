@@ -12,10 +12,12 @@ return {
     mason.setup({})
 
     mason_lspconfig.setup({
-      ensure_instalbed = {
+      ensure_installed = {
         "pyright",
-        "ruff-lsp",
+        "ruff_lsp",
+        "rust_analyzer",
         "lua_ls",
+        "taplo",  -- toml
       },
     })
   end,

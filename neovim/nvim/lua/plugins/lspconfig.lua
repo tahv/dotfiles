@@ -23,6 +23,7 @@ return {
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP: [R]e[n]ame Symbol' })
       -- TODO: test visual mode
       vim.keymap.set({'n', 'v'},'<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP: [C]ode [A]ction' })
+      vim.keymap.set({'n', 'v'},'<leader>cf', function () vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = 'LSP: [C]ode [F]format' })
 
       vim.keymap.set('n','gd', require('telescope.builtin').lsp_definitions, { buffer = bufnr, desc = 'LSP: [G]oto [D]efinition' })
       vim.keymap.set('n','gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
@@ -57,11 +58,12 @@ return {
 
     lspconfig["ruff_lsp"].setup({
       capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        -- Disable hover in favor of Pyright
-        client.server_capabilities.hoverProvider = false
-        -- on_attach(client, bufnr)
-      end,
+      on_attach = on_attach,
+    })
+
+    lspconfig["rust_analyzer"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
     })
 
     lspconfig["lua_ls"].setup({
@@ -73,6 +75,11 @@ return {
           telemetry = { enable = false },
         },
       },
+    })
+
+    lspconfig["taplo"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach
     })
   end,
 }
