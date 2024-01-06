@@ -38,6 +38,7 @@ require('lazy').setup({
   require("plugins.lualine"), -- Set lualine as statusline
   require('plugins.mini-bufremove'),  -- Remove buffers
   require('plugins.mini-pairs'),
+  require('plugins.mini-surround'),  -- Surround actions
   require('plugins.vim-illuminate'), -- Highlight symbol under cursor
   -- require('plugins.null-ls'),
   require('plugins.onedark'), -- Theme inspired by Atom
