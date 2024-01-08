@@ -1,61 +1,37 @@
 # git
 
-## Install
+## Installation
 
-<details>
-<summary>macOS</summary>
-
-Install software and create symlink
+### macOS
 
 ```bash
 brew install git
-[ -f $(pwd)/.gitconfig ] && ln -s $(pwd)/.gitconfig ~/.gitconfig
-[ -f $(pwd)/.gitignore_global ] && ln -s $(pwd)/.gitignore_global ~/.gitignore_global
+[ -d $(pwd)/git ] && ln -s $(pwd)/git ~/.config/git
 ```
 
-</details>
-
-<details>
-<summary>Windows</summary>
-
-Install software and copy config
-
-> the `.gitignore_global` won't work automatically on Windows, the `excludesfile` option
-> in `.gitconfig` must be a full path.
+### Windows
 
 ```bat
 winget install --exact --id Git.Git
-xcopy .gitconfig "%USERPROFILE%\.gitconfig"
-xcopy .gitignore_global "%USERPROFILE%\.gitignore_global"
+rd /q /s "%USERPROFILE%\.config\git" 2>nul || break
+if not exist "%USERPROFILE%\.config" mkdir "%USERPROFILE%\.config" 
+if exists git (mklink /D %USERPROFILE%\.config\git %cd%\git) || echo wrong directory
 ```
 
 </details>
 
-## Uninstall
+## Uninstallation
 
-<details>
-<summary>macOS</summary>
-
-Uninstall software and remove config
+### macOS
 
 ```bash
 brew uninstall git
-rm -f ~/.gitconfig ~/.gitignore_global
+rm -rf ~/.config/git
 ```
 
-</details>
-
-<!--
-<details>
-<summary>Windows</summary>
-
-Uninstall software and remove config
+### Windows
 
 ```bat
 winget uninstall --exact --id Git.Git
-del /f "%USERPROFILE%\.gitconfig"
-del /f "%USERPROFILE%\.gitignore_global"
+rd /q /s "%USERPROFILE%\.config\git" 2>nul || break
 ```
-
-</details>
--->
