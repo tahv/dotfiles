@@ -11,11 +11,13 @@ brew install git
 
 ### Windows
 
+> **Note:** mklink require admin privilege.
+
 ```bat
 winget install --exact --id Git.Git
-rd /q /s "%USERPROFILE%\.config\git" 2>nul || break
-if not exist "%USERPROFILE%\.config" mkdir "%USERPROFILE%\.config" 
-if exists git (mklink /D %USERPROFILE%\.config\git %cd%\git) || echo wrong directory
+mkdir "%USERPROFILE%\.config" 2>nul
+rd /q /s "%USERPROFILE%\.config\git" 2>nul
+mklink /D "%USERPROFILE%\.config\git" "%cd%\git"
 ```
 
 </details>
@@ -33,5 +35,5 @@ rm -rf ~/.config/git
 
 ```bat
 winget uninstall --exact --id Git.Git
-rd /q /s "%USERPROFILE%\.config\git" 2>nul || break
+rd /q /s "%USERPROFILE%\.config\git" 2>nul
 ```
