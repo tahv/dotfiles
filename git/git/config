@@ -1,6 +1,7 @@
 [alias]
 	adog = log --all --decorate --oneline --graph
 	s = status --short --branch
+	b = branch --show-current
 [user]
 	name = Thibaud Gambier
 	email = thibaud.gambier@gmail.com
@@ -8,3 +9,14 @@
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    frag = magenta bold
+    meta = yellow bold
+    new = green bold
+    old = red bold
