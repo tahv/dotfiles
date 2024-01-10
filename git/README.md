@@ -6,7 +6,7 @@
 
 ```bash
 brew install git
-[ -d $(pwd)/git ] && ln -s $(pwd)/git ~/.config/git
+ln -s $(pwd)/git ~/.config/git
 ```
 
 ### Windows
@@ -16,7 +16,6 @@ brew install git
 ```bat
 winget install --exact --id Git.Git
 mkdir "%USERPROFILE%\.config" 2>nul
-rd /q /s "%USERPROFILE%\.config\git" 2>nul
 mklink /D "%USERPROFILE%\.config\git" "%cd%\git"
 ```
 
