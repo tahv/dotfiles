@@ -32,6 +32,7 @@ require('lazy').setup({
   require('plugins.mason'), -- Automatically install LSPs to stdpath for neovim
   require('plugins.lspconfig'), -- LSP Configuration & Plugins
 
+  require('plugins.markdown-preview'), -- Useful status updates for LSP
   require("plugins.comment"), -- Comment line or block
   require('plugins.gitsigns'), -- Adds git signs to gutter and utilities for managing changes
   require("plugins.indent-blankline"), -- Add indentation guides even on blank lines
