@@ -19,10 +19,12 @@ return {
           },
         },
 
+        -- TODO: center screen
         move = {
           enable = true,
           set_jumps = true, -- Add jumps in the jumplist
           goto_next_start = {
+            -- TODO: change function to ]f and [f ?
             [']m'] = { query = '@function.outer', desc = "Move to next function start"},
             [']]'] = { query = '@class.outer', desc = "Move to next class start"},
           },
