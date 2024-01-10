@@ -2,42 +2,44 @@
 
 Based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
 
-## Install
+## Installation
 
-<details>
-<summary>macOS</summary>
+### macOS
 
-> require [nerd-fonts](../nerdfonts)
-
-Delete current neovim config.
+> **Note:** require [nerd-fonts](../nerdfonts)
 
 ```bash
-# required
-rm -rf ~/.config/nvim
-
-# optional but recommended
-rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
+brew install neovim ripgrep
+ln -s $(pwd)/nvim ~/.config/nvim
 ```
 
-Install software and create symlink.
+### Windows
 
-```bash
-brew install neovim lazygit ripgrep
-[ -d $(pwd)/nvim ] && ln -s $(pwd)/nvim ~/.config/nvim
+> **Note:** require [nerd-fonts](../nerdfonts)
+
+> **TODO:** install `ripgrep` (telescope) and a 
+> [C compiler](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support)
+> (treesitter)
+
+```bat
+winget install --exact --id Neovim.Neovim
+mklink /D "%LOCALAPPDATA%\nvim" "%cd%\nvim"
 ```
-
-</details>
 
 ## Uninstall
 
-<details>
-<summary>macOS</summary>
-
-Uninstall software and remove config.
+### macOS
 
 ```bash
-brew uninstall neovim lazygit ripgrep
+brew uninstall neovim ripgrep
 rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
 ```
 
-</details>
+### Windows
+
+> **TODO:** uninstall `ripgrep` and the C compiler
+
+```bat
+winget uninstall --exact --id Neovim.Neovim
+rd /q /s "%LOCALAPPDATA%\nvim" 2>nul
+```
