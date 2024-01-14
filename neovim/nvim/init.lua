@@ -19,6 +19,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+if vim.fn.has('win32') then
+  require('win').setup()
+end
+
 -- Install plugins
 require('lazy').setup({
   -- Git related plugins
