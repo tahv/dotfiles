@@ -17,13 +17,13 @@ ln -s $(pwd)/nvim ~/.config/nvim
 
 > **Note:** require [nerd-fonts](../nerdfonts)
 
-> **TODO:** install `ripgrep` (telescope) and a 
-> [C compiler](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support)
-> (treesitter)
+> **Note:** mklink require admin privilege.
 
 ```bat
 winget install --exact --id Neovim.Neovim
+winget install --exact --id BurntSushi.ripgrep.MSVC
 mklink /D "%LOCALAPPDATA%\nvim" "%cd%\nvim"
+echo nvim.exe %*> "C:\Program Files\Neovim\bin\vim.bat"
 ```
 
 ## Uninstall
@@ -37,9 +37,9 @@ rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
 
 ### Windows
 
-> **TODO:** uninstall `ripgrep` and the C compiler
-
 ```bat
 winget uninstall --exact --id Neovim.Neovim
+winget uninstall --exact --id BurntSushi.ripgrep.MSVC
 rd /q /s "%LOCALAPPDATA%\nvim" 2>nul
+rd /q /s "%LOCALAPPDATA%\nvim-data" 2>nul
 ```
