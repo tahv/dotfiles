@@ -68,7 +68,7 @@ local download_python = function ()
 end
 
 function M.setup()
-  if not vim.fn.has("win32") then
+  if not vim.loop.os_uname().sysname == "Windows_NT" then
     return
   end
 

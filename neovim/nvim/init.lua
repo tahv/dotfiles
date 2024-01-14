@@ -19,7 +19,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-if vim.fn.has('win32') then
+if vim.loop.os_uname().sysname == "Windows_NT" then
   require('win').setup()
 end
 
