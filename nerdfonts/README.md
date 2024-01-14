@@ -12,8 +12,6 @@ brew install homebrew/cask-fonts/font-fira-code-nerd-font
 
 ### Windows
 
-Download and install `Fira Code Nerd Font Mono` fonts.
-
 ```bat
 if exist %TEMP%\nerdfont (rmdir /s /q %TEMP%\nerdfont)
 mkdir %TEMP%\nerdfont
