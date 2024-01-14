@@ -37,8 +37,6 @@ rm -rf ~/.config/alacritty
 
 ### Windows
 
-Uninstall software and remove config.
-
 ```bat
 winget uninstall --exact --id Alacritty.Alacritty
 rd /q /s "%APPDATA%\alacritty" 2>nul
