@@ -5,7 +5,7 @@ local tahvpath = vim.fn.stdpath 'data' .. '/tahv'
 local get_seven_zip = function ()
   local exe_path = tahvpath .. '7zip.exe'
   if not vim.loop.fs_stat(tahvpath) then
-    vim.fn.system { 'curl', '-o', exe_path, 'https://www.7-zip.org/a/7zr.exe' }
+    vim.fn.system { 'curl', '-Lo', exe_path, 'https://www.7-zip.org/a/7zr.exe' }
   end
   return exe_path
 end
@@ -23,10 +23,10 @@ local download_mingw = function ()
 
   -- extract
   local seven_zip = get_seven_zip()
-  vim.fn.system { seven_zip, 'x', archive, "-o%LOCALAPPDATA%/nvim-data/tahv" }
+  os.execute( seven_zip .. ' x ' .. archive .. " -o" .. tahvpath)
 
   -- remove archive
-  vim.fn.system { 'del', '/f', '/q', archive }
+  os.execute('del /f /q ' .. archive)
 end
 
 local download_npm = function ()
@@ -41,11 +41,11 @@ local download_npm = function ()
 
   -- extract
   local seven_zip = get_seven_zip()
-  vim.fn.system { seven_zip, 'x', archive, "-o%LOCALAPPDATA%/nvim-data/tahv" }
-  vim.fn.system { 'ren', tahvpath .. 'node-v20.11.0-win-x64', 'node' }
+  os.execute( seven_zip .. ' x ' .. archive .. ' -o' .. tahvpath )
+  os.execute( 'ren ' .. tahvpath .. '/node-v20.11.0-win-x64 node' )
 
   -- remove archive
-  vim.fn.system { 'del', '/f', '/q', archive }
+  os.execute( 'del /f /q ' .. archive )
 end
 
 local download_python = function ()
@@ -59,10 +59,10 @@ local download_python = function ()
   }
 
   -- extract
-  vim.fn.system { 'tar', '-xf', archive, '-C', "%LOCALAPPDATA%/nvim-data/tahv" }
+  os.execute('tar -xf ' .. archive .. ' -C ' .. tahvpath)
 
   -- remove archive
-  vim.fn.system { 'del', '/f', '/q', archive }
+  os.execute('del /f /q ' .. archive)
 end
 
 function M.setup()
@@ -72,7 +72,7 @@ function M.setup()
   end
 
   if not vim.loop.fs_stat(tahvpath) then
-    vim.fn.system { 'mkdir', tahvpath }
+    os.execute('mkdir ' .. tahvpath)
     download_mingw()
     download_npm()
     download_python()
