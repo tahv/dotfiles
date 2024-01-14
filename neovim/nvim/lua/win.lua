@@ -3,7 +3,7 @@ local M = {}
 local tahvpath = vim.fn.stdpath 'data' .. '/tahv'
 
 local get_seven_zip = function ()
-  local exe_path = tahvpath .. '7zip.exe'
+  local exe_path = tahvpath .. '/7zip.exe'
   if not vim.loop.fs_stat(tahvpath) then
     vim.fn.system { 'curl', '-Lo', exe_path, 'https://www.7-zip.org/a/7zr.exe' }
   end
@@ -13,7 +13,7 @@ end
 -- install mingw64, contain a C compiler for tree-sitter
 local download_mingw = function ()
   -- download
-  local archive = tahvpath .. 'mingw64.7z'
+  local archive = tahvpath .. '/mingw64.7z'
   vim.fn.system {
     'curl',
     '-Lo',
@@ -23,15 +23,15 @@ local download_mingw = function ()
 
   -- extract
   local seven_zip = get_seven_zip()
-  os.execute( seven_zip .. ' x ' .. archive .. " -o" .. tahvpath)
+  os.execute(seven_zip .. ' x ' .. archive .. " -o" .. tahvpath)
 
   -- remove archive
-  os.execute('del /f /q ' .. archive)
+  os.remove(archive)
 end
 
 local download_npm = function ()
   -- download
-  local archive = tahvpath .. 'node.7z'
+  local archive = tahvpath .. '/node.7z'
   vim.fn.system {
     'curl',
     '-Lo',
@@ -41,16 +41,16 @@ local download_npm = function ()
 
   -- extract
   local seven_zip = get_seven_zip()
-  os.execute( seven_zip .. ' x ' .. archive .. ' -o' .. tahvpath )
-  os.execute( 'ren ' .. tahvpath .. '/node-v20.11.0-win-x64 node' )
+  os.execute(seven_zip .. ' x ' .. archive .. ' -o' .. tahvpath)
+  os.rename(tahvpath .. '/node-v20.11.0-win-x64', tahvpath .. '/node')
 
   -- remove archive
-  os.execute( 'del /f /q ' .. archive )
+  os.remove(archive)
 end
 
 local download_python = function ()
   -- download
-  local archive = tahvpath .. 'python.tar.gz'
+  local archive = tahvpath .. '/python.tar.gz'
   vim.fn.system {
     'curl',
     '-Lo',
@@ -62,7 +62,7 @@ local download_python = function ()
   os.execute('tar -xf ' .. archive .. ' -C ' .. tahvpath)
 
   -- remove archive
-  os.execute('del /f /q ' .. archive)
+  os.remove(archive)
 end
 
 function M.setup()
