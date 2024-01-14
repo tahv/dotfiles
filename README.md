@@ -1,17 +1,17 @@
 # dotfiles
 
-My dotfiles
+My dotfiles.
 
 ## Usage
 
-Clone this repo and cd into it
+Clone this repo and cd into it.
 
 ```bash
 git clone git@github.com:tahv/dotfiles.git
 cd dotfiles
 ```
 
-Install individual software and config by following the README in each directories.
+Install individual software and config by following the `README` in each directories.
 
 <!--
 Configurations left to do:
