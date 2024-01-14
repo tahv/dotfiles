@@ -2,61 +2,44 @@
 
 [https://github.com/alacritty/alacritty](https://github.com/alacritty/alacritty)
 
-## Install
+## Installation
 
-<details>
-<summary>macOS</summary>
+### macOS
 
 > require [nerd-fonts](../nerdfonts)
-
-Install software and create symlink.
 
 ```bash
 brew install alacritty
-[ -f $(pwd)/alacritty.toml ] && mkdir ~/.config/alacritty && ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
+mkdir -p ~/.config/alacritty 
+ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 ```
 
-</details>
-
-<details>
-<summary>Windows</summary>
+### Windows
 
 > require [nerd-fonts](../nerdfonts)
 
-Install software and create symlink.
-
-> mklink require **admin**.
+> **Note:** mklink require admin privileges.
 
 ```bat
 winget install --exact --id Alacritty.Alacritty
-if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
-if exist alacritty.yml (mkdir %APPDATA%\alacritty & mklink %APPDATA%\alacritty\alacritty.yml %cd%\alacritty.yml)
+mkdir "%APPDATA%\alacritty" 2>nul
+mklink "%APPDATA%\alacritty\alacritty.yml" "%cd%\alacritty.yml"
 ```
-
-</details>
 
 ## Uninstall
 
-<details>
-<summary>macOS</summary>
-
-Uninstall software and remove config
+### macOS
 
 ```bash
 brew uninstall alacritty
 rm -rf ~/.config/alacritty
 ```
 
-</details>
-
-<details>
-<summary>Windows</summary>
+### Windows
 
 Uninstall software and remove config.
 
 ```bat
 winget uninstall --exact --id Alacritty.Alacritty
-if exist %APPDATA%\alacritty (rmdir /s /q %APPDATA%\alacritty)
+rd /q /s "%APPDATA%\alacritty" 2>nul
 ```
-
-</details>

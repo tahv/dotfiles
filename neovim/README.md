@@ -17,7 +17,7 @@ ln -s $(pwd)/nvim ~/.config/nvim
 
 > **Note:** require [nerd-fonts](../nerdfonts)
 
-> **Note:** mklink require admin privilege.
+> **Note:** mklink require admin privileges.
 
 ```bat
 winget install --exact --id Neovim.Neovim

@@ -11,7 +11,7 @@ ln -s $(pwd)/git ~/.config/git
 
 ### Windows
 
-> **Note:** mklink require admin privilege.
+> **Note:** mklink require admin privileges.
 
 ```bat
 winget install --exact --id Git.Git
