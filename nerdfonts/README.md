@@ -4,17 +4,13 @@
 
 ## Install
 
-<details>
-<summary>macOS</summary>
+### macOS
 
 ```bash
 brew install homebrew/cask-fonts/font-fira-code-nerd-font
 ```
 
-</details>
-
-<details>
-<summary>Windows</summary>
+### Windows
 
 Download and install `Fira Code Nerd Font Mono` fonts.
 
@@ -31,23 +27,17 @@ powershell -Command "Get-ChildItem -Path $env:TEMP\nerdfont | % { (New-Object -C
 rmdir /s /q %TEMP%\nerdfont
 ```
 
-</details>
-
 ## Uninstall
 
-<details>
-<summary>macOS</summary>
+### macOS
 
 ```bash
 brew uninstall homebrew/cask-fonts/font-fira-code-nerd-font
 ```
 
-</details>
+### Windows
 
-<details>
-<summary>Windows</summary>
-
-You have to remove the fonts manually in `Font settings`.
+Manually remove the fonts in `Font settings`.
 
 <!--
 TODO: Investigate uninstall script
@@ -56,4 +46,3 @@ https://www.powershellgallery.com/packages/PSWinGlue/0.5.5/Content/Scripts%5CUni
 del /q /f /s /a %LOCALAPPDATA%\Microsoft\Windows\Fonts\FiraCodeNerdFontMono*.ttf
 -->
 
-</details>
