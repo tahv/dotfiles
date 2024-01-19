@@ -10,7 +10,7 @@
 
 ```bash
 brew install alacritty
-mkdir -p ~/.config/alacritty 
+mkdir -p ~/.config/alacritty
 ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 ```
 
@@ -23,7 +23,7 @@ ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 ```bat
 winget install --exact --id Alacritty.Alacritty
 mkdir "%APPDATA%\alacritty" 2>nul
-mklink "%APPDATA%\alacritty\alacritty.yml" "%cd%\alacritty.yml"
+mklink "%APPDATA%\alacritty\alacritty.toml" "%cd%\alacritty.toml"
 ```
 
 ## Uninstall
