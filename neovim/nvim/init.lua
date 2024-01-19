@@ -5,7 +5,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Install 'lazy.vim' package manager
--- `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -19,6 +18,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Install and setup Windows workstation
 if vim.loop.os_uname().sysname == "Windows_NT" then
   require('win').setup()
 end
@@ -50,12 +50,13 @@ require('lazy').setup({
   -- require('plugins.solarized-osaka'), -- Theme
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
   require("plugins.which-key"),  -- Show pending keybinds
-  require('plugins.dressing'), -- Improve the default vim.ui interfaces 
+  require('plugins.dressing'), -- Improve the default vim.ui interfaces
   -- require('plugins.nvim-tree'), -- File explorer
   require('plugins.neo-tree'), -- File explorer
   require("plugins.nvim-cmp"), -- Autocompletion
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
-  require('plugins.nvim-treesitter-textobjects')
+  require('plugins.nvim-treesitter-textobjects'),
+  require('plugins.nvim-treesitter-context'),
 }, {})
 
 
