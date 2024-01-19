@@ -23,7 +23,7 @@ ln -s $(pwd)/nvim ~/.config/nvim
 winget install --exact --id Neovim.Neovim
 winget install --exact --id BurntSushi.ripgrep.MSVC
 mklink /D "%LOCALAPPDATA%\nvim" "%cd%\nvim"
-echo nvim.exe %*> "C:\Program Files\Neovim\bin\vim.bat"
+echo @nvim.exe %*> "C:\Program Files\Neovim\bin\vim.bat"
 ```
 
 ## Uninstall
