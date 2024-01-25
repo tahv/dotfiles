@@ -2,11 +2,14 @@
 	adog = log --all --decorate --oneline --graph
 	s = status --short --branch
 	b = branch --show-current
+    l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
+
 [user]
 	name = Thibaud Gambier
 	email = thibaud.gambier@gmail.com
 [push]
 	autoSetupRemote = true
+
 [init]
 	defaultBranch = main
 
