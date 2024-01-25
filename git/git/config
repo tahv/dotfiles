@@ -25,5 +25,5 @@
     new = green bold
     old = red bold
 
-[includeIf "hasconfig:remote.*.url:*gitlab-ncsa.ubisoft.org*/**"]
+[includeIf "hasconfig:remote.*.url:git@gitlab-ncsa.ubisoft.org*/**"]
     path = config-work
