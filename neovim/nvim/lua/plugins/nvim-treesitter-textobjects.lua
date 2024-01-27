@@ -2,7 +2,7 @@
 return {
   'nvim-treesitter/nvim-treesitter-textobjects',
   lazy = true,
-  config = function ()
+  config = function()
     require('nvim-treesitter.configs').setup({
       textobjects = {
         select = {
@@ -25,20 +25,20 @@ return {
           set_jumps = true, -- Add jumps in the jumplist
           goto_next_start = {
             -- TODO: change function to ]f and [f ?
-            [']m'] = { query = '@function.outer', desc = "Move to next function start"},
-            [']]'] = { query = '@class.outer', desc = "Move to next class start"},
+            [']f'] = { query = '@function.outer', desc = "Move to next function start" },
+            [']]'] = { query = '@class.outer', desc = "Move to next class start" },
           },
           goto_next_end = {
-            [']M'] = { query = '@function.outer', desc = "Move to next function end"},
-            [']['] = { query = '@class.outer', desc = "Move to next class end"},
+            [']F'] = { query = '@function.outer', desc = "Move to next function end" },
+            [']['] = { query = '@class.outer', desc = "Move to next class end" },
           },
           goto_previous_start = {
-            ['[m'] = { query = '@function.outer', desc = "Move to previous function start"},
-            ['[['] = { query = '@class.outer', desc = "Move to previous class start"},
+            ['[f'] = { query = '@function.outer', desc = "Move to previous function start" },
+            ['[['] = { query = '@class.outer', desc = "Move to previous class start" },
           },
           goto_previous_end = {
-            ['[M'] = { query = '@function.outer', desc = "Move to previous function end"},
-            ['[]'] = { query = '@class.outer', desc = "Move to previous class end"},
+            ['[F'] = { query = '@function.outer', desc = "Move to previous function end" },
+            ['[]'] = { query = '@class.outer', desc = "Move to previous class end" },
           },
         },
 
