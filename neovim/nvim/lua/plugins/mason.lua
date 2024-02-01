@@ -16,6 +16,7 @@ return {
         "pyright",
         "ruff_lsp",
         "rust_analyzer",
+        "gopls",
         "lua_ls",
         "taplo",  -- toml
       },
