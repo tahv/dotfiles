@@ -1,0 +1,6 @@
+[user]
+	name = Thibaud Gambier
+	email = thibaud.gambier@ubisoft.com
+
+[credential "https://gitlab-ncsa.ubisoft.org"]
+	provider = gitlab
