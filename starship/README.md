@@ -4,63 +4,42 @@
 
 ## Install
 
-<details>
-<summary>macOS</summary>
+### macOS
 
 > require [nerd-fonts](../nerdfonts)
 
-> require bashrc dotfile
+<!-- TODO: require bashrc dotfile -->
 
 Install software and create symlink
 
 ```bash
 brew install starship
-[ -f $(pwd)/starship.toml ] && ln -s $(pwd)/starship.toml ~/.config/starship.toml
+ln -s $(pwd)/starship.toml ~/.config/starship.toml
 ```
 
-</details>
+### Windows
 
-<!--
-<details>
-<summary>Windows</summary>
-
-> require powershell dotfile
-
-Install software and copy config
+> require [clink](../clink) and [nerd-fonts](../nerdfonts)
 
 ```bat
 winget install --exact --id Starship.Starship
-xcopy starship.toml "%USERPROFILE%\.config\starship.toml"
+mklink "%USERPROFILE%\.config\starship.toml" "%cd%\starship.toml"
+echo load(io.popen('starship init cmd'):read("*a"))() > "%LOCALAPPDATA%\clink\starship.lua"
 ```
-
-
-</details>
--->
 
 ## Uninstall
 
-<details>
-<summary>macOS</summary>
-
-Uninstall software and remove config
+### macOS
 
 ```bash
 brew uninstall starship
 rm -f ~/.config/starship.toml
 ```
 
-</details>
-
-<!--
-<details>
-<summary>Windows</summary>
-
-Uninstall software and remove config
+### Windows
 
 ```bat
 winget uninstall --id Starship.Starship
-del /f "%"USERPROFILE%\.config\starship.toml"
+del /f /q "%USERPROFILE%\.config\starship.toml"
+del /f /q "%LOCALAPPDATA%\clink\starship.lua"
 ```
-
-</details>
--->
