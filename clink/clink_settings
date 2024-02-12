@@ -6,6 +6,10 @@ autosuggest.hint = False
 # type: string
 autosuggest.strategy = completion
 
+# name: Colorize the input text
+# type: boolean
+clink.colorize_input = False
+
 # name: Selects default key bindings
 # type: enum
 # options: bash,windows
@@ -82,7 +86,7 @@ color.horizscroll = sgr 38;5;16;48;5;30
 
 # name: Input text color
 # type: color
-color.input = sgr 38;5;214
+color.input = default
 
 # name: For user-interaction prompts
 # type: color
