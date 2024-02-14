@@ -11,6 +11,12 @@ return {
       changedelete = { text = '~' },
       untracked    = { text = '┆' },
     },
+    current_line_blame_opts = {
+      delay = 200,
+    },
+    current_line_blame_formatter = '<author_time:%d/%m/%y %H:%M:%S> <author> - <summary>',
+
+    -- l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
     on_attach = function(bufnr)
       local gitsigns = package.loaded.gitsigns
 
@@ -28,7 +34,8 @@ return {
       end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
 
       -- Actions
-      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, { buffer = bufnr, desc = '[P]review git hunk' })
+      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, { buffer = bufnr, desc = '[p]review git hunk' })
+      vim.keymap.set('n', '<leader>hb', gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = 'Toggle line [b]lame' })
 
     end,
   },
