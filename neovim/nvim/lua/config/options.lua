@@ -3,7 +3,6 @@ vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
-
 vim.o.relativenumber = true
 
 -- Enable mouse mode
@@ -14,6 +13,8 @@ vim.o.colorcolumn = "80,88"
 
 -- Deactivate line wrap
 vim.o.wrap = false
+
+vim.o.tabstop = 4
 
 -- No swap file
 vim.o.swapfile = false
