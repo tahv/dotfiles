@@ -29,10 +29,9 @@ return {
       vim.keymap.set('n','gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'LSP: [G]oto [D]eclaration' })
       vim.keymap.set('n','gr', require('telescope.builtin').lsp_references, { buffer = bufnr, desc = 'LSP: [G]oto [R]eferences' })
       vim.keymap.set('n','gI', require('telescope.builtin').lsp_implementations, { buffer = bufnr, desc = 'LSP: [G]oto [I]mplementation' })
-      vim.keymap.set('n','<leader>D', vim.lsp.buf.type_definition, { buffer = bufnr, desc = 'LSP: Type [D]efinition' })
-
-      vim.keymap.set('n','<leader>ds', require('telescope.builtin').lsp_document_symbols, { buffer = bufnr, desc = 'LSP: [D]ocument [S]ymbols' })
-      -- vim.keymap.set('n','<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, { buffer = bufnr, desc = 'LSP: [W]orkspace [S]ymbols' })
+      -- vim.keymap.set('n','<leader>D', vim.lsp.buf.type_definition, { buffer = bufnr, desc = 'LSP: Type [D]efinition' })
+      vim.keymap.set('n','<leader>ss', require('telescope.builtin').lsp_document_symbols, { buffer = bufnr, desc = 'LSP: Document [S]ymbols' })
+      vim.keymap.set('n','<leader>sS', require('telescope.builtin').lsp_dynamic_workspace_symbols, { buffer = bufnr, desc = 'LSP: Workspace [S]ymbols' })
 
       -- See `:help K` for why this keymap
       vim.keymap.set('n','K', vim.lsp.buf.hover, { buffer = bufnr, desc = 'LSP: Hover Documentation' })
@@ -43,7 +42,7 @@ return {
       -- vim.keymap.set('n','<leader>wr', vim.lsp.buf.remove_workspace_folder, { buffer = bufnr, desc = 'LSP: [W]orkspace [R]emove Folder' })
       -- vim.keymap.set('n','<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, { buffer = bufnr, desc = 'LSP: [W]orkspace [L]ist Folders' })
 
-      vim.keymap.set('n','<leader>rs', ":LspRestart<CR>", { desc = 'LSP: Signature Documentation' })
+      vim.keymap.set('n','<leader>rs', ":LspRestart<CR>", { desc = 'LSP: [R]estart' })
 
       -- Create a command `:Format` local to the LSP buffer
       -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
