@@ -8,8 +8,8 @@
 
 ```bat
 winget install clink
-del /f /q "%LOCALAPPDATA%\clink\clink_settings"
 mklink "%LOCALAPPDATA%\clink\clink_settings" "%cd%\clink_settings"
+mklink "%LOCALAPPDATA%\clink\starship.lua" "%cd%\starship.lua"
 ```
 
 ## Uninstall
