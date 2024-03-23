@@ -52,7 +52,8 @@ require('lazy').setup({
   require("plugins.which-key"),  -- Show pending keybinds
   require('plugins.dressing'), -- Improve the default vim.ui interfaces
   -- require('plugins.nvim-tree'), -- File explorer
-  require('plugins.neo-tree'), -- File explorer
+  -- require('plugins.neo-tree'), -- File explorer
+  require('plugins.oil-nvim'),  -- File explorer
   require("plugins.nvim-cmp"), -- Autocompletion
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
   require('plugins.nvim-treesitter-textobjects'),
