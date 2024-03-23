@@ -4,29 +4,19 @@
 
 ## Install
 
-<details>
-<summary>macOS</summary>
-
-Install software and create symlink
+### macOS
 
 ```bash
 brew install tmux
 [ -f $(pwd)/.tmux.conf ] && ln -s $(pwd)/.tmux.conf ~/.tmux.conf
 ```
 
-</details>
-
-
 ## Uninstall
 
-<details>
-<summary>macOS</summary>
-
-Uninstall software and remove config
+### macOS
 
 ```bash
 brew uninstall tmux
 rm -f ~/.tmux.conf
 ```
 
-</details>
