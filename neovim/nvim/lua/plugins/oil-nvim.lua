@@ -6,7 +6,12 @@ return {
     require("oil").setup({
       view_options = {
         show_hidden = true,
-      }
+      },
+      skip_confirm_for_simple_edits = true,
+      keymaps = {
+        ["<C-s>"] = false,
+        ["<C-h>"] = false,
+      },
     })
 
     vim.keymap.set("n", "<leader>e", require("oil").open, { desc = "Open file [E]xplorer" })
