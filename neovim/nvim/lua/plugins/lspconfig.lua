@@ -17,7 +17,7 @@ return {
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-    
+
     --  This function gets run when an LSP connects to a particular buffer.
     local on_attach = function(client, bufnr)
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP: [R]e[n]ame Symbol' })
@@ -48,6 +48,12 @@ return {
       -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
       --   vim.lsp.buf.format()
       -- end, { desc = 'Format current buffer with LSP' })
+
+      -- Neovim < 0.10 does not have dynamic registration for formatting
+      if vim.fn.has("nvim-0.10") == 0 and client.name == "yamlls" then
+        client.server_capabilities.documentFormattingProvider = true
+      end
+
     end
 
     lspconfig["pyright"].setup({
@@ -63,6 +69,23 @@ return {
     lspconfig["rust_analyzer"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+    })
+
+    lspconfig["yamlls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        -- redhat = { telemetry = { enabled = false } },
+        yaml = {
+          keyOrdering = false,
+          format = { enable = true },
+          validate = true,
+          schemaStore = { enable = false, url = "" },
+          schemas = {
+            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
+          }
+        },
+      },
     })
 
     lspconfig["gopls"].setup({

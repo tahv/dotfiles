@@ -18,6 +18,7 @@ return {
         "rust_analyzer",
         "gopls",
         "lua_ls",
+        "yamlls",
         "taplo",  -- toml
       },
     })
