@@ -15,6 +15,11 @@ clink.colorize_input = False
 # options: bash,windows
 clink.default_bindings = windows
 
+# name: Controls what startup logo to show
+# type: enum
+# options: none,full,short
+clink.logo = short
+
 # name: Auto-answer terminate prompt
 # type: enum
 # options: off,answer_yes,answer_no
