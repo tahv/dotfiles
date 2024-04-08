@@ -10,8 +10,6 @@
 
 <!-- TODO: require bashrc dotfile -->
 
-Install software and create symlink
-
 ```bash
 brew install starship
 ln -s $(pwd)/starship.toml ~/.config/starship.toml
@@ -24,7 +22,6 @@ ln -s $(pwd)/starship.toml ~/.config/starship.toml
 ```bat
 winget install --exact --id Starship.Starship
 mklink "%USERPROFILE%\.config\starship.toml" "%cd%\starship.toml"
-echo load(io.popen('starship init cmd'):read("*a"))() > "%LOCALAPPDATA%\clink\starship.lua"
 ```
 
 ## Uninstall
@@ -41,5 +38,4 @@ rm -f ~/.config/starship.toml
 ```bat
 winget uninstall --id Starship.Starship
 del /f /q "%USERPROFILE%\.config\starship.toml"
-del /f /q "%LOCALAPPDATA%\clink\starship.lua"
 ```
