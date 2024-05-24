@@ -47,6 +47,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.o.scrolloff = 5
 
 vim.diagnostic.config({
   virtual_text = {
