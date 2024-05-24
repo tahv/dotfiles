@@ -6,7 +6,8 @@
 
 ### macOS
 
-> require [nerd-fonts](../nerdfonts)
+> [!NOTE]
+> require [nerd-fonts](../nerdfonts).
 
 ```bash
 brew install alacritty
@@ -16,13 +17,14 @@ ln -s $(pwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 
 ### Windows
 
-> require [nerd-fonts](../nerdfonts)
-
-> **Note:** mklink require admin privileges.
+> [!NOTE]
+>
+> - require [nerd-fonts](../nerdfonts).
+> - `mklink` require admin privileges.
 
 ```bat
 winget install --exact --id Alacritty.Alacritty
-mkdir "%APPDATA%\alacritty" 2>nul
+mkdir "%APPDATA%\alacritty"
 mklink "%APPDATA%\alacritty\alacritty.toml" "%cd%\alacritty.toml"
 ```
 
@@ -39,5 +41,5 @@ rm -rf ~/.config/alacritty
 
 ```bat
 winget uninstall --exact --id Alacritty.Alacritty
-rd /q /s "%APPDATA%\alacritty" 2>nul
+rd /q /s "%APPDATA%\alacritty"
 ```
