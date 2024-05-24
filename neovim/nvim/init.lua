@@ -23,6 +23,10 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   require('win').setup()
 end
 
+require('config.options')
+require('config.keymaps')
+require('config.autocmds')
+
 -- Install plugins
 require('lazy').setup({
   -- Git related plugins
@@ -58,14 +62,9 @@ require('lazy').setup({
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
   require('plugins.nvim-treesitter-textobjects'),
   require('plugins.nvim-treesitter-context'),
+  require('plugins.navigator-nvim'),
   require('plugins.diagflow-nvim'),
 }, {})
-
-
-require('config.options')
-require('config.keymaps')
-require('config.autocmds')
-
 
 -- TODO: add autopairs + integration with cmp
 
