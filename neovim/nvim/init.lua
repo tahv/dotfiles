@@ -58,6 +58,7 @@ require('lazy').setup({
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
   require('plugins.nvim-treesitter-textobjects'),
   require('plugins.nvim-treesitter-context'),
+  require('plugins.diagflow-nvim'),
 }, {})
 
 
