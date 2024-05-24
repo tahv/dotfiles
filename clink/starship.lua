@@ -12,3 +12,4 @@ end
 
 alias('cdd', 'cd /D D:\\dev\\$1')
 alias('ls', 'dir /B $*')
+alias('clear', 'cls')
