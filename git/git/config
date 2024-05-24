@@ -3,6 +3,7 @@
 	s = status --short --branch
 	b = branch --show-current
     l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
+	pr = pull --rebase
 
 [user]
 	name = Thibaud Gambier

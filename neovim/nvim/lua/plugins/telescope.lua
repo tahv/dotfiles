@@ -20,6 +20,7 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "truncate" },
+        file_ignore_patterns = { "^.git/" },
         mappings = {
           i = {
             -- Disable 'Next item' and 'Previous item' in insert mode
@@ -36,7 +37,7 @@ return {
     -- See `:help telescope.builtin`
     vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
     vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-    vim.keymap.set('n', '<leader>sf', require('telescope.builtin').git_files, { desc = '[S]earch git [F]iles' })
+    vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ hidden = true }) end, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').oldfiles, { desc = '[S]earch [R]ecently opened files' })
     vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
     -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
