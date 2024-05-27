@@ -58,10 +58,15 @@ return {
 
     lspconfig["pyright"].setup({
       capabilities = capabilities,
-      on_attach = on_attach
+      on_attach = on_attach,
+      settings = {
+        pyright = {
+          disableOrganizeImports = true, -- Using Ruff's import organizer
+        }
+      }
     })
 
-    lspconfig["ruff_lsp"].setup({
+    lspconfig["ruff"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
