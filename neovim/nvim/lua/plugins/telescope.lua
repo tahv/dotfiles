@@ -20,7 +20,7 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "truncate" },
-        file_ignore_patterns = { "^.git/" },
+        file_ignore_patterns = { "^.git[/\\]" },
         mappings = {
           i = {
             -- Disable 'Next item' and 'Previous item' in insert mode
