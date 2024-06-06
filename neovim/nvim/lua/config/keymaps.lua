@@ -26,11 +26,11 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
 
 
 -- Resize window using <ctrl> arrow keys
-local helpers = require("config.helpers")
-vim.keymap.set("n", "<C-Up>", helpers.resize_up, { desc = "Resize window up" })
-vim.keymap.set("n", "<C-Down>", helpers.resize_down, { desc = "Resize Window down" })
-vim.keymap.set("n", "<C-Left>", helpers.resize_left, { desc = "Resize window left" })
-vim.keymap.set("n", "<C-Right>", helpers.resize_right, { desc = "Resize window right" })
+local window = require("tahv.window")
+vim.keymap.set("n", "<C-Up>", window.resize_up, { desc = "Resize window up" })
+vim.keymap.set("n", "<C-Down>", window.resize_down, { desc = "Resize Window down" })
+vim.keymap.set("n", "<C-Left>", window.resize_left, { desc = "Resize window left" })
+vim.keymap.set("n", "<C-Right>", window.resize_right, { desc = "Resize window right" })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
