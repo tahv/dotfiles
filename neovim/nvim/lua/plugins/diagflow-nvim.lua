@@ -5,11 +5,11 @@ return {
     opts = {
         scope = "line",
         padding_right = 1,
-        format = function(diag)
-            if diag.code == nil then
-                return diag.message
+        format = function(diagnostic)
+            if diagnostic.code == nil then
+                return diagnostic.message
             end
-            return string.format("[%s] %s", diag.code, diag.message)
+            return string.format("[%s] %s", diagnostic.code, diagnostic.message)
         end,
     },
 }
