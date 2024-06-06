@@ -24,11 +24,13 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go to lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go to upper window' })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
 
+
 -- Resize window using <ctrl> arrow keys
-vim.keymap.set('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase window height' })
-vim.keymap.set('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease window height' })
-vim.keymap.set('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
-vim.keymap.set('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
+local helpers = require("config.helpers")
+vim.keymap.set("n", "<C-Up>", helpers.resize_up, { desc = "Resize window up" })
+vim.keymap.set("n", "<C-Down>", helpers.resize_down, { desc = "Resize Window down" })
+vim.keymap.set("n", "<C-Left>", helpers.resize_left, { desc = "Resize window left" })
+vim.keymap.set("n", "<C-Right>", helpers.resize_right, { desc = "Resize window right" })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
