@@ -1,50 +1,80 @@
+-- A highly extendable fuzzy finder over lists.
+
+local function telescope_git_commits()
+  require("telescope.builtin").git_commits({
+    git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
+  })
+end
+
+local function telescope_git_bcommits()
+  require("telescope.builtin").git_bcommits({
+    git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
+  })
+end
+
+local have_make = vim.fn.executable("make") == 1
+local have_cmake = vim.fn.executable("cmake") == 1
+
 return {
-  'nvim-telescope/telescope.nvim',
-  branch = '0.1.x',
+  "nvim-telescope/telescope.nvim",
+  branch = "0.1.x",
+  cmd = "Telescope",
+
   dependencies = {
-    'nvim-lua/plenary.nvim', -- Lib of lua functions
-    'nvim-tree/nvim-web-devicons', -- Add file types icons
-    -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-    -- Only load if `make` is available.
-    { 'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make',
-      cond = function()
-        return vim.fn.executable 'make' == 1
-      end,
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      enabled = have_make or have_cmake,
+      build = have_make and "make" or
+          "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
   },
-  config = function ()
-    local telescope = require("telescope")
 
-    -- See `:help telescope` and `:help telescope.setup()`
-    telescope.setup({
+  config = function(_, opts)
+    local telescope = require("telescope")
+    telescope.setup(opts)
+    pcall(telescope.load_extension, "fzf") -- Enable telescope-fzf-native, if installed
+  end,
+
+  opts = function()
+    local actions = require("telescope.actions")
+    return {
       defaults = {
         path_display = { "truncate" },
         file_ignore_patterns = { "^.git[/\\]" },
         mappings = {
           i = {
-            -- Disable 'Next item' and 'Previous item' in insert mode
-            ['<C-u>'] = false,
-            ['<C-d>'] = false,
+            ["<C-u>"] = false, -- Remap scrolling up
+            ["<C-d>"] = false, -- Remap scrolling down
+            ["<C-Up>"] = actions.preview_scrolling_up,
+            ["<C-Down>"] = actions.preview_scrolling_down,
+          },
+          n = {
+            ["<C-Up>"] = actions.preview_scrolling_up,
+            ["<C-Down>"] = actions.preview_scrolling_down,
           },
         },
       },
-    })
-
-    -- Enable telescope fzf native, if installed
-    pcall(telescope.load_extension, 'fzf')
-
-    -- See `:help telescope.builtin`
-    vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
-    vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-    vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ hidden = true }) end, { desc = '[S]earch [F]iles' })
-    vim.keymap.set('n', '<leader>sr', require('telescope.builtin').oldfiles, { desc = '[S]earch [R]ecently opened files' })
-    vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-    -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-    vim.keymap.set('n', '<leader>sd', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, { desc = '[S]earch document [D]iagnostics' })
-    vim.keymap.set('n', '<leader>sD', require('telescope.builtin').diagnostics, { desc = '[S]earch workspace [D]iagnostics' })
-
+    }
   end,
-}
 
+  -- TODO: lsp symbols kind filters (see how lazyvim do it)
+  keys = {
+    { "<leader><space>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[ ] Search buffers" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy [S]earch current [B]uffer" },
+    -- { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "[S]earch [C]ommands" },
+    { "<leader>sc", telescope_git_commits, desc = "[S]earch [C]ommits (cwd)" },
+    { "<leader>sC", telescope_git_bcommits, desc = "[S]earch [C]ommits (buffer)" },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "[S]earch document [D]iagnostics" },
+    { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "[S]earch workspace [D]iagnostics" },
+    { "<leader>sf", "<cmd>Telescope find_files hidden=true<cr>", desc = "[S]earch [F]iles" },
+    { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "[S]earch [G]rep" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "[S]earch [H]elp tags" },
+    { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "[R]esume last search" },
+    { "<leader>so", "<cmd>Telescope oldfiles only_cwd=true<cr>", desc = "[S]earch [R]ecent files" },
+    { "<leader>sO", "<cmd>Telescope vim_options<cr>", desc = "[S]earch vim [O]ptions" },
+    -- { "<leader>ss", "<cmd>Telescope git_status<cr>", desc = "[S]earch git [S]tatus files" },
+    -- { "<leader>sS", "<cmd>Telescope git_stash<cr>", desc = "[S]earch git [S]tash" },
+  },
+}
