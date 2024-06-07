@@ -1,11 +1,17 @@
--- Displays a popup with possible keybindings of the command you started typing.  
+-- Displays a popup with possible keybindings of the command you started typing.
 return {
-  'folke/which-key.nvim',
-  event = "VeryLazy",  -- Load later
-  config = function()
-    require("which-key").register({
-      ["<leader>s"] = { name = "+[S]earch" },
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  opts = {
+    defaults = {
       ["<leader>b"] = { name = "+[B]uffer" },
-    })
+      ["<leader>c"] = { name = "+[C]ode" },
+      ["<leader>s"] = { name = "+[S]earch" },
+    },
+  },
+  config = function(_, opts)
+    local wk = require("which-key")
+    wk.setup(opts)
+    wk.register(opts.defaults)
   end,
 }
