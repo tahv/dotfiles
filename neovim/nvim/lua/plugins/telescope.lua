@@ -72,7 +72,7 @@ return {
     { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "[S]earch [G]rep" },
     { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "[S]earch [H]elp tags" },
     { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "[R]esume last search" },
-    { "<leader>so", "<cmd>Telescope oldfiles only_cwd=true<cr>", desc = "[S]earch [R]ecent files" },
+    { "<leader>so", "<cmd>Telescope oldfiles only_cwd=true<cr>", desc = "[S]earch [O]ld files" },
     { "<leader>sO", "<cmd>Telescope vim_options<cr>", desc = "[S]earch vim [O]ptions" },
     -- { "<leader>ss", "<cmd>Telescope git_status<cr>", desc = "[S]earch git [S]tatus files" },
     -- { "<leader>sS", "<cmd>Telescope git_stash<cr>", desc = "[S]earch git [S]tash" },
