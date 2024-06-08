@@ -60,7 +60,6 @@ require('lazy').setup({
   require('plugins.oil-nvim'),  -- File explorer
   require("plugins.nvim-cmp"), -- Autocompletion
   require('plugins.nvim-treesitter'), -- Highlight, edit, and navigate code
-  require('plugins.nvim-treesitter-textobjects'),
   require('plugins.nvim-treesitter-context'),
   require('plugins.navigator-nvim'),
   require('plugins.diagflow-nvim'),

@@ -1,46 +1,106 @@
--- Treesitter configurations and abstraction layer for Neovim. 
 return {
-  'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',  -- When installed or updated, update all the installed parsers.
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-  },
-  config = function ()
-    require('nvim-treesitter.configs').setup({
-      highlight = { enable = true }, -- Enable syntax highlighting.
-      indent = { enable = true }, -- Enable indendation based on the `=` operator.
-
-      auto_install = true, -- Autoinstall languages.
+  -- Treesitter configurations and abstraction layer for Neovim.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    version = false,
+    build = ":TSUpdate", -- When installed or updated, update all parsers
+    event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
+    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+    opts = {
+      highlight = { enable = true }, -- Enable syntax highlighting
+      indent = { enable = true }, -- Enable indendation based on the `=` operator
+      auto_install = true,
       ensure_installed = {
-        'bash',
-        'dockerfile',
-        'gitignore',
-        'json',
-        'lua',
-        'make',
-        'markdown',
-        'markdown_inline',
-        -- 'mermaid,'
-        'python',
-        -- 'regex',
-        'requirements', -- pip requirements
-        -- 'rust',
-        'toml',
-        'vim',
-        'vimdoc',
-        'yaml',
+        "bash",
+        "c_sharp",
+        "diff",
+        "dockerfile",
+        "gitignore",
+        "json",
+        "jsonc",
+        "lua",
+        "luadoc",
+        "luap",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "mermaid",
+        "python",
+        "regex",
+        "requirements", -- python requirements
+        "rust",
+        "toml",
+        "vim",
+        "vimdoc",
+        "yaml",
       },
-
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<c-space>', -- Start incremental selection.
-          node_incremental = '<c-space>', -- Increment to the upper named parent.
-          scope_incremental = false, -- Decrement to the upper scope.
-          node_decremental = '<C-BS>', -- Decrement to the previous named node.
+          init_selection = "<C-space>", -- Start incremental selection
+          node_incremental = "<C-space>", -- Increment to the upper named parent
+          scope_incremental = false, -- Decrement to the upper scope
+          node_decremental = "<C-BS>", -- Decrement to the previous named node
         },
       },
-    })
-  end
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+  {
+    -- Syntax aware text-objects, select, move, swap, and peek support.
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = "VeryLazy",
+    lazy = true,
+    enabled = true,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+    opts = {
+      textobjects = {
+        select = {
+          enable = true,
+          -- lookahead = true, -- Automatically jump to next textobj
+          keymaps = {
+            -- ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a [P]arameter" },
+            -- ["ia"] = { query = "@parameter.inner", desc = "Select [I]nner part of a [P]arameter" },
+            ["af"] = { query = "@function.outer", desc = "Select outer part of a [F]unction" },
+            ["if"] = { query = "@function.inner", desc = "Select [I]nner part of a [F]unction" },
+            ["ac"] = { query = "@class.outer", desc = "Select outer part of a [C]]lass" },
+            ["ic"] = { query = "@class.inner", desc = "Select [I]nner part of a [C]lass" },
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- Add to jumplist
+          goto_next_start = {
+            ["]f"] = { query = "@function.outer", desc = "Move to next [F]unction start" },
+            ["]c"] = { query = "@class.outer", desc = "Move to next [C]lass start" },
+          },
+          goto_next_end = {
+            ["]F"] = { query = "@function.outer", desc = "Move to next [F]unction end" },
+            ["]C"] = { query = "@class.outer", desc = "Move to next [C]lass end" },
+          },
+          goto_previous_start = {
+            ["[f"] = { query = "@function.outer", desc = "Move to previous [F]unction start" },
+            ["[c"] = { query = "@class.outer", desc = "Move to previous [C]lass start" },
+          },
+          goto_previous_end = {
+            ["[F"] = { query = "@function.outer", desc = "Move to previous [F]unction end" },
+            ["[C"] = { query = "@class.outer", desc = "Move to previous [C]lass end" },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<leader>a"] = { query = "@parameter.inner", desc = "Swap Parameter with Next" },
+          },
+          swap_previous = {
+            ["<leader>A"] = { query = "@parameter.inner", desc = "Swap Parameter with Previous" },
+          },
+        },
+      },
+    },
+  },
 }
