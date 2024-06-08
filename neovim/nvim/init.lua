@@ -64,6 +64,7 @@ require('lazy').setup({
   require('plugins.nvim-treesitter-context'),
   require('plugins.navigator-nvim'),
   require('plugins.diagflow-nvim'),
+  require("plugins.conform-nvim"),
 }, {})
 
 -- TODO: add autopairs + integration with cmp
