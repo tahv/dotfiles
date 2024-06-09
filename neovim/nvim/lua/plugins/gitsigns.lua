@@ -1,43 +1,43 @@
 -- Git integration for buffers.
+
+local function previous_hunk()
+  if vim.wo.diff then
+    vim.cmd.normal({ "[c", bang = true })
+  else
+    require("gitsigns").nav_hunk("prev")
+  end
+end
+
+local function next_hunk()
+  if vim.wo.diff then
+    vim.cmd.normal({ "]c", bang = true })
+  else
+    require("gitsigns").nav_hunk("next")
+  end
+end
+
 return {
-  'lewis6991/gitsigns.nvim',
+  "lewis6991/gitsigns.nvim",
   event = { "BufReadPre", "BufNewFile" },
   opts = {
     signs = {
-      add          = { text = '+' },
-      change       = { text = '~' },
-      delete       = { text = '_' },
-      topdelete    = { text = '‾' },
-      changedelete = { text = '~' },
-      untracked    = { text = '┆' },
+      add = { text = "┃" },
+      change = { text = "┃" },
+      delete = { text = "_" },
+      topdelete = { text = "‾" },
+      changedelete = { text = "~" },
+      untracked = { text = "┆" },
     },
+    current_line_blame_formatter = "<author_time:%d/%m/%y %H:%MS> <author> - <summary>",
     current_line_blame_opts = {
-      delay = 200,
+      delay = 100,
     },
-    current_line_blame_formatter = '<author_time:%d/%m/%y %H:%M:%S> <author> - <summary>',
-
-    -- l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
     on_attach = function(bufnr)
-      local gitsigns = package.loaded.gitsigns
+      local gitsigns = require("gitsigns")
 
-      -- Navigation, extend the build-in vimdiff keymapp
-      vim.keymap.set({'n', 'v'}, ']c', function()
-        if vim.wo.diff then return ']c' end
-        vim.schedule(function() gitsigns.next_hunk() end)
-        return '<Ignore>'
-      end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
-
-      vim.keymap.set({'n', 'v'}, '[c', function()
-        if vim.wo.diff then return '[c' end
-        vim.schedule(function() gitsigns.prev_hunk() end)
-        return '<Ignore>'
-      end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
-
-      -- Actions
-      vim.keymap.set('n', '<leader>hp', gitsigns.preview_hunk, { buffer = bufnr, desc = '[p]review git hunk' })
-      vim.keymap.set('n', '<leader>hb', gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = 'Toggle line [b]lame' })
-
+      vim.keymap.set("n", "]c", next_hunk, { buffer = bufnr, desc = "Next hunk" })
+      vim.keymap.set("n", "[c", previous_hunk, { buffer = bufnr, desc = "Previous hunk" })
+      vim.keymap.set("n", "<leader>ub", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle line [b]lame" })
     end,
   },
 }
-
