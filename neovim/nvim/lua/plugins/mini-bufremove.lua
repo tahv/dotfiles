@@ -1,9 +1,18 @@
--- Neovim Lua plugin to remove buffers. 
+-- Neovim plugin to remove buffers.
+
+local function delete_buffer()
+  require("mini.bufremove").delete(0, false)
+end
+
+local function force_delete_buffer()
+  require("mini.bufremove").delete(0, true)
+end
+
 return {
-  'echasnovski/mini.bufremove',
-  version = '*', -- Stable version
-  config = function()
-    vim.keymap.set('n', '<leader>bd', function() require('mini.bufremove').delete(0, false) end, { desc = '[B]uffer [D]elete' })
-    vim.keymap.set('n', '<leader>bD', function() require('mini.bufremove').delete(0, true) end, { desc = '[B]uffer [D]elete (Force)' })
-  end,
+  "echasnovski/mini.bufremove",
+  version = "*",
+  keys = {
+    { "<leader>bd", delete_buffer, desc = "[b]uffer [d]elete" },
+    { "<leader>bD", force_delete_buffer, desc = "[b]uffer [D]elete (force)" },
+  },
 }
