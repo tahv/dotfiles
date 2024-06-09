@@ -63,43 +63,43 @@ return {
           enable = true,
           -- lookahead = true, -- Automatically jump to next textobj
           keymaps = {
-            -- ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a [P]arameter" },
-            -- ["ia"] = { query = "@parameter.inner", desc = "Select [I]nner part of a [P]arameter" },
-            ["af"] = { query = "@function.outer", desc = "Select outer part of a [F]unction" },
-            ["if"] = { query = "@function.inner", desc = "Select [I]nner part of a [F]unction" },
-            ["ac"] = { query = "@class.outer", desc = "Select outer part of a [C]]lass" },
-            ["ic"] = { query = "@class.inner", desc = "Select [I]nner part of a [C]lass" },
+            ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a p[a]rameter" },
+            ["ia"] = { query = "@parameter.inner", desc = "Select [i]nner part of a p[a]rameter" },
+            ["af"] = { query = "@function.outer", desc = "Select outer part of a [f]unction" },
+            ["if"] = { query = "@function.inner", desc = "Select [i]nner part of a [f]unction" },
+            ["ac"] = { query = "@class.outer", desc = "Select outer part of a [c]lass" },
+            ["ic"] = { query = "@class.inner", desc = "Select [i]nner part of a [c]lass" },
           },
         },
         move = {
           enable = true,
           set_jumps = true, -- Add to jumplist
           goto_next_start = {
-            ["]f"] = { query = "@function.outer", desc = "Move to next [F]unction start" },
-            ["]c"] = { query = "@class.outer", desc = "Move to next [C]lass start" },
+            ["]f"] = { query = "@function.outer", desc = "Move to next [f]unction start" },
+            -- ["]c"] = { query = "@class.outer", desc = "Move to next [c]lass start" },
           },
           goto_next_end = {
             ["]F"] = { query = "@function.outer", desc = "Move to next [F]unction end" },
-            ["]C"] = { query = "@class.outer", desc = "Move to next [C]lass end" },
+            -- ["]C"] = { query = "@class.outer", desc = "Move to next [C]lass end" },
           },
           goto_previous_start = {
-            ["[f"] = { query = "@function.outer", desc = "Move to previous [F]unction start" },
-            ["[c"] = { query = "@class.outer", desc = "Move to previous [C]lass start" },
+            ["[f"] = { query = "@function.outer", desc = "Move to previous [f]unction start" },
+            -- ["[c"] = { query = "@class.outer", desc = "Move to previous [c]lass start" },
           },
           goto_previous_end = {
             ["[F"] = { query = "@function.outer", desc = "Move to previous [F]unction end" },
-            ["[C"] = { query = "@class.outer", desc = "Move to previous [C]lass end" },
+            -- ["[C"] = { query = "@class.outer", desc = "Move to previous [C]lass end" },
           },
         },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = { query = "@parameter.inner", desc = "Swap Parameter with Next" },
-          },
-          swap_previous = {
-            ["<leader>A"] = { query = "@parameter.inner", desc = "Swap Parameter with Previous" },
-          },
-        },
+        -- swap = {
+        --   enable = true,
+        --   swap_next = {
+        --     ["<leader>a"] = { query = "@parameter.inner", desc = "Swap Parameter with Next" },
+        --   },
+        --   swap_previous = {
+        --     ["<leader>A"] = { query = "@parameter.inner", desc = "Swap Parameter with Previous" },
+        --   },
+        -- },
       },
     },
   },
