@@ -6,6 +6,7 @@ return {
     defaults = {
       ["<leader>b"] = { name = "+[B]uffer" },
       ["<leader>c"] = { name = "+[C]ode" },
+      ["<leader>u"] = { name = "+[U]i" },
       ["<leader>s"] = { name = "+[S]earch" },
     },
   },
