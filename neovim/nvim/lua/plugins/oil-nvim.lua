@@ -1,7 +1,17 @@
+local function open_root_dir()
+  require("oil.actions").open_cwd.callback()
+end
+
+---@type LazySpec
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  lazy = false, -- Load the plugin eagerly so oil takes over netrw
+  ---@type oil.setupOpts
   opts = {
+    win_options = {
+      winbar = "%{v:lua.require('oil').get_current_dir()}",
+    },
     view_options = {
       show_hidden = true,
     },
@@ -14,19 +24,7 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>e",
-      function()
-        require("oil").open()
-      end,
-      desc = "[E]xplorer (Buffer Dir)",
-    },
-    {
-      "<leader>E",
-      function()
-        require("oil").open(vim.uv.cwd())
-      end,
-      desc = "[E]xplorer (Root)",
-    },
+    { "<leader>e", "<cmd>Oil<cr>", desc = "[E]xplorer (Buffer Dir)" },
+    { "<leader>E", open_root_dir, desc = "[E]xplorer (Root)" },
   },
 }
