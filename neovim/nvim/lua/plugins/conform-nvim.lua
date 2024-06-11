@@ -1,4 +1,4 @@
--- Lightweight formatter plugin for Neovim 
+-- Lightweight formatter plugin for Neovim
 
 ---Run all formatters on buffer.
 local function format_buffer()
@@ -10,15 +10,17 @@ local function format_buffer()
   })
 end
 
+---@type LazySpec
 return {
   "stevearc/conform.nvim",
+  dependencies = { "mason.nvim" },
   lazy = true,
   cmd = "ConformInfo",
-  -- event = { "BufWritePre" },
-  dependencies = { "mason.nvim" },
+  event = { "BufReadPre", "BufNewFile" },
+  ---@type conform.setupOpts
   opts = {
+    -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
     formatters_by_ft = {
-      -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
       lua = { "stylua" },
       python = { "ruff_organize_imports", "ruff_format" },
       -- TOOD: toml, markdown, yaml
