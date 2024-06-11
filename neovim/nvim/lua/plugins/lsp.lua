@@ -34,8 +34,8 @@ local function lsp_attach_callback(event)
   map("gI", telescope_builtin.lsp_implementations, "[G]oto [I]mplementation")
 
   -- search
-  map("<leader>ss", telescope_builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
-  map("<leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace [S]ymbols")
+  map("<leader>ss", telescope_builtin.lsp_document_symbols, "[S]earch Document [S]ymbols")
+  map("<leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, "[S]earch Workspace [S]ymbols")
 
   -- actions
   map("<leader>cr", vim.lsp.buf.rename, "[R]ename Symbol")
