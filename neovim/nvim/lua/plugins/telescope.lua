@@ -1,5 +1,3 @@
--- A highly extendable fuzzy finder over lists.
-
 local function telescope_git_commits()
   require("telescope.builtin").git_commits({
     git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
@@ -16,6 +14,7 @@ local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
 return {
+  -- A highly extendable fuzzy finder over lists.
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
   cmd = "Telescope",
@@ -64,8 +63,8 @@ return {
     { "<leader><space>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[ ] Search buffers" },
     { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy [S]earch current [B]uffer" },
     -- { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "[S]earch [C]ommands" },
-    { "<leader>sc", telescope_git_commits, desc = "[S]earch [C]ommits (cwd)" },
-    { "<leader>sC", telescope_git_bcommits, desc = "[S]earch [C]ommits (buffer)" },
+    { "<leader>sc", telescope_git_commits, desc = "[S]earch git [C]ommits (cwd)" },
+    { "<leader>sC", telescope_git_bcommits, desc = "[S]earch git [C]ommits (buffer)" },
     { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "[S]earch document [D]iagnostics" },
     { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "[S]earch workspace [D]iagnostics" },
     { "<leader>sf", "<cmd>Telescope find_files hidden=true<cr>", desc = "[S]earch [F]iles" },
