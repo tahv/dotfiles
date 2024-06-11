@@ -36,10 +36,7 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  require('plugins.fidget'), -- Useful status updates for LSP
-  require('plugins.mason'), -- Automatically install LSPs to stdpath for neovim
-  require('plugins.lspconfig'), -- LSP Configuration & Plugins
-
+  require('plugins.lsp'), -- LSP Configuration & Plugins
   require('plugins.markdown-preview'), -- Useful status updates for LSP
   require("plugins.comment"), -- Comment line or block
   require('plugins.gitsigns'), -- Adds git signs to gutter and utilities for managing changes
