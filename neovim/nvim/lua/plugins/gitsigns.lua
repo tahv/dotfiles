@@ -37,7 +37,8 @@ return {
 
       vim.keymap.set("n", "]c", next_hunk, { buffer = bufnr, desc = "Next hunk" })
       vim.keymap.set("n", "[c", previous_hunk, { buffer = bufnr, desc = "Previous hunk" })
-      vim.keymap.set("n", "<leader>ub", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "Toggle line [b]lame" })
+      vim.keymap.set("n", "<leader>tb", gitsigns.toggle_current_line_blame, { buffer = bufnr, desc = "[T]oggle line [B]lame" })
+      vim.keymap.set("n", "<leader>td", gitsigns.toggle_deleted, { buffer = bufnr, desc = "[T]oggle git show [D]eleted" })
     end,
   },
 }
