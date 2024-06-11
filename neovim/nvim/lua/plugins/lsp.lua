@@ -77,6 +77,7 @@ return {
         "lazy.nvim",
         "mason.nvim",
         "lazydev.nvim",
+        "nvim-treesitter-context",
       },
     },
   },

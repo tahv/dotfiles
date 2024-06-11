@@ -1,6 +1,7 @@
+---@type LazySpec[]
 return {
-  -- Treesitter configurations and abstraction layer for Neovim.
   {
+    -- Treesitter configurations and abstraction layer for Neovim.
     "nvim-treesitter/nvim-treesitter",
     version = false,
     build = ":TSUpdate", -- When installed or updated, update all parsers
@@ -49,6 +50,14 @@ return {
     end,
   },
   {
+    -- Show code context.
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPre",
+    enabled = true,
+    ---@type TSContext.UserConfig
+    opts = { mode = "cursor" },
+  },
+  {
     -- Syntax aware text-objects, select, move, swap, and peek support.
     "nvim-treesitter/nvim-treesitter-textobjects",
     event = "VeryLazy",
@@ -61,7 +70,7 @@ return {
       textobjects = {
         select = {
           enable = true,
-          -- lookahead = true, -- Automatically jump to next textobj
+          -- lookahead = true, -- Automatically jump to next textobject
           keymaps = {
             ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a p[a]rameter" },
             ["ia"] = { query = "@parameter.inner", desc = "Select [i]nner part of a p[a]rameter" },
