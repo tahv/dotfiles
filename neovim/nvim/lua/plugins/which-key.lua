@@ -6,8 +6,10 @@ return {
     defaults = {
       ["<leader>b"] = { name = "+[B]uffer" },
       ["<leader>c"] = { name = "+[C]ode" },
-      ["<leader>u"] = { name = "+[U]i" },
       ["<leader>s"] = { name = "+[S]earch" },
+      ["<leader>t"] = { name = "+[T]oggle" },
+      -- ["<leader>u"] = { name = "+[U]i" },
+      ["<leader>w"] = { name = "+[W]indow" },
     },
   },
   config = function(_, opts)
