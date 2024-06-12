@@ -1,7 +1,9 @@
--- Indent guides for Neovim.
+---@type LazySpec[]
 return {
+  -- Indent guides.
   "lukas-reineke/indent-blankline.nvim",
   main = "ibl",
+  ---@type ibl.config.full
   opts = {
     indent = {
       char = "▏",

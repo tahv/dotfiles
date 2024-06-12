@@ -53,7 +53,7 @@ return {
     'saadparwaiz1/cmp_luasnip',     -- Source: LuaSnip snippets
     -- 'hrsh7th/cmp-buffer',        -- Source: text in current buffer
     -- 'hrsh7th/cmp-path',          -- Source: file system paths
-    'hrsh7th/cmp-nvim-lsp', -- Source: neovim builtin LSP client
+    'hrsh7th/cmp-nvim-lsp',         -- Source: neovim builtin LSP client
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
