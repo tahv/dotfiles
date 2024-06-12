@@ -1,11 +1,20 @@
--- Smart and powerful comment plugin for neovim.
--- `gcc` - Toggles the current line using linewise comment.
--- `gbc` - Toggles the current line using blockwise comment.
+---@type LazySpec[]
 return {
-  'numToStr/Comment.nvim',
-  event = { "BufReadPre", "BufNewFile" },
-  -- TODO: investigate "JoosepAlviste/nvim-ts-context-commentstring" for context comment
-  config = function()
-    require("Comment").setup()
-  end,
+  {
+    -- Smart and powerful comment plugin for neovim.
+    -- `gcc` - Toggles the current line using linewise comment.
+    -- `gbc` - Toggles the current line using blockwise comment.
+    "numToStr/Comment.nvim",
+    event = "VeryLazy", -- { "BufReadPre", "BufNewFile" },
+    ---@type CommentConfig
+    opts = {},
+  },
+  {
+    -- treesitter plugin for setting commentstring based on the cursor location.
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = {
+      enable_autocmd = false,
+    },
+  },
 }
