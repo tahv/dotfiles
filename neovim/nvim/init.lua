@@ -47,7 +47,7 @@ require('lazy').setup({
   require('plugins.mini-surround'),  -- Surround actions
   require('plugins.vim-illuminate'), -- Highlight symbol under cursor
   -- require('plugins.null-ls'),
-  require('plugins.onedark'), -- Theme inspired by Atom
+  require('plugins.colorschemes'),
   -- require('plugins.solarized-osaka'), -- Theme
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
   require("plugins.which-key"),  -- Show pending keybinds
@@ -61,6 +61,9 @@ require('lazy').setup({
   -- require('plugins.diagflow-nvim'),
   require("plugins.conform-nvim"),
 }, {})
+
+
+vim.cmd.colorscheme("catppuccin-macchiato")
 
 -- TODO: add autopairs + integration with cmp
 
