@@ -27,7 +27,7 @@ local symbol_map = {
 }
 
 local function completion_next(fallback)
-  local cmp = require('cmp')
+  local cmp = require("cmp")
   if cmp.visible() then
     cmp.select_next_item()
   else
@@ -36,7 +36,7 @@ local function completion_next(fallback)
 end
 
 local function completion_previous(fallback)
-  local cmp = require('cmp')
+  local cmp = require("cmp")
   if cmp.visible() then
     cmp.select_prev_item()
   else
@@ -44,63 +44,74 @@ local function completion_previous(fallback)
   end
 end
 
+local function ghost_text_hl_group()
+  local hl_group = "CmpGhostText"
+  vim.api.nvim_set_hl(0, hl_group, { link = "Comment", default = true })
+  return hl_group
+end
+
+---@type LazySpec
 return {
-  'hrsh7th/nvim-cmp',
+  "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
-    'L3MON4D3/LuaSnip',             -- Snippet engine
-    'rafamadriz/friendly-snippets', -- Pre-configured snippets for different languages
-    'saadparwaiz1/cmp_luasnip',     -- Source: LuaSnip snippets
-    -- 'hrsh7th/cmp-buffer',        -- Source: text in current buffer
-    -- 'hrsh7th/cmp-path',          -- Source: file system paths
-    'hrsh7th/cmp-nvim-lsp',         -- Source: neovim builtin LSP client
-    "nvim-tree/nvim-web-devicons",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    -- "hrsh7th/cmp-nvim-lsp-signature-help",
+    "saadparwaiz1/cmp_luasnip", -- Source: LuaSnip snippets
+    {
+      -- Snippet Engine.
+      "L3MON4D3/LuaSnip", -- TODO: build
+      dependencies = {
+        {
+          -- Set of preconfigured snippets for different languages.
+          "rafamadriz/friendly-snippets",
+          config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+          end,
+        },
+      },
+    },
   },
   config = function()
-    local cmp = require('cmp')
-    local luasnip = require('luasnip')
-
-    -- Loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-    require('luasnip.loaders.from_vscode').lazy_load()
+    local cmp = require("cmp")
 
     cmp.setup({
+      experimental = { ghost_text = { hl_group = ghost_text_hl_group() } },
       preselect = cmp.PreselectMode.None,
-
-      -- Configure how nvim-cmp interacts with the snippet engine.
-      snippet = {
+      snippet = { -- Configure how nvim-cmp interacts with the snippet engine.
         expand = function(args)
-          luasnip.lsp_expand(args.body)
+          require("luasnip").lsp_expand(args.body)
         end,
       },
-
-      -- Sources for autocompletion, order matters.
-      sources = {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-      },
-
+      sources = cmp.config.sources({
+        -- {{ name = "nvim_lsp_signature_help" }},
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "path" },
+      }, { -- Sources below are only shown if none of the above matched.
+        { name = "buffer" },
+      }),
       formatting = {
         fields = { "kind", "abbr", "menu" },
-        format = function(_, item)
-          item.kind = symbol_map[item.kind] or ""
-          return item
+        format = function(_, vim_item)
+          vim_item.kind = symbol_map[vim_item.kind] or ""
+          return vim_item
         end,
       },
-
-      mapping = cmp.mapping.preset.insert {
+      mapping = cmp.mapping.preset.insert({
         -- ['<C-p>'] = cmp.mapping.select_prev_item(), -- Previous suggestion
         -- ['<C-n>'] = cmp.mapping.select_next_item(), -- Next suggestion
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),   -- Show completion suggestion
-        ['<C-e>'] = cmp.mapping.abort(),          -- Close the completion window
-        ['<CR>'] = cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Replace, -- Replace adjacent text with selected item.
-          select = false,                         -- Only confirm explicitly selected item
-        },
-        ['<Tab>'] = cmp.mapping(completion_next, { "i", "s" }),
-        ['<S-Tab>'] = cmp.mapping(completion_previous, { "i", "s" })
-      },
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(), -- Show completion suggestion
+        ["<C-e>"] = cmp.mapping.abort(), -- Close the completion window
+        -- Only confirm explicitly selected item and replace adjacent text with selected item.
+        ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+        ["<Tab>"] = cmp.mapping(completion_next, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(completion_previous, { "i", "s" }),
+      }),
     })
   end,
 }
