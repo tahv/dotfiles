@@ -29,13 +29,9 @@ require('config.autocmds')
 
 -- Install plugins
 require('lazy').setup({
-  -- Git related plugins
   -- 'tpope/vim-fugitive',
   -- 'tpope/vim-rhubarb',
-
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   require('plugins.lsp'), -- LSP Configuration & Plugins
   require('plugins.markdown-preview'), -- Useful status updates for LSP
   require("plugins.comment"), -- Comment line or block
@@ -58,7 +54,7 @@ require('lazy').setup({
 }, {})
 
 
-vim.cmd.colorscheme("catppuccin-macchiato")
+vim.cmd.colorscheme("onedark")
 
 -- TODO: add autopairs + integration with cmp
 
