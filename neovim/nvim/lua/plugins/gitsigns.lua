@@ -1,4 +1,3 @@
--- Git integration for buffers.
 
 local function previous_hunk()
   if vim.wo.diff then
@@ -17,6 +16,7 @@ local function next_hunk()
 end
 
 return {
+  -- Git integration for buffers.
   "lewis6991/gitsigns.nvim",
   event = { "BufReadPre", "BufNewFile" },
   opts = {
