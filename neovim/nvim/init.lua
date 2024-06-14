@@ -46,19 +46,14 @@ require('lazy').setup({
   require('plugins.mini-pairs'),
   require('plugins.mini-surround'),  -- Surround actions
   require('plugins.vim-illuminate'), -- Highlight symbol under cursor
-  -- require('plugins.null-ls'),
   require('plugins.colorschemes'),
-  -- require('plugins.solarized-osaka'), -- Theme
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
   require("plugins.which-key"),  -- Show pending keybinds
   require('plugins.dressing'), -- Improve the default vim.ui interfaces
-  -- require('plugins.nvim-tree'), -- File explorer
-  -- require('plugins.neo-tree'), -- File explorer
   require('plugins.oil-nvim'),  -- File explorer
   require("plugins.nvim-cmp"), -- Autocompletion
   require('plugins.treesitter'),
   require('plugins.navigator-nvim'),
-  -- require('plugins.diagflow-nvim'),
   require("plugins.conform-nvim"),
 }, {})
 
