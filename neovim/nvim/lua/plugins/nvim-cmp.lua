@@ -78,7 +78,7 @@ return {
     local cmp = require("cmp")
 
     cmp.setup({
-      experimental = { ghost_text = { hl_group = ghost_text_hl_group() } },
+      -- experimental = { ghost_text = { hl_group = ghost_text_hl_group() } },
       preselect = cmp.PreselectMode.None,
       snippet = { -- Configure how nvim-cmp interacts with the snippet engine.
         expand = function(args)
