@@ -131,9 +131,17 @@ return {
           },
         },
       },
+      ["jsonls"] = {
+        settings = {
+          json = {
+            validate = { enable = true },
+            schemas = {},
+          }
+        }
+      },
       -- ["rust_analyzer"] = {},
       -- ["gopls"] = {},
-      -- ["taplo"] = {},
+      ["taplo"] = {},
     },
 
     ---@param _ LazyPlugin
@@ -144,11 +152,14 @@ return {
         callback = lsp_attach_callback,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local cmp_nvim_lsp = require("tahv.utils").prequire("cmp_nvim_lsp")
-      if cmp_nvim_lsp then
-        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
-      end
+      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {}
+        -- TODO: default capabilities in opts ?
+      )
 
       require("mason-lspconfig").setup({
         handlers = {

@@ -22,8 +22,10 @@ return {
     -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
     formatters_by_ft = {
       lua = { "stylua" },
+      toml = { "taplo" },
+      markdown = { "markdownlint-cli2" },
       python = { "ruff_organize_imports", "ruff_format" },
-      -- TOOD: toml, markdown, yaml
+      -- TOOD: toml, yaml
     },
   },
   keys = {
