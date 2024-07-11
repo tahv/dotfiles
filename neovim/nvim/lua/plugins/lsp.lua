@@ -4,6 +4,9 @@ local clients_overrides = {
   ["ruff"] = function(client)
     client.server_capabilities.hoverProvider = false -- Disable hover in favor of Pyright
   end,
+  ["yamlls"] = function(client)
+    client.server_capabilities.documentFormattingProvider = true
+  end,
 }
 
 local function toggle_inlay_hint()
