@@ -23,9 +23,9 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       toml = { "taplo" },
+      yaml = {},  -- use yamlls lsp
       markdown = { "markdownlint-cli2" },
       python = { "ruff_organize_imports", "ruff_format" },
-      -- TOOD: toml, yaml
     },
   },
   keys = {
