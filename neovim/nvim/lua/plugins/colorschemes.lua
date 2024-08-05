@@ -17,10 +17,33 @@ return {
   {
     -- Soothing pastel theme.
     "catppuccin/nvim",
+    enabled = false,
     name = "catppuccin",
     priority = 1000,
     opts = {},
   },
-  -- { "rose-pine/neovim", name = "rose-pine", priority = 1000, opts = {} },
-  -- { "folke/tokyonight.nvim", priority = 1000, opts = {} },
+  {
+    "rebelot/kanagawa.nvim",
+    enabled = false,
+  },
+  {
+    "sho-87/kanagawa-paper.nvim",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "rose-pine/neovim",
+    enabled = false,
+    name = "rose-pine",
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "folke/tokyonight.nvim",
+    enabled = false,
+    priority = 1000,
+    opts = {},
+  },
 }
