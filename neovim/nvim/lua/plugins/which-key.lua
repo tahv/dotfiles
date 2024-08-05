@@ -2,19 +2,24 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  ---@type wk.Opts
   opts = {
+    icons = {
+      mappings = false,  -- TODO: supports icons
+    },
+    ---@type wk.Spec[]
     defaults = {
-      ["<leader>b"] = { name = "+[B]uffer" },
-      ["<leader>c"] = { name = "+[C]ode" },
-      ["<leader>s"] = { name = "+[S]earch" },
-      ["<leader>t"] = { name = "+[T]oggle" },
+      { "<leader>b", group = "[B]uffer" },
+      { "<leader>c", group = "[C]ode" },
+      { "<leader>s", group = "[S]earch" },
+      { "<leader>t", group = "[T]oggle" },
       -- ["<leader>u"] = { name = "+[U]i" },
-      ["<leader>w"] = { name = "+[W]indow" },
+      { "<leader>w", group = "[W]indow" },
     },
   },
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
-    wk.register(opts.defaults)
+    wk.add(opts.defaults)
   end,
 }
