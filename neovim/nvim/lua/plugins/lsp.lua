@@ -97,6 +97,15 @@ return {
     ---@type { [string]: lspconfig.Config }
     opts = {
       ["ruff"] = {},
+      ["powershell_es"] = {
+        settings = {
+          powershell = {
+            codeFormatting = {
+              Preset = "OTBS",
+            },
+          },
+        },
+      },
       ["pyright"] = {
         -- https://microsoft.github.io/pyright/#/settings
         settings = {
