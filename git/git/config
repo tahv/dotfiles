@@ -4,6 +4,7 @@
 	b = branch --show-current
     l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
 	pr = pull --rebase
+	cl = log --pretty='- %s'
 
 [user]
 	name = Thibaud Gambier
