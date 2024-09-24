@@ -28,7 +28,7 @@ return {
         "mermaid",
         "python",
         "regex",
-        "requirements", -- python requirements
+        "requirements",
         "rust",
         "toml",
         "vim",
