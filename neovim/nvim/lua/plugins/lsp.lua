@@ -193,7 +193,44 @@ return {
       {
         "<leader>cf",
         function()
-          require("conform").format({ timeout_ms = 3000, async = true, quiet = false, lsp_fallback = true })
+          local format_args = {
+            timeout_ms = 3000,
+            async = true,
+            quiet = false,
+            lsp_fallback = true,
+          } --[[@as conform.FormatOpts]]
+
+          local conform = require("conform")
+          local have_fidget, fidget_progress = pcall(require, "fidget.progress")
+
+          if not have_fidget then
+            conform.format(format_args)
+            return
+          end
+
+          local formatters = conform.list_formatters()
+          local fmt_names = {}
+          if not vim.tbl_isempty(formatters) then
+            -- stylua: ignore
+            fmt_names = vim.tbl_map(function(f) return f.name end, formatters)
+          elseif format_args["lsp_fallback"] == true then
+            fmt_names = { "lsp" }
+          else
+            return
+          end
+
+          local msg_handle = fidget_progress.handle.create({
+            title = string.format("fmt: %s", table.concat(fmt_names, ", ")),
+            lsp_client = { name = "conform.nvim" },
+            percentage = nil,
+          })
+
+          conform.format(format_args, function(err)
+            msg_handle:finish()
+            if err then
+              vim.notify(err, vim.log.levels.WARN, { title = "formatting failed" })
+            end
+          end)
         end,
         mode = { "n", "v" },
         desc = "[F]ormat buffer",
@@ -236,7 +273,6 @@ return {
         ),
       }
 
-      -- require("lint.linters.mypy").parser
       lint.linters_by_ft = {
         python = { "mypy" },
       }
