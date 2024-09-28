@@ -1,60 +1,3 @@
----On attach overrides for specific LSP clients.
----@type { [string]: fun(lsp.Client): nil}
-local clients_overrides = {
-  ["ruff"] = function(client)
-    client.server_capabilities.hoverProvider = false -- Disable hover in favor of Pyright
-  end,
-  ["yamlls"] = function(client)
-    client.server_capabilities.documentFormattingProvider = true
-  end,
-}
-
-local function toggle_inlay_hint()
-  ---@diagnostic disable-next-line: missing-parameter
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end
-
----@param event any
-local function lsp_attach_callback(event)
-  ---@param keys string
-  ---@param func fun(): nil
-  ---@param desc string
-  local function map(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-  end
-
-  local telescope_builtin = require("telescope.builtin")
-
-  -- hover
-  map("K", vim.lsp.buf.hover, "Hover Documentation")
-  map("<leader>k", vim.lsp.buf.signature_help, "Hover Signature Documentation")
-
-  -- goto
-  map("gd", telescope_builtin.lsp_definitions, "[G]oto [D]efinition")
-  map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  map("gy", telescope_builtin.lsp_type_definitions, "[G]oto T[y]pe Definition")
-  map("gr", telescope_builtin.lsp_references, "[G]oto [R]eferences")
-  map("gI", telescope_builtin.lsp_implementations, "[G]oto [I]mplementation")
-
-  -- search
-  map("<leader>ss", telescope_builtin.lsp_document_symbols, "[S]earch Document [S]ymbols")
-  map("<leader>sS", telescope_builtin.lsp_dynamic_workspace_symbols, "[S]earch Workspace [S]ymbols")
-
-  -- actions
-  map("<leader>cr", vim.lsp.buf.rename, "[R]ename Symbol")
-  map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction") -- TODO: include visual mode ?
-
-  local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-  if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-    map("<leader>th", toggle_inlay_hint, "[T]oggle Inlay [H]ints")
-  end
-
-  if client and clients_overrides[client.name] ~= nil then
-    clients_overrides[client.name](client)
-  end
-end
-
 ---@type LazySpec[]
 return {
   {
@@ -67,69 +10,140 @@ return {
     --- Bridges mason.nvim with nvim-lspconfig.
     "williamboman/mason-lspconfig.nvim",
     ---@type MasonLspconfigSettings
-    opts = {},
-  },
-  {
-    -- Properly configures LuaLS for editing Neovim config.
-    "folke/lazydev.nvim",
-    ft = "lua",
-    ---@type lazydev.Config
     opts = {
-      ---@type lazydev.Library.spec[]
-      library = {
-        "lazy.nvim",
-        "mason.nvim",
-        "lazydev.nvim",
-        "nvim-treesitter-context",
-        { path = "indent-blankline.nvim", words = { "ibl%." } },
-        { path = "Comment.nvim", words = { "CommentConfig" } },
-      },
+      automatic_installation = true,
     },
   },
   {
-    -- Display Neovim LSP progress messages in the bottom right corner of the editor.
+    -- Display LSP progress messages in the bottom right corner.
     "j-hui/fidget.nvim",
     opts = {},
   },
+  -- TODO: try diagflow.nvim once this is fixed: https://github.com/dgagn/diagflow.nvim/issues/55
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    ---@type { [string]: lspconfig.Config }
-    opts = {
-      ["ruff"] = {},
-      ["powershell_es"] = {
-        settings = {
-          powershell = {
-            codeFormatting = {
-              Preset = "OTBS",
-            },
-          },
-        },
-      },
-      ["pyright"] = {
-        -- https://microsoft.github.io/pyright/#/settings
+    keys = { { "<leader>cR", ":LspRestart<CR>", desc = "[R]estart LSP Server" } },
+    config = function()
+      ---@param client vim.lsp.Client
+      ---@param bufnr integer
+      local function on_attach(client, bufnr)
+        local tb = require("telescope.builtin")
+
+        -- hover
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
+        vim.keymap.set(
+          "n",
+          "<leader>k",
+          vim.lsp.buf.signature_help,
+          { buffer = bufnr, desc = "Hover Signature Documentation" }
+        )
+        -- go to
+        vim.keymap.set("n", "gd", tb.lsp_definitions, { buffer = bufnr, desc = "[G]oto [D]efinition" })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "[G]oto [D]eclaration" })
+        vim.keymap.set("n", "gy", tb.lsp_type_definitions, { buffer = bufnr, desc = "[G]oto T[y]pe Definition" })
+        vim.keymap.set("n", "gr", tb.lsp_references, { buffer = bufnr, desc = "[G]oto [R]eferences" })
+        vim.keymap.set("n", "gI", tb.lsp_implementations, { buffer = bufnr, desc = "[G]oto [I]mplementation" })
+
+        -- search
+        vim.keymap.set(
+          "n",
+          "<leader>ss",
+          tb.lsp_document_symbols,
+          { buffer = bufnr, desc = "[S]earch Document [S]ymbols" }
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>sS",
+          tb.lsp_dynamic_workspace_symbols,
+          { buffer = bufnr, desc = "[S]earch Workspace [S]ymbols" }
+        )
+
+        -- actions
+        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "[R]ename Symbol" })
+        -- TODO: code actions in visual mode ?
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "[C]ode [A]ction" })
+
+        -- toggle inlay hint
+        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+          vim.keymap.set("n", "<leader>th", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end, { buffer = bufnr, desc = "[T]oggle Inlay [H]ints" })
+        end
+      end
+
+      -- --- @param override lsp.ClientCapabilities | nil
+      -- local function override_capabilities(override)
+      --   return vim.tbl_deep_extend("force", capabilities, override or {})
+      -- end
+
+      local lspconfig = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      -- https://docs.astral.sh/ruff/editors/settings
+      -- https://docs.astral.sh/ruff/editors/setup/#neovim
+      lspconfig["ruff"].setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
+          on_attach(client, bufnr)
+        end,
+      } --[[@as lspconfig.Config]])
+
+      -- https://microsoft.github.io/pyright/#/settings
+      lspconfig["pyright"].setup({
+        capabilities = capabilities,
         settings = {
           pyright = {
             disableOrganizeImports = true, -- Using Ruff's import organizer
           },
         },
-      },
-      ["lua_ls"] = {
-        -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
+      } --[[@as lspconfig.Config]])
+
+      -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
+      lspconfig["lua_ls"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
-            completion = {
-              callSnippet = "Replace",
-            },
+            completion = { callSnippet = "Replace" },
             telemetry = { enable = false },
             codeLens = { enable = true },
             diagnostics = { disable = { "missing-fields" } },
           },
         },
-      },
-      ["yamlls"] = {
-        -- https://github.com/redhat-developer/yaml-language-server
+      } --[[@as lspconfig.Config]])
+
+      lspconfig["rust_analyzer"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      } --[[@as lspconfig.Config]])
+
+      -- lspconfig["gopls"].setup({ capabilities = capabilities } --[[@as lspconfig.Config]])
+
+      -- https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pwsh.el
+      lspconfig["powershell_es"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+      } --[[@as lspconfig.Config]])
+
+      lspconfig["taplo"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        -- Tequired for taplo LSP to work in non-git repositories
+        root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
+      } --[[@as lspconfig.Config]])
+
+      -- https://github.com/redhat-developer/yaml-language-server
+      lspconfig["yamlls"].setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          client.server_capabilities.documentFormattingProvider = true
+          on_attach(client, bufnr)
+        end,
         settings = {
           yaml = {
             validate = true,
@@ -142,49 +156,117 @@ return {
             },
           },
         },
-      },
-      ["jsonls"] = {
+      } --[[@as lspconfig.Config]])
+
+      lspconfig["jsonls"].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
         settings = {
           json = {
             validate = { enable = true },
             schemas = {},
-          }
-        }
+          },
+        },
+      } --[[@as lspconfig.Config]])
+    end,
+  },
+  {
+    -- Lightweight formatter plugin for Neovim
+    "stevearc/conform.nvim",
+    -- TODO: report progress: https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
+    dependencies = { "mason.nvim" },
+    lazy = true,
+    cmd = "ConformInfo",
+    event = { "BufReadPre", "BufNewFile" },
+    ---@type conform.setupOpts
+    opts = {
+      -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
+      formatters_by_ft = {
+        lua = { "stylua" },
+        toml = { "taplo" },
+        yaml = {}, -- use yamlls lsp
+        markdown = { "markdownlint-cli2" },
+        python = { "ruff_organize_imports", "ruff_format", "trim_whitespace" },
       },
-      -- ["rust_analyzer"] = {},
-      -- ["gopls"] = {},
-      ["taplo"] = {},
     },
+    keys = {
+      {
+        "<leader>cf",
+        function()
+          require("conform").format({ timeout_ms = 3000, async = true, quiet = false, lsp_fallback = true })
+        end,
+        mode = { "n", "v" },
+        desc = "[F]ormat buffer",
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local lint = require("lint")
 
-    ---@param _ LazyPlugin
-    ---@param servers { [string]: lspconfig.Config }
-    config = function(_, servers)
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("tahv-lsp-attach", { clear = true }),
-        callback = lsp_attach_callback,
-      })
-
-      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {}
-        -- TODO: default capabilities in opts ?
-      )
-
-      require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
+      -- Add error codes to mypy
+      lint.linters.mypy = {
+        cmd = "mypy",
+        stdin = false,
+        ignore_exitcode = true,
+        args = {
+          "--show-column-numbers",
+          "--show-error-end",
+          "--hide-error-context",
+          "--no-color-output",
+          "--no-error-summary",
+          "--no-pretty",
+          "--python-executable",
+          function()
+            return vim.fn.exepath("python3") or vim.fn.exepath("python")
           end,
         },
+        parser = require("lint.parser").from_pattern(
+          "([^:]+):(%d+):(%d+):(%d+):(%d+): (%a+): (.*) %[(%a[%a-]+)%]",
+          { "file", "lnum", "col", "end_lnum", "end_col", "severity", "message", "code" },
+          {
+            error = vim.diagnostic.severity.ERROR,
+            warning = vim.diagnostic.severity.WARN,
+            note = vim.diagnostic.severity.HINT,
+          },
+          { ["source"] = "mypy" },
+          { end_col_offset = 0 }
+        ),
+      }
+
+      -- require("lint.linters.mypy").parser
+      lint.linters_by_ft = {
+        python = { "mypy" },
+      }
+
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("lint", { clear = true }),
+        callback = function()
+          require("lint").try_lint()
+        end,
       })
     end,
-    keys = {
-      { "<leader>cR", ":LspRestart<CR>", desc = "LSP: [R]estart Server" },
+  },
+  {
+    -- Properly configures LuaLS for editing Neovim config.
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { { "Bilal2453/luvit-meta", lazy = true } },
+    ---@type lazydev.Config
+    opts = {
+      library = {
+        "lazy.nvim",
+        "mason.nvim",
+        "mason-lspconfig.nvim",
+        "lazydev.nvim",
+        "nvim-treesitter-context",
+        "neogit",
+        "indent-blankline.nvim",
+        "Comment.nvim",
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
     },
   },
 }

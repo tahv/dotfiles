@@ -50,7 +50,6 @@ require("lazy").setup({
   require("plugins.nvim-cmp"), -- Autocompletion
   require("plugins.treesitter"),
   require("plugins.navigator-nvim"),
-  require("plugins.conform-nvim"),
 }, {})
 
 vim.cmd.colorscheme("onedark")
