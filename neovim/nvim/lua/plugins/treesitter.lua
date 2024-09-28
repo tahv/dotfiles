@@ -55,7 +55,13 @@ return {
     event = "BufReadPre",
     enabled = true,
     ---@type TSContext.UserConfig
-    opts = { mode = "cursor" },
+    opts = {
+      mode = "cursor",
+      max_lines = 3,
+    },
+    keys = {
+      { "<leader>tc", ":TSContextToggle<CR>", desc = "[T]oggle [C]ontext" },
+    },
   },
   {
     -- Syntax aware text-objects, select, move, swap, and peek support.
