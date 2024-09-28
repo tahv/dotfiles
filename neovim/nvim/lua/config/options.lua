@@ -6,7 +6,7 @@ vim.wo.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Vertical rulers
 vim.o.colorcolumn = "80,88"
@@ -22,7 +22,7 @@ vim.o.swapfile = false
 -- Sync clipboard between OS and Neovim.
 -- Remove this option if you want your OS clipboard to remain independent.
 -- See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = "unnamedplus"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -35,7 +35,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -51,6 +51,23 @@ vim.o.scrolloff = 5
 
 vim.diagnostic.config({
   virtual_text = {
-    format = require("tahv.utils").format_diagnostic,
+    format = function(diag)
+      if diag.source and diag.code then
+        return string.format("%s [%s]", diag.source, diag.code)
+      elseif diag.source then
+        return string.format("%s", diag.source)
+      elseif diag.code then
+        return string.format("[%s]", diag.code)
+      end
+      return diag.message
+    end,
+  },
+  float = {
+    format = function(diag)
+      if diag.source then
+        return string.format("%s: %s", diag.source, diag.message)
+      end
+      return diag.message
+    end,
   },
 })
