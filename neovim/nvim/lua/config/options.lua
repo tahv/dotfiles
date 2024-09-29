@@ -49,6 +49,9 @@ vim.o.termguicolors = true
 
 vim.o.scrolloff = 5
 
+-- Highlight cursor line
+vim.o.cursorline = true
+
 vim.diagnostic.config({
   virtual_text = {
     format = function(diag)
