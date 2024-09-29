@@ -33,7 +33,7 @@ require("lazy").setup({
   -- 'tpope/vim-rhubarb',
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
   require("plugins.lsp"), -- LSP Configuration & Plugins
-  require("plugins.markdown-preview"),
+  require("plugins.markdown"),
   require("plugins.comment"), -- Comment line or block
   require("plugins.gitsigns"), -- Adds git signs to gutter and utilities for managing changes
   require("plugins.indent-blankline"), -- Add indentation guides even on blank lines
