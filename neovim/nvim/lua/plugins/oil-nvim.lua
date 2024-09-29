@@ -15,16 +15,26 @@ return {
     view_options = {
       show_hidden = true,
     },
+    float = {
+      padding = 3,
+    },
     skip_confirm_for_simple_edits = true,
     keymaps = {
       ["<C-s>"] = false,
       ["<C-h>"] = false,
       ["<C-l>"] = false,
       ["<C-r>"] = "actions.refresh",
+      ["q"] = "actions.close",
     },
   },
   keys = {
-    { "<leader>e", "<cmd>Oil<cr>", desc = "[E]xplorer (Buffer Dir)" },
-    { "<leader>E", open_root_dir, desc = "[E]xplorer (Root)" },
+    { "<leader>e", "<cmd>Oil --float<cr>", desc = "[E]xplorer (Buffer Dir)" },
+    {
+      "<leader>E",
+      function()
+        require("oil.actions").open_cwd.callback()
+      end,
+      desc = "[E]xplorer (Root)",
+    },
   },
 }
