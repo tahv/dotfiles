@@ -13,12 +13,12 @@ end
 local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
+---@type LazySpec[]
 return {
   -- A highly extendable fuzzy finder over lists.
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
   cmd = "Telescope",
-
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -29,13 +29,11 @@ return {
           "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
   },
-
   config = function(_, opts)
     local telescope = require("telescope")
     telescope.setup(opts)
     pcall(telescope.load_extension, "fzf") -- Enable telescope-fzf-native, if installed
   end,
-
   opts = function()
     local actions = require("telescope.actions")
     return {
@@ -55,9 +53,11 @@ return {
           },
         },
       },
+      pickers = {
+        colorscheme = { enable_preview = true },
+      },
     }
   end,
-
   -- TODO: lsp symbols kind filters (see how lazyvim do it)
   keys = {
     { "<leader><space>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[ ] Search buffers" },
