@@ -46,4 +46,16 @@ return {
     priority = 1000,
     opts = {},
   },
+  {
+    "0xstepit/flow.nvim",
+    enabled = true,
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent = false,
+      fluo_color = "pink",
+      mode = "desaturate",
+      aggressive_spell = false,
+    },
+  },
 }
