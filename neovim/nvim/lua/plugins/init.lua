@@ -4,7 +4,6 @@ return {
   -- 'tpope/vim-rhubarb',
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
   require("plugins.lsp"), -- LSP Configuration & Plugins
-  require("plugins.markdown"),
   require("plugins.gitsigns"), -- Adds git signs to gutter and utilities for managing changes
   require("plugins.lualine"), -- Set lualine as statusline
   require("plugins.colorschemes"),
@@ -159,5 +158,26 @@ return {
       { "<C-k>", "<CMD>NavigatorUp<CR>", desc = "Go to upper window" },
       { "<C-l>", "<CMD>NavigatorRight<CR>", desc = "Go to right window" },
     },
+  },
+  {
+    -- Improve viewing Markdown files
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    keys = {
+      { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "[T]oggle render [M]arkdown" },
+    },
+  },
+  {
+    -- Preview Markdown in browser with synchronised scrolling
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
   },
 }
