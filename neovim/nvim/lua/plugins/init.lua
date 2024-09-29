@@ -12,7 +12,6 @@ return {
   require("plugins.which-key"), -- Show pending keybinds
   require("plugins.nvim-cmp"), -- Autocompletion
   require("plugins.treesitter"),
-  require("plugins.navigator-nvim"),
   {
     -- Buffer-lile file explorer
     "stevearc/oil.nvim",
@@ -146,5 +145,19 @@ return {
     config = function(_, opts)
       require("illuminate").configure(opts)
     end,
+  },
+  {
+    -- Smoothly navigate between neovim and terminal multiplexer(s)
+    "numToStr/Navigator.nvim",
+    config = function(_, opts)
+      require("Navigator").setup(opts)
+    end,
+    keys = {
+      -- Navigate windows using <ctrl> hjkl keys
+      { "<C-h>", "<CMD>NavigatorLeft<CR>", desc = "Go to left window" },
+      { "<C-j>", "<CMD>NavigatorDown<CR>", desc = "Go to lower window" },
+      { "<C-k>", "<CMD>NavigatorUp<CR>", desc = "Go to upper window" },
+      { "<C-l>", "<CMD>NavigatorRight<CR>", desc = "Go to right window" },
+    },
   },
 }
