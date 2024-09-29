@@ -50,6 +50,12 @@ return {
     end,
   },
   {
+    -- Treesitter plugin for setting commentstring based on the cursor location
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    opts = { enable_autocmd = false },
+  },
+  {
     -- Show code context.
     "nvim-treesitter/nvim-treesitter-context",
     event = "BufReadPre",
