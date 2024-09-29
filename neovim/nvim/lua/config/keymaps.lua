@@ -65,4 +65,4 @@ vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev se
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
 -- TODO: use toggleterm
-vim.keymap.set("n", "<leader>ug", "<cmd>terminal lazygit<CR>", { desc = "Open lazy[g]it" })
+-- vim.keymap.set("n", "<leader>ug", "<cmd>terminal lazygit<CR>", { desc = "Open lazy[g]it" })
