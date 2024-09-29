@@ -4,7 +4,7 @@ local tahvpath = vim.fn.stdpath('data') .. '\\tahv'
 
 local get_seven_zip = function ()
   local exe_path = tahvpath .. '\\7zip.exe'
-  if not vim.loop.fs_stat(exe_path) then
+  if not vim.uv.fs_stat(exe_path) then
     vim.fn.system { 'curl', '-Lo', exe_path, 'https://www.7-zip.org/a/7zr.exe' }
   end
   return exe_path
@@ -68,11 +68,11 @@ local download_python = function ()
 end
 
 function M.setup()
-  if not vim.loop.os_uname().sysname == "Windows_NT" then
+  if not vim.uv.os_uname().sysname == "Windows_NT" then
     return
   end
 
-  if not vim.loop.fs_stat(tahvpath) then
+  if not vim.uv.fs_stat(tahvpath) then
     os.execute('mkdir ' .. tahvpath)
     download_mingw()
     download_npm()
