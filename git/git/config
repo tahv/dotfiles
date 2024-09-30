@@ -16,9 +16,6 @@
 [init]
 	defaultBranch = main
 
-[column]
-	ui = auto
-
 [branch]
 	sort = -committerdate
 
