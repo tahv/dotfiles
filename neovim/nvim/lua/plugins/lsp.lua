@@ -252,36 +252,6 @@ return {
     config = function()
       local lint = require("lint")
 
-      -- Add error codes to mypy
-      lint.linters.mypy = {
-        cmd = "mypy",
-        stdin = false,
-        ignore_exitcode = true,
-        args = {
-          "--show-column-numbers",
-          "--show-error-end",
-          "--hide-error-context",
-          "--no-color-output",
-          "--no-error-summary",
-          "--no-pretty",
-          "--python-executable",
-          function()
-            return vim.fn.exepath("python3") or vim.fn.exepath("python")
-          end,
-        },
-        parser = require("lint.parser").from_pattern(
-          "([^:]+):(%d+):(%d+):(%d+):(%d+): (%a+): (.*) %[(%a[%a-]+)%]",
-          { "file", "lnum", "col", "end_lnum", "end_col", "severity", "message", "code" },
-          {
-            error = vim.diagnostic.severity.ERROR,
-            warning = vim.diagnostic.severity.WARN,
-            note = vim.diagnostic.severity.HINT,
-          },
-          { ["source"] = "mypy" },
-          { end_col_offset = 0 }
-        ),
-      }
-
       lint.linters_by_ft = {
         python = { "mypy" },
       }
