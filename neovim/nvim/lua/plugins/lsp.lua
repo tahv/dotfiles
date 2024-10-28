@@ -295,6 +295,7 @@ return {
       library = {
         "lazy.nvim",
         "mason.nvim",
+        "gitsigns",
         "mason-lspconfig.nvim",
         "lazydev.nvim",
         "nvim-treesitter-context",
