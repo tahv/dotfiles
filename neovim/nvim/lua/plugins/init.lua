@@ -8,7 +8,6 @@ return {
   require("plugins.lualine"), -- Set lualine as statusline
   require("plugins.colorschemes"),
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
-  require("plugins.which-key"), -- Show pending keybinds
   require("plugins.nvim-cmp"), -- Autocompletion
   require("plugins.treesitter"),
   {
@@ -178,6 +177,30 @@ return {
     ft = { "markdown" },
     build = function()
       vim.fn["mkdp#util#install"]()
+    end,
+  },
+  {
+    -- Displays a popup with possible keybindings of the command you started typing.
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    ---@type wk.Opts
+    opts = {
+      icons = {
+        mappings = true,
+      },
+    },
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.setup(opts)
+      wk.add({
+        { "<leader>b", group = "[B]uffer", icon = "󰈔" },
+        { "<leader>c", group = "[C]ode", icon = "" },
+        { "<leader>s", group = "[S]earch", icon = "" },
+        { "<leader>t", group = "[T]oggle", icon = "" },
+        -- ["<leader>u"] = { name = "+[U]i" },
+        { "<leader>w", group = "[W]indow", icon = "" },
+        { "<leader>g", group = "[G]it", icon = "" },
+      })
     end,
   },
 }
