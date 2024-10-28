@@ -75,41 +75,39 @@ return {
     event = "VeryLazy",
     lazy = true,
     enabled = true,
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-    end,
+    main = "nvim-treesitter.configs",
     opts = {
       textobjects = {
         select = {
           enable = true,
           -- lookahead = true, -- Automatically jump to next textobject
           keymaps = {
-            ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a p[a]rameter" },
-            ["ia"] = { query = "@parameter.inner", desc = "Select [i]nner part of a p[a]rameter" },
-            ["af"] = { query = "@function.outer", desc = "Select outer part of a [f]unction" },
-            ["if"] = { query = "@function.inner", desc = "Select [i]nner part of a [f]unction" },
-            ["ac"] = { query = "@class.outer", desc = "Select outer part of a [c]lass" },
-            ["ic"] = { query = "@class.inner", desc = "Select [i]nner part of a [c]lass" },
+            ["aa"] = { query = "@parameter.outer", desc = "Outer p[a]rameter" },
+            ["ia"] = { query = "@parameter.inner", desc = "[i]nner p[a]rameter" },
+            ["af"] = { query = "@function.outer", desc = "Outer [f]unction" },
+            ["if"] = { query = "@function.inner", desc = "[i]nner [f]unction" },
+            ["ac"] = { query = "@class.outer", desc = "Outer [c]lass" },
+            ["ic"] = { query = "@class.inner", desc = "[i]nner [c]lass" },
           },
         },
         move = {
           enable = true,
           set_jumps = true, -- Add to jumplist
           goto_next_start = {
-            ["]f"] = { query = "@function.outer", desc = "Move to next [f]unction start" },
-            -- ["]c"] = { query = "@class.outer", desc = "Move to next [c]lass start" },
+            ["]f"] = { query = "@function.outer", desc = "Next [f]unction start" },
+            ["]c"] = { query = "@class.outer", desc = "Next [c]lass start" },
           },
           goto_next_end = {
-            ["]F"] = { query = "@function.outer", desc = "Move to next [F]unction end" },
-            -- ["]C"] = { query = "@class.outer", desc = "Move to next [C]lass end" },
+            ["]F"] = { query = "@function.outer", desc = "Next [F]unction end" },
+            ["]C"] = { query = "@class.outer", desc = "Next [C]lass end" },
           },
           goto_previous_start = {
-            ["[f"] = { query = "@function.outer", desc = "Move to previous [f]unction start" },
-            -- ["[c"] = { query = "@class.outer", desc = "Move to previous [c]lass start" },
+            ["[f"] = { query = "@function.outer", desc = "Previous [f]unction start" },
+            ["[c"] = { query = "@class.outer", desc = "Previous [c]lass start" },
           },
           goto_previous_end = {
-            ["[F"] = { query = "@function.outer", desc = "Move to previous [F]unction end" },
-            -- ["[C"] = { query = "@class.outer", desc = "Move to previous [C]lass end" },
+            ["[F"] = { query = "@function.outer", desc = "Previous [F]unction end" },
+            ["[C"] = { query = "@class.outer", desc = "Previous [C]lass end" },
           },
         },
         -- swap = {
