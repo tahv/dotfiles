@@ -1,23 +1,3 @@
-local function previous_hunk()
-  if vim.wo.diff then
-    vim.cmd.normal({ "[c", bang = true })
-  else
-    require("gitsigns").nav_hunk("prev")
-  end
-end
-
-local function next_hunk()
-  if vim.wo.diff then
-    vim.cmd.normal({ "]c", bang = true })
-  else
-    require("gitsigns").nav_hunk("next")
-  end
-end
-
-local function stage_visual_hunk()
-  require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-end
-
 ---@type LazySpec[]
 return {
   {
@@ -52,14 +32,36 @@ return {
       on_attach = function(bufnr)
         local gs = require("gitsigns")
 
-        vim.keymap.set("n", "]c", next_hunk, { buffer = bufnr, desc = "Next hunk" })
-        vim.keymap.set("n", "[c", previous_hunk, { buffer = bufnr, desc = "Previous hunk" })
-        vim.keymap.set("n", "<leader>tb", gs.toggle_current_line_blame, { buffer = bufnr, desc = "[T]oggle line [B]lame" })
+        vim.keymap.set("n", "]c", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            gs.nav_hunk("next")
+          end
+        end, { buffer = bufnr, desc = "Next hunk" })
+
+        vim.keymap.set("n", "[c", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            gs.nav_hunk("prev")
+          end
+        end, { buffer = bufnr, desc = "Previous hunk" })
+
+        vim.keymap.set(
+          "n",
+          "<leader>tb",
+          gs.toggle_current_line_blame,
+          { buffer = bufnr, desc = "[T]oggle line [B]lame" }
+        )
+
         vim.keymap.set("n", "<leader>td", gs.toggle_deleted, { buffer = bufnr, desc = "[T]oggle [D]eleted" })
         vim.keymap.set("n", "<leader>gd", gs.diffthis, { buffer = bufnr, desc = "[G]it [D]iff" })
         vim.keymap.set("n", "<leader>gp", gs.preview_hunk_inline, { buffer = bufnr, desc = "[G]it [P]review hunk" })
         vim.keymap.set("n", "<leader>gs", gs.stage_hunk, { buffer = bufnr, desc = "[G]it toggle [S]tage hunk" })
-        vim.keymap.set("v", "<leader>gs", stage_visual_hunk, { buffer = bufnr, desc = "[G]it toggle [S]tage hunk" })
+        vim.keymap.set("v", "<leader>gs", function()
+          gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+        end, { buffer = bufnr, desc = "[G]it toggle [S]tage hunk" })
       end,
     },
   },
