@@ -78,7 +78,16 @@ return {
       -- end
 
       local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      local function get_capabilities()
+        local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+        if has_cmp then
+          return cmp_nvim_lsp.default_capabilities()
+        end
+        return vim.lsp.protocol.make_client_capabilities()
+      end
+
+      local capabilities = get_capabilities()
 
       -- https://docs.astral.sh/ruff/editors/settings
       -- https://docs.astral.sh/ruff/editors/setup/#neovim
