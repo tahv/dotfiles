@@ -42,7 +42,8 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    enabled = false,
+    enabled = true,
+    lalazy = false,
     priority = 1000,
     opts = {},
   },

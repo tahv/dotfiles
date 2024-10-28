@@ -17,7 +17,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Install and setup Windows workstation
+-- Install and setup on Windows
 if vim.uv.os_uname().sysname == "Windows_NT" then
   require("win").setup()
 end
@@ -27,7 +27,7 @@ require("config.keymaps")
 require("config.autocmds")
 require("lazy").setup({ require("plugins") }, {})
 
-vim.cmd.colorscheme("onedark")
+vim.cmd.colorscheme("tokyonight-moon")
 
 -- TODO: add autopairs + integration with cmp
 
