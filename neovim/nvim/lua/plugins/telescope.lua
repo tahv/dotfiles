@@ -1,15 +1,3 @@
-local function telescope_git_commits()
-  require("telescope.builtin").git_commits({
-    git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
-  })
-end
-
-local function telescope_git_bcommits()
-  require("telescope.builtin").git_bcommits({
-    git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
-  })
-end
-
 local have_make = vim.fn.executable("make") == 1
 local have_cmake = vim.fn.executable("cmake") == 1
 
@@ -25,8 +13,8 @@ return {
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       enabled = have_make or have_cmake,
-      build = have_make and "make" or
-          "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+      build = have_make and "make"
+        or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     },
   },
   config = function(_, opts)
@@ -63,8 +51,24 @@ return {
     { "<leader><space>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[ ] Search buffers" },
     { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy [S]earch current [B]uffer" },
     -- { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "[S]earch [C]ommands" },
-    { "<leader>sc", telescope_git_commits, desc = "[S]earch git [C]ommits (cwd)" },
-    { "<leader>sC", telescope_git_bcommits, desc = "[S]earch git [C]ommits (buffer)" },
+    {
+      "<leader>sc",
+      function()
+        require("telescope.builtin").git_commits({
+          git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
+        })
+      end,
+      desc = "[S]earch git [C]ommits (cwd)",
+    },
+    {
+      "<leader>sC",
+      function()
+        require("telescope.builtin").git_bcommits({
+          git_command = { "git", "log", "--pretty=%h %ad %an | %s", "--date=format:%d/%m %H:%M" },
+        })
+      end,
+      desc = "[S]earch git [C]ommits (buffer)",
+    },
     { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "[S]earch document [D]iagnostics" },
     { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "[S]earch workspace [D]iagnostics" },
     { "<leader>sf", "<cmd>Telescope find_files hidden=true<cr>", desc = "[S]earch [F]iles" },
