@@ -65,6 +65,14 @@ local download_python = function ()
 
   -- remove archive
   os.remove(archive)
+
+  vim.fn.system {
+    tahvpath .. "\\python\\python.exe",
+    "-m",
+    "pip",
+    "install",
+    "pynvim",
+  }
 end
 
 function M.setup()
@@ -82,6 +90,9 @@ function M.setup()
   vim.env.PATH = vim.env.PATH .. ';' .. tahvpath .. '\\mingw64\\bin'
   vim.env.PATH = vim.env.PATH .. ';' .. tahvpath .. '\\node'
   vim.env.PATH = vim.env.PATH .. ';' .. tahvpath .. '\\python'
+  -- vim.env.PATH = tahvpath .. '\\python' .. ";" .. vim.env.PATH
+
+  vim.g.python3_host_prog = tahvpath .. '\\python\\python.exe'
 end
 
 return M
