@@ -19,6 +19,7 @@ return {
         "gitignore",
         "json",
         "jsonc",
+        "just",
         "lua",
         "luadoc",
         "luap",
