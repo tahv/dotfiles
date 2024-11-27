@@ -8,7 +8,8 @@ return {
   require("plugins.lualine"), -- Set lualine as statusline
   require("plugins.colorschemes"),
   require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
-  require("plugins.nvim-cmp"), -- Autocompletion
+  -- require("plugins.nvim-cmp"), -- Autocompletion
+  require("plugins.blink-cmp"), -- Autocompletion
   require("plugins.treesitter"),
   {
     -- Buffer-lile file explorer
