@@ -11,36 +11,30 @@ return {
     opts = {
       keymap = {
         -- TODO: snippets
-        ["<Tab>"] = { "show", "select_next", "fallback" },
-        ["<S-Tab>"] = { "show", "select_prev", "fallback" },
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
         ["<C-e>"] = { "hide", "fallback" },
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-b>"] = { "scroll_documentation_up", "fallback" },
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       },
-      highlight = {
-        use_nvim_cmp_as_default = true,
-      },
-      nerd_font_variant = "mono",
-      -- experimental auto-brackets support
-      sources = {
-        completion = {
-          enabled_providers = { "lsp", "path", "snippets", "buffer" },
+      completion = {
+        list = { selection = "auto_insert" },
+        -- Show documentation when selecting a completion item
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 500,
         },
-        -- adding any nvim-cmp sources here will enable them with blink.compat
-        compat = {},
+        -- Disable auto brackets
+        -- NOTE: some LSPs may add auto brackets themselves anyway
+        accept = { auto_brackets = { enabled = false } },
       },
-      -- experimental auto-brackets support
-      accept = { auto_brackets = { enabled = true } },
-      -- experimental signature help support
-      trigger = { signature_help = { enabled = true } },
-      -- allows extending the enabled_providers array elsewhere
-      opts_extend = { "sources.completion.enabled_providers" },
-      windows = {
-        autocomplete = { selection = "auto_insert" },
-        documentation = { auto_show = true },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
       },
+      -- Experimental signature help support
+      signature = { enabled = true },
     },
   },
 }
