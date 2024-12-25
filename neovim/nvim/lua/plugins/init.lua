@@ -162,6 +162,7 @@ return {
   {
     -- Improve viewing Markdown files
     "MeanderingProgrammer/render-markdown.nvim",
+    enabled = false,
     opts = {},
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -203,5 +204,17 @@ return {
         { "<leader>g", group = "[G]it", icon = "" },
       })
     end,
+  },
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    enabled = false,
+    event = "VeryLazy", -- Or `LspAttach`
+    opts = {},
+  },
+  {
+    "dgagn/diagflow.nvim",
+    enabled = false,
+    event = "LspAttach",
+    opts = {},
   },
 }
