@@ -27,6 +27,10 @@ return {
     enabled = false,
   },
   {
+    "mellow-theme/mellow.nvim",
+    enabled = false,
+  },
+  {
     "sho-87/kanagawa-paper.nvim",
     enabled = false,
     lazy = false,
@@ -43,13 +47,13 @@ return {
   {
     "folke/tokyonight.nvim",
     enabled = true,
-    lalazy = false,
+    lazy = false,
     priority = 1000,
     opts = {},
   },
   {
     "0xstepit/flow.nvim",
-    enabled = true,
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {
@@ -58,5 +62,12 @@ return {
       mode = "desaturate",
       aggressive_spell = false,
     },
+  },
+  {
+    "ramojus/mellifluous.nvim",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
 }
