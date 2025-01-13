@@ -136,7 +136,15 @@ return {
       lspconfig["powershell_es"].setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        settings = { powershell = { codeFormatting = { Preset = "OTBS" } } },
+        settings = {
+          powershell = {
+            codeFormatting = { Preset = "OTBS" },
+          },
+        },
+        init_options = {
+          enableProfileLoading = false,
+        },
+        bundle_path = "C:/Users/tgambier/AppData/Local/nvim-data/mason/packages/powershell-editor-services",
       } --[[@as lspconfig.Config]])
 
       lspconfig["taplo"].setup({
