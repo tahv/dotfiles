@@ -20,7 +20,7 @@ return {
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       },
       completion = {
-        list = { selection = "auto_insert" },
+        list = { selection = { preselect = false, auto_insert = true } },
         -- Show documentation when selecting a completion item
         documentation = {
           auto_show = true,
@@ -32,6 +32,7 @@ return {
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
+        cmdline = {},
       },
       -- Experimental signature help support
       signature = { enabled = true },
