@@ -48,7 +48,7 @@ return {
   end,
   -- TODO: lsp symbols kind filters (see how lazyvim do it)
   keys = {
-    { "<leader><space>", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[ ] Search buffers" },
+    { "<leader><space>", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "[ ] Search buffers" },
     { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy [S]earch current [B]uffer" },
     -- { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "[S]earch [C]ommands" },
     {
