@@ -102,6 +102,7 @@ return {
 
       -- https://microsoft.github.io/pyright/#/settings
       lspconfig["pyright"].setup({
+        enabled = true,
         capabilities = capabilities,
         settings = {
           pyright = {
@@ -109,6 +110,18 @@ return {
           },
         },
       } --[[@as lspconfig.Config]])
+
+      -- https://docs.basedpyright.com/latest/configuration/language-server-settings/
+      lspconfig["basedpyright"].setup({
+        enabled = false,
+        capabilities = capabilities,
+        settings = {
+          basedpyright = {
+            disableOrganizeImports = true, -- Using Ruff's import organizer
+          },
+        },
+      } --[[@as lspconfig.Config]])
+
 
       -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
       lspconfig["lua_ls"].setup({
