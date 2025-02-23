@@ -32,7 +32,9 @@ return {
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = {},
+      },
+      cmdline = {
+        enabled = false,
       },
       -- Experimental signature help support
       signature = { enabled = true },
