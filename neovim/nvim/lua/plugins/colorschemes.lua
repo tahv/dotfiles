@@ -3,6 +3,7 @@ return {
   {
     -- Colorscheme based on Atom's One Dark and Light theme.
     "navarasu/onedark.nvim",
+    enabled = false,
     priority = 1000,
     opts = {
       -- style = "warm",

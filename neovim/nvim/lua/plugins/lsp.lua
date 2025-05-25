@@ -1,18 +1,21 @@
 ---@type LazySpec[]
 return {
   {
-    --- Portable package manager for Neovim.
+    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
     "williamboman/mason.nvim",
     ---@type MasonSettings
     opts = {},
   },
   {
-    --- Bridges mason.nvim with nvim-lspconfig.
-    "williamboman/mason-lspconfig.nvim",
-    ---@type MasonLspconfigSettings
-    opts = {
-      automatic_installation = true,
-    },
+    -- Default LSP client configurations.
+    -- No need to load the plugin, adding the plugin directory to runtimepath
+    -- is enough to load `lsp/` configs.
+    "neovim/nvim-lspconfig",
+    lazy = true,
+    init = function()
+      local lazy_config = require("lazy.core.config")
+      vim.opt.runtimepath:prepend(lazy_config.options.root .. "/nvim-lspconfig")
+    end,
   },
   {
     -- Display LSP progress messages in the bottom right corner.
@@ -20,186 +23,6 @@ return {
     opts = {},
   },
   -- TODO: try diagflow.nvim once this is fixed: https://github.com/dgagn/diagflow.nvim/issues/55
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    keys = { { "<leader>cR", ":LspRestart<CR>", desc = "[R]estart LSP Server" } },
-    config = function()
-      ---@param client vim.lsp.Client
-      ---@param bufnr integer
-      local function on_attach(client, bufnr)
-        local tb = require("telescope.builtin")
-
-        -- hover
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
-        vim.keymap.set(
-          "n",
-          "<leader>k",
-          vim.lsp.buf.signature_help,
-          { buffer = bufnr, desc = "Hover Signature Documentation" }
-        )
-        -- go to
-        vim.keymap.set("n", "gd", tb.lsp_definitions, { buffer = bufnr, desc = "[G]oto [D]efinition" })
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "[G]oto [D]eclaration" })
-        vim.keymap.set("n", "gy", tb.lsp_type_definitions, { buffer = bufnr, desc = "[G]oto T[y]pe Definition" })
-        vim.keymap.set("n", "gr", tb.lsp_references, { buffer = bufnr, desc = "[G]oto [R]eferences" })
-        vim.keymap.set("n", "gI", tb.lsp_implementations, { buffer = bufnr, desc = "[G]oto [I]mplementation" })
-
-        -- search
-        vim.keymap.set(
-          "n",
-          "<leader>ss",
-          tb.lsp_document_symbols,
-          { buffer = bufnr, desc = "[S]earch Document [S]ymbols" }
-        )
-        vim.keymap.set(
-          "n",
-          "<leader>sS",
-          tb.lsp_dynamic_workspace_symbols,
-          { buffer = bufnr, desc = "[S]earch Workspace [S]ymbols" }
-        )
-
-        -- actions
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "[R]ename Symbol" })
-        -- TODO: code actions in visual mode ?
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "[C]ode [A]ction" })
-
-        -- toggle inlay hint
-        if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          vim.keymap.set("n", "<leader>th", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          end, { buffer = bufnr, desc = "[T]oggle Inlay [H]ints" })
-        end
-      end
-
-      -- --- @param override lsp.ClientCapabilities | nil
-      -- local function override_capabilities(override)
-      --   return vim.tbl_deep_extend("force", capabilities, override or {})
-      -- end
-
-      local lspconfig = require("lspconfig")
-
-      local function get_capabilities()
-        local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-        if has_cmp then
-          return cmp_nvim_lsp.default_capabilities()
-        end
-        return vim.lsp.protocol.make_client_capabilities()
-      end
-
-      local capabilities = get_capabilities()
-
-      -- https://docs.astral.sh/ruff/editors/settings
-      -- https://docs.astral.sh/ruff/editors/setup/#neovim
-      lspconfig["ruff"].setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Disable hover in favor of Pyright
-          client.server_capabilities.hoverProvider = false
-          on_attach(client, bufnr)
-        end,
-      } --[[@as lspconfig.Config]])
-
-      -- https://microsoft.github.io/pyright/#/settings
-      lspconfig["pyright"].setup({
-        enabled = true,
-        capabilities = capabilities,
-        settings = {
-          pyright = {
-            disableOrganizeImports = true, -- Using Ruff's import organizer
-          },
-        },
-      } --[[@as lspconfig.Config]])
-
-      -- https://docs.basedpyright.com/latest/configuration/language-server-settings/
-      lspconfig["basedpyright"].setup({
-        enabled = false,
-        capabilities = capabilities,
-        settings = {
-          basedpyright = {
-            disableOrganizeImports = true, -- Using Ruff's import organizer
-          },
-        },
-      } --[[@as lspconfig.Config]])
-
-
-      -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
-      lspconfig["lua_ls"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            completion = { callSnippet = "Replace" },
-            telemetry = { enable = false },
-            codeLens = { enable = true },
-            diagnostics = { disable = { "missing-fields" } },
-          },
-        },
-      } --[[@as lspconfig.Config]])
-
-      lspconfig["rust_analyzer"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      } --[[@as lspconfig.Config]])
-
-      -- lspconfig["gopls"].setup({ capabilities = capabilities } --[[@as lspconfig.Config]])
-
-      -- https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-pwsh.el
-      lspconfig["powershell_es"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-          powershell = {
-            codeFormatting = { Preset = "OTBS" },
-          },
-        },
-        init_options = {
-          enableProfileLoading = false,
-        },
-        bundle_path = "C:/Users/tgambier/AppData/Local/nvim-data/mason/packages/powershell-editor-services",
-      } --[[@as lspconfig.Config]])
-
-      lspconfig["taplo"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        -- Tequired for taplo LSP to work in non-git repositories
-        root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
-      } --[[@as lspconfig.Config]])
-
-      -- https://github.com/redhat-developer/yaml-language-server
-      lspconfig["yamlls"].setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = true
-          on_attach(client, bufnr)
-        end,
-        settings = {
-          yaml = {
-            validate = true,
-            keyOrdering = false,
-            format = { enable = true },
-            schemaStore = { enable = false },
-            schemas = {
-              ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-              ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
-            },
-          },
-        },
-      } --[[@as lspconfig.Config]])
-
-      lspconfig["jsonls"].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-          json = {
-            validate = { enable = true },
-            schemas = {},
-          },
-        },
-      } --[[@as lspconfig.Config]])
-    end,
-  },
   {
     -- Lightweight formatter plugin for Neovim
     "stevearc/conform.nvim",
@@ -288,21 +111,21 @@ return {
   {
     -- Properly configures LuaLS for editing Neovim config.
     "folke/lazydev.nvim",
+    enabled = true,
     ft = "lua",
-    dependencies = { { "Bilal2453/luvit-meta", lazy = true } },
     ---@type lazydev.Config
     opts = {
       library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         "lazy.nvim",
         "mason.nvim",
         "gitsigns",
-        "mason-lspconfig.nvim",
+        "snacks.nvim",
         "lazydev.nvim",
         "nvim-treesitter-context",
         "neogit",
         "indent-blankline.nvim",
         "Comment.nvim",
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
   },

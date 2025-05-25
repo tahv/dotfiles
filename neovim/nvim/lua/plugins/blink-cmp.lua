@@ -2,9 +2,8 @@
 return {
   {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
     dependencies = { "rafamadriz/friendly-snippets" },
-    version = "v0.*", -- use a release tag to download pre-built binaries
+    version = "1.*", -- use a release tag to download pre-built binaries
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -33,11 +32,8 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
-      cmdline = {
-        enabled = false,
-      },
-      -- Experimental signature help support
-      signature = { enabled = true },
+      cmdline = { enabled = false },
+      signature = { enabled = false }, -- Handled by vim.lsp
     },
   },
 }

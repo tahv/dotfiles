@@ -53,6 +53,7 @@ vim.o.scrolloff = 5
 vim.o.cursorline = true
 
 vim.diagnostic.config({
+  jump = { float = true },
   virtual_text = {
     format = function(diag)
       if diag.source and diag.code then
@@ -66,6 +67,7 @@ vim.diagnostic.config({
     end,
   },
   float = {
+    border = "rounded",
     format = function(diag)
       if diag.source then
         return string.format("%s: %s", diag.source, diag.message)

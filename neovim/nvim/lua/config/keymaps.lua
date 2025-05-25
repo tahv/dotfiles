@@ -1,3 +1,5 @@
+local map = vim.keymap.set
+
 vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to other [B]uffer" })
 -- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { desc = 'Open [E]xplorer' })
 -- Clear search with <esc>
@@ -60,8 +62,6 @@ vim.keymap.set("n", "<C-Right>", function() -- at right edge
 end, { desc = "Resize window right" })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
 -- Center buffer when moving
@@ -91,5 +91,22 @@ vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev se
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
--- TODO: use toggleterm
--- vim.keymap.set("n", "<leader>ug", "<cmd>terminal lazygit<CR>", { desc = "Open lazy[g]it" })
+-- LSP
+
+vim.keymap.set("n", "<leader>cR", function()
+  vim.lsp.stop_client(vim.lsp.get_clients())
+  vim.cmd("edit")
+end, { desc = "[r]estart LSP" })
+
+-- map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
+-- map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
+map("n", "<leader>cc", "<cmd>checkhealth vim.lsp<cr><esc>", { desc = "[C]heck lsp health" })
+map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "Hover Documentation" })
+map("n", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })
+map("i", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })
+vim.keymap.del("n", "gO") -- Disable default keymap of 'vim.lsp.buf.document_symbol'
+
+map("n", "<leader>th", function()
+  local toggle = not vim.lsp.inlay_hint.is_enabled()
+  vim.lsp.inlay_hint.enable(toggle)
+end, { desc = "toggle inlay [h]ints" })

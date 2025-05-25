@@ -5,6 +5,7 @@ local have_cmake = vim.fn.executable("cmake") == 1
 return {
   -- A highly extendable fuzzy finder over lists.
   "nvim-telescope/telescope.nvim",
+  enable = false,
   branch = "0.1.x",
   cmd = "Telescope",
   dependencies = {

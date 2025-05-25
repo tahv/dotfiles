@@ -7,10 +7,11 @@ return {
   require("plugins.gitsigns"), -- Adds git signs to gutter and utilities for managing changes
   require("plugins.lualine"), -- Set lualine as statusline
   require("plugins.colorschemes"),
-  require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
+  -- require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
   -- require("plugins.nvim-cmp"), -- Autocompletion
   require("plugins.blink-cmp"), -- Autocompletion
   require("plugins.treesitter"),
+  require("plugins.snacks"),
   {
     -- Buffer-lile file explorer
     "stevearc/oil.nvim",
@@ -35,19 +36,14 @@ return {
       },
     },
     keys = {
-      { "<leader>e", "<cmd>Oil<cr>", desc = "[E]xplorer (Buffer Dir)" },
-      {
-        "<leader>E",
-        function()
-          require("oil.actions").open_cwd.callback()
-        end,
-        desc = "[E]xplorer (Root)",
-      },
+      { "<leader>e", "<cmd>Oil<cr>", desc = "[e]xplorer (buffer dir)" },
+      { "<leader>E", function() require("oil.actions").open_cwd.callback() end, desc = "[E]xplorer (root)" },
     },
   },
   {
     -- Indentation guides
     "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
     main = "ibl",
     ---@type ibl.config.full
     opts = {
@@ -63,20 +59,17 @@ return {
   {
     -- Remove buffers
     "echasnovski/mini.bufremove",
+    enabled = false,
     version = "*",
     keys = {
       {
         "<leader>bd",
-        function()
-          require("mini.bufremove").delete(0, false)
-        end,
+        function() require("mini.bufremove").delete(0, false) end,
         desc = "[b]uffer [d]elete",
       },
       {
         "<leader>bD",
-        function()
-          require("mini.bufremove").delete(0, true)
-        end,
+        function() require("mini.bufremove").delete(0, true) end,
         desc = "[b]uffer [D]elete (force)",
       },
     },
@@ -141,16 +134,12 @@ return {
         providers = { "lsp" },
       },
     },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-    end,
+    config = function(_, opts) require("illuminate").configure(opts) end,
   },
   {
     -- Smoothly navigate between neovim and terminal multiplexer(s)
     "numToStr/Navigator.nvim",
-    config = function(_, opts)
-      require("Navigator").setup(opts)
-    end,
+    config = function(_, opts) require("Navigator").setup(opts) end,
     keys = {
       -- Navigate windows using <ctrl> hjkl keys
       { "<C-h>", "<CMD>NavigatorLeft<CR>", desc = "Go to left window" },
@@ -186,21 +175,23 @@ return {
     event = "VeryLazy",
     ---@type wk.Opts
     opts = {
+      preset = "helix",
       icons = {
         mappings = true,
       },
     },
     config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-      wk.add({
-        { "<leader>b", group = "[B]uffer", icon = "󰈔" },
-        { "<leader>c", group = "[C]ode", icon = "" },
-        { "<leader>s", group = "[S]earch", icon = "" },
-        { "<leader>t", group = "[T]oggle", icon = "" },
+      require("which-key").setup(opts)
+      require("which-key").add({
+        { "<leader>b", group = "[b]uffer", icon = "󰈔" },
+        { "<leader>c", group = "[c]ode", icon = "" },
+        { "<leader>s", group = "[s]earch", icon = "" },
+        { "<leader>t", group = "[t]oggle", icon = "" },
         -- ["<leader>u"] = { name = "+[U]i" },
-        { "<leader>w", group = "[W]indow", icon = "" },
-        { "<leader>g", group = "[G]it", icon = "" },
+        { "<leader>w", group = "[w]indow", icon = "" },
+        { "<leader>g", group = "[g]it", icon = "" },
+        { "grn", desc = "re[n]ame symbol" },
+        { "gra", desc = "code [a]ction", mode = { "n", "v" } },
       })
     end,
   },
@@ -221,5 +212,27 @@ return {
     enabled = false,
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {},
+  },
+  {
+    "fredrikaverpil/pydoc.nvim",
+    enabled = false,
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" },
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+          ensure_installed = { "markdown" },
+        },
+      },
+    },
+    cmd = { "PyDoc" },
+    opts = {},
+    keys = {
+      {
+        "<leader>sp",
+        function() require("pydoc").show_telescope_picker() end,
+        desc = "[S]earch [P]ydoc",
+      },
+    },
   },
 }
