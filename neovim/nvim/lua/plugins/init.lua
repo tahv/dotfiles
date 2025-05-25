@@ -62,16 +62,8 @@ return {
     enabled = false,
     version = "*",
     keys = {
-      {
-        "<leader>bd",
-        function() require("mini.bufremove").delete(0, false) end,
-        desc = "[b]uffer [d]elete",
-      },
-      {
-        "<leader>bD",
-        function() require("mini.bufremove").delete(0, true) end,
-        desc = "[b]uffer [D]elete (force)",
-      },
+      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "[b]uffer [d]elete" },
+      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "[b]uffer [D]elete (force)" },
     },
   },
   {
@@ -100,6 +92,7 @@ return {
     -- Improve the default `vim.ui` interfaces
     "stevearc/dressing.nvim",
     lazy = true,
+    enabled = false,
     opts = {},
     init = function()
       ---@diagnostic disable-next-line: duplicate-set-field
@@ -154,7 +147,7 @@ return {
     enabled = false,
     opts = {},
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "nvimq-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     keys = {

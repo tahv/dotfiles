@@ -26,11 +26,9 @@ return {
   {
     -- Lightweight formatter plugin for Neovim
     "stevearc/conform.nvim",
-    -- TODO: report progress: https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
     dependencies = { "mason.nvim" },
-    lazy = true,
-    cmd = "ConformInfo",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
     ---@type conform.setupOpts
     opts = {
       -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
@@ -46,6 +44,8 @@ return {
       {
         "<leader>cf",
         function()
+          -- Format with progression, adapted from:
+          -- https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
           local format_args = {
             timeout_ms = 3000,
             async = true,
@@ -64,7 +64,6 @@ return {
           local formatters = conform.list_formatters()
           local fmt_names = {}
           if not vim.tbl_isempty(formatters) then
-            -- stylua: ignore
             fmt_names = vim.tbl_map(function(f) return f.name end, formatters)
           elseif format_args["lsp_fallback"] == true then
             fmt_names = { "lsp" }
@@ -86,7 +85,7 @@ return {
           end)
         end,
         mode = { "n", "v" },
-        desc = "[F]ormat buffer",
+        desc = "[f]ormat code",
       },
     },
   },
@@ -102,9 +101,7 @@ return {
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = vim.api.nvim_create_augroup("lint", { clear = true }),
-        callback = function()
-          require("lint").try_lint()
-        end,
+        callback = function() require("lint").try_lint() end,
       })
     end,
   },

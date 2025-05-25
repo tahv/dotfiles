@@ -17,6 +17,21 @@ return {
         animate = { enabled = false },
       },
       notifier = { enabled = true },
+      input = { enabled = true },
+      picker = {
+        ui_select = true, -- replace `vim.ui.select` with the snacks picker
+      },
+      gitbrowse = {
+        notify = true,
+        url_patterns = {
+          ["gitlab%.org"] = {
+            branch = "/-/tree/{branch}",
+            file = "/-/blob/{branch}/{file}#L{line_start}-L{line_end}",
+            permalink = "/-/blob/{commit}/{file}#L{line_start}-L{line_end}",
+            commit = "/-/commit/{commit}",
+          },
+        },
+      },
     },
     keys = {
       -- Search
@@ -34,6 +49,8 @@ return {
       { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "search git log [L]ine" },
       { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "search git log [f]ile" },
       { "<leader>gs", function() Snacks.picker.git_status() end, desc = "search [g]it [s]tatus" },
+      { "<leader>gb", function() Snacks.git.blame_line() end, desc = "[b]lame line" },
+      { "<leader>go", function() Snacks.gitbrowse.open() end, desc = "[o]pen git repo" },
       -- LSP
       { "gd", function() Snacks.picker.lsp_definitions() end, desc = "goto [d]efinition" },
       { "gD", function() Snacks.picker.lsp_declarations() end, desc = "goto [D]eclaration" },
