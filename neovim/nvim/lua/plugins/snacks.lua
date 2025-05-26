@@ -6,20 +6,13 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      bigfile = {
+        enabled = true,
+        notify = true,
+      },
       dim = {
         enabled = false,
         animate = { enabled = false },
-      },
-      indent = {
-        enabled = true,
-        scope = { char = "▏" },
-        indent = { char = "▏" },
-        animate = { enabled = false },
-      },
-      notifier = { enabled = true },
-      input = { enabled = true },
-      picker = {
-        ui_select = true, -- replace `vim.ui.select` with the snacks picker
       },
       gitbrowse = {
         notify = true,
@@ -31,6 +24,17 @@ return {
             commit = "/-/commit/{commit}",
           },
         },
+      },
+      indent = {
+        enabled = true,
+        scope = { char = "▏" },
+        indent = { char = "▏" },
+        animate = { enabled = false },
+      },
+      input = { enabled = true },
+      notifier = { enabled = true },
+      picker = {
+        ui_select = true, -- replace `vim.ui.select` with the snacks picker
       },
     },
     keys = {
