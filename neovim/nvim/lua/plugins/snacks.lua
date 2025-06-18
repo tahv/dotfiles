@@ -35,6 +35,10 @@ return {
       notifier = { enabled = true },
       picker = {
         ui_select = true, -- replace `vim.ui.select` with the snacks picker
+        main = {
+          file = false,
+          current = true,
+        },
       },
     },
     keys = {
@@ -45,6 +49,7 @@ return {
       { "<leader>sb", function() Snacks.picker.lines() end, desc = "search [b]uffer lines" },
       { "<leader>sf", function() Snacks.picker.smart({ hidden = true }) end, desc = "search [f]iles" },
       { "<leader>sg", function() Snacks.picker.grep() end, desc = "[g]rep" },
+      { "<leader>sG", function() Snacks.picker.grep_word() end, desc = "[G]rep word" },
       { "<leader>sh", function() Snacks.picker.help() end, desc = "search [h]elp" },
       { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "search [k]eymaps" },
       { "<leader>sr", function() Snacks.picker.resume() end, desc = "[r]esume last search" },
@@ -67,6 +72,12 @@ return {
       { "<leader>bd", function() Snacks.bufdelete.delete() end, desc = "buffer [d]elete" },
       { "<leader>bD", function() Snacks.bufdelete.delete({ force = true }) end, desc = "buffer [D]elete (force)" },
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazy[g]it" },
+      -- Floating terminal
+      {
+        "<leader>tt",
+        function() Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } }) end,
+        desc = "Toggle [t]erminal",
+      },
     },
   },
 }
