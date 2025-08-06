@@ -5,3 +5,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
+
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  desc = "Open Python wheel",
+  pattern = "*.whl",
+  group = vim.api.nvim_create_augroup("whl", { clear = true }),
+  command = 'call zip#Browse(expand("<amatch>"))',
+})
