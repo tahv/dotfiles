@@ -55,13 +55,13 @@ return {
           { buffer = bufnr, desc = "[T]oggle line [B]lame" }
         )
 
-        vim.keymap.set("n", "<leader>td", gs.toggle_deleted, { buffer = bufnr, desc = "[T]oggle [D]eleted" })
-        vim.keymap.set("n", "<leader>gd", gs.diffthis, { buffer = bufnr, desc = "[G]it [D]iff" })
-        vim.keymap.set("n", "<leader>gp", gs.preview_hunk_inline, { buffer = bufnr, desc = "[G]it [P]review hunk" })
-        vim.keymap.set("n", "<leader>gs", gs.stage_hunk, { buffer = bufnr, desc = "[G]it toggle [S]tage hunk" })
-        vim.keymap.set("v", "<leader>gs", function()
+        vim.keymap.set("n", "<leader>td", gs.toggle_deleted, { buffer = bufnr, desc = "git toggle [d]eleted" })
+        vim.keymap.set("n", "<leader>gd", gs.diffthis, { buffer = bufnr, desc = "git [d]iff" })
+        vim.keymap.set("n", "<leader>gp", gs.preview_hunk_inline, { buffer = bufnr, desc = "git [p]review hunk" })
+        vim.keymap.set("n", "<leader>gh", gs.stage_hunk, { buffer = bufnr, desc = "git toggle stage [h]unk" })
+        vim.keymap.set("v", "<leader>gh", function()
           gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, { buffer = bufnr, desc = "[G]it toggle [S]tage hunk" })
+        end, { buffer = bufnr, desc = "git toggle stage [h]unk" })
       end,
     },
   },
