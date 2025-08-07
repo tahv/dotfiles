@@ -10,6 +10,7 @@ return {
         enabled = true,
         notify = true,
       },
+      quickfile = { enabled = true },
       dim = {
         enabled = false,
         animate = { enabled = false },
