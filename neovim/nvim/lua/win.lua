@@ -19,7 +19,7 @@ local download_mingw = function()
     "-Lo",
     archive,
     "https://github.com/niXman/mingw-builds-binaries/releases/download/13.2.0-rt_v11-rev1/x86_64-13.2.0-release-win32-seh-ucrt-rt_v11-rev1.7z",
-    "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev0/x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev0.7z"
+    "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev0/x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev0.7z",
   })
 
   -- extract
@@ -90,9 +90,16 @@ function M.setup()
     download_python()
   end
 
-  vim.env.PATH = vim.env.PATH .. ";" .. tahvpath .. "\\mingw64\\bin"
-  vim.env.PATH = vim.env.PATH .. ";" .. tahvpath .. "\\node"
-  vim.env.PATH = vim.env.PATH .. ";" .. tahvpath .. "\\python"
+  vim.env.PATH = vim.env.PATH
+    .. ";"
+    .. tahvpath
+    .. "\\mingw64\\bin"
+    .. ";"
+    .. tahvpath
+    .. "\\node"
+    .. ";"
+    .. tahvpath
+    .. "\\python"
   -- vim.env.PATH = tahvpath .. '\\python' .. ";" .. vim.env.PATH
 
   vim.g.python3_host_prog = tahvpath .. "\\python\\python.exe"
