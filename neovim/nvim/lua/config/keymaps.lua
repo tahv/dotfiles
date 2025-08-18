@@ -1,8 +1,14 @@
 local map = vim.keymap.set
 
-vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to other [B]uffer" })
+vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to other [b]uffer" })
 -- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { desc = 'Open [E]xplorer' })
--- Clear search with <esc>
+
+vim.keymap.set("n", "<leader>bc", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  print("file:", path)
+end, { desc = "[c]opy buffer file path" })
+
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Keymaps for better default experience
@@ -24,6 +30,12 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+-- Move lines up/down
+-- vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+-- vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+-- vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+-- vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Resize window using <ctrl> arrow keys
 
@@ -93,14 +105,14 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
 -- LSP
 
-vim.keymap.set("n", "<leader>cR", function()
+vim.keymap.set("n", "grR", function()
   vim.lsp.stop_client(vim.lsp.get_clients())
   vim.cmd("edit")
-end, { desc = "[r]estart LSP" })
+end, { desc = "[R]estart LSP" })
 
 -- map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 -- map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
-map("n", "<leader>cc", "<cmd>checkhealth vim.lsp<cr><esc>", { desc = "[C]heck lsp health" })
+map("n", "grc", "<cmd>checkhealth vim.lsp<cr><esc>", { desc = "[c]heck health lsp" })
 map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "Hover Documentation" })
 map("n", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })
 map("i", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })

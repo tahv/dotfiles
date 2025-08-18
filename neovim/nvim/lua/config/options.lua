@@ -1,56 +1,41 @@
--- Set highlight on search
-vim.o.hlsearch = true
-
--- Make line numbers default
-vim.wo.number = true
-vim.o.relativenumber = true
-
--- Enable mouse mode
-vim.o.mouse = "a"
-
--- Vertical rulers
-vim.o.colorcolumn = "80,88"
-
--- Deactivate line wrap
-vim.o.wrap = false
-
-vim.o.tabstop = 4
-
--- No swap file
-vim.o.swapfile = false
-
--- Sync clipboard between OS and Neovim.
--- Remove this option if you want your OS clipboard to remain independent.
--- See `:help 'clipboard'`
-vim.o.clipboard = "unnamedplus"
-
--- Enable break indent
+vim.o.mouse = "a" -- Enable mouse in all modes
+vim.o.colorcolumn = "80,88" -- Vertical rulers
+vim.o.wrap = false -- Deactivate line wrap
+vim.o.scrolloff = 5 -- Keep n lines above & below cursor
+vim.o.sidescrolloff = 5 -- Keep n lines left & right of cursor
+vim.o.clipboard = "unnamedplus" -- Sync clipboard between OS and vim
 vim.o.breakindent = true
+vim.o.completeopt = "menu,menuone,noselect" -- Completion options
 
--- Save undo history
-vim.o.undofile = true
+-- Indentation
+vim.o.tabstop = 4 -- Tab width
+vim.o.expandtab = true -- Use soaces instead of tabs
+vim.o.autoindent = true -- Copy indent from current line
+vim.o.smartindent = true -- Smart auto-indenting
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+-- Search settings
+vim.o.ignorecase = true -- Case insensitive search
+vim.o.smartcase = true -- Case sensitive search if uppercase in search
+vim.o.hlsearch = true -- Highlight search results
+-- vim.o.incsearch = true  -- Show matches as you type
+-- vim.o.showmatch = true  -- Highlight matching bracket
+-- vim.o.matchtume = 2  -- How lon to show matching bracket
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
+-- Visual settings
+vim.o.signcolumn = "yes" -- Always show sign column
+vim.o.termguicolors = true -- Enable 24-bit colors (make sure terminal supports it)
+vim.o.cursorline = true -- Highlight cursor line
+vim.o.number = true -- Show line numbers
+vim.o.relativenumber = true -- Relative line numbers
 
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menu,menuone,noselect"
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
-vim.o.scrolloff = 5
-
--- Highlight cursor line
-vim.o.cursorline = true
+-- File handling
+-- vim.o.backup = false -- Don't create backup files
+-- vim.o.writebackup = false -- Don't create backup before writing
+-- vim.o.autoread = true  -- Auto reload files changes outside vim
+vim.o.swapfile = false -- Don't create swap
+vim.o.undofile = true -- Save undo history
+vim.o.updatetime = 250 -- Faster completion, decrease update time.
+vim.o.timeoutlen = 300 -- Key timeout duration
 
 vim.diagnostic.config({
   jump = { float = true },
