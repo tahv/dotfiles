@@ -1,3 +1,4 @@
+--  https://github.com/JohnnyMorganz/StyLua?tab=readme-ov-file#options
 -- https://luals.github.io/wiki/settings/
 ---@type vim.lsp.Config
 return {
