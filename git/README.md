@@ -19,8 +19,6 @@ mkdir "%USERPROFILE%\.config" 2>nul
 mklink /D "%USERPROFILE%\.config\git" "%cd%\git"
 ```
 
-</details>
-
 ## Uninstallation
 
 ### macOS
