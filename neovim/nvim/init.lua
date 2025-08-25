@@ -38,6 +38,7 @@ vim.lsp.enable({
   -- "ty"
   "typos_lsp",
   "yamlls",
+  "nushell",
 })
 
 require("lazy").setup({ require("plugins") }, {})

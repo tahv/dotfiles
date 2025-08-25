@@ -207,6 +207,14 @@ return {
     opts = {},
   },
   {
+    -- A neovim plugin that helps managing crates.io dependencies
+    'saecki/crates.nvim',
+    event = { "BufRead Cargo.toml" },
+    config = function()
+        require('crates').setup()
+    end,
+  },
+  {
     "fredrikaverpil/pydoc.nvim",
     enabled = false,
     dependencies = {
