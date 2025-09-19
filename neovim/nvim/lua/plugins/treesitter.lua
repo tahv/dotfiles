@@ -6,6 +6,7 @@ local function setup_mingw64()
   local archive = vim.fs.joinpath(utils.user_stdpath("cache"), "mingw64.7z")
 
   if vim.uv.fs_stat(archive) then
+    print("[tahv] " .. "Deleting '" .. archive .. "'")
     vim.fs.rm(archive)
   end
 
@@ -16,6 +17,7 @@ local function setup_mingw64()
 
   local outdir = vim.fs.joinpath(datadir, "mingw64")
   if vim.uv.fs_stat(outdir) then
+    print("[tahv] " .. "Deleting '" .. outdir .. "'")
     vim.fs.rm(outdir, { recursive = true })
   end
 
