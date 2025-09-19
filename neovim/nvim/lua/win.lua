@@ -1,76 +1,52 @@
 local M = {}
 
-local tahvpath = vim.fn.stdpath("data") .. "\\tahv"
-
-local get_seven_zip = function()
-  local exe_path = tahvpath .. "\\7zip.exe"
-  if not vim.uv.fs_stat(exe_path) then
-    vim.fn.system({ "curl", "-Lo", exe_path, "https://www.7-zip.org/a/7zr.exe" })
-  end
-  return exe_path
-end
-
--- install mingw64, contain a C compiler for tree-sitter
-local download_mingw = function()
-  -- download
-  local archive = tahvpath .. "\\mingw64.7z"
-  vim.fn.system({
-    "curl",
-    "-Lo",
-    archive,
-    "https://github.com/niXman/mingw-builds-binaries/releases/download/13.2.0-rt_v11-rev1/x86_64-13.2.0-release-win32-seh-ucrt-rt_v11-rev1.7z",
-    "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev0/x86_64-14.2.0-release-win32-seh-ucrt-rt_v12-rev0.7z",
-  })
-
-  -- extract
-  local seven_zip = get_seven_zip()
-  os.execute(seven_zip .. " x " .. archive .. " -o" .. tahvpath)
-
-  -- remove archive
-  os.remove(archive)
-end
-
 -- install node and npm for pyright
-local download_npm = function()
-  -- download
-  local archive = tahvpath .. "\\node.7z"
-  vim.fn.system({
-    "curl",
-    "-Lo",
-    archive,
-    -- "https://nodejs.org/dist/v20.11.0/node-v20.11.0-win-x64.7z",
-    "https://nodejs.org/dist/v23.6.0/node-v23.6.0-win-x64.7z",
-  })
+local bootstrap_npm = function()
+  local utils = require("utils")
+  local datadir = utils.user_stdpath("data")
+  local archive = vim.fs.joinpath(utils.user_stdpath("cache"), "node.7z")
 
-  -- extract
-  local seven_zip = get_seven_zip()
-  os.execute(seven_zip .. " x " .. archive .. " -o" .. tahvpath)
-  os.rename(tahvpath .. "\\node-v23.6.0-win-x64", tahvpath .. "\\node")
+  if vim.uv.fs_stat(archive) then
+    vim.fs.rm(archive)
+  end
 
-  -- remove archive
-  os.remove(archive)
+  utils.download_file("https://nodejs.org/dist/v23.6.0/node-v23.6.0-win-x64.7z", archive)
+
+  local outdir = vim.fs.joinpath(datadir, "node")
+  if vim.uv.fs_stat(outdir) then
+    vim.fs.rm(outdir, { recursive = true })
+  end
+
+  utils.extract_7z_archive(archive, datadir)
+  os.rename(vim.fs.joinpath(datadir, "node-v23.6.0-win-x64"), outdir)
 end
 
 -- install python for ruff-lsp
-local download_python = function()
-  -- download
-  local archive = tahvpath .. "\\python.tar.gz"
-  vim.fn.system({
-    "curl",
-    "-Lo",
-    archive,
-    -- "https://github.com/indygreg/python-build-standalone/releases/download/20240107/cpython-3.11.7+20240107-i686-pc-windows-msvc-shared-install_only.tar.gz",
+local bootstrap_python = function()
+  local utils = require("utils")
+  local datadir = utils.user_stdpath("data")
+  local archive = vim.fs.joinpath(utils.user_stdpath("cache"), "python.tar.gz")
+
+  if vim.uv.fs_stat(archive) then
+    vim.fs.rm(archive)
+  end
+
+  utils.download_file(
     "https://github.com/astral-sh/python-build-standalone/releases/download/20250106/cpython-3.13.1+20250106-i686-pc-windows-msvc-shared-install_only.tar.gz",
-  })
+    archive
+  )
 
-  -- extract
-  os.execute("tar -xf " .. archive .. " -C " .. tahvpath)
+  local outdir = vim.fs.joinpath(datadir, "python")
+  if vim.uv.fs_stat(outdir) then
+    vim.fs.rm(outdir, { recursive = true })
+  end
 
-  -- remove archive
-  os.remove(archive)
+  print("[tahv] " .. "Extracting '" .. archive .. "'")
+  os.execute("tar -xf " .. archive .. " -C " .. datadir)
+  print("[tahv] " .. "Extracted " .. archive .. " to '" .. datadir .. "'")
 
   vim.fn.system({
-    tahvpath .. "\\python\\python.exe",
+    vim.fs.joinpath(outdir, "python.exe"),
     "-m",
     "pip",
     "install",
@@ -79,30 +55,28 @@ local download_python = function()
 end
 
 function M.setup()
-  if not vim.uv.os_uname().sysname == "Windows_NT" then
+  local iswin = vim.fn.has("win32") == 1
+  if not iswin then
     return
   end
 
-  if not vim.uv.fs_stat(tahvpath) then
-    os.execute("mkdir " .. tahvpath)
-    download_mingw()
-    download_npm()
-    download_python()
+  local utils = require("utils")
+  local datadir = utils.user_stdpath("data")
+
+  -- Setup node
+  local nodedir = vim.fs.joinpath(datadir, "node")
+  if not vim.uv.fs_stat(nodedir) then
+    bootstrap_npm()
   end
+  vim.env.PATH = vim.env.PATH .. ";" .. nodedir
 
-  vim.env.PATH = vim.env.PATH
-    .. ";"
-    .. tahvpath
-    .. "\\mingw64\\bin"
-    .. ";"
-    .. tahvpath
-    .. "\\node"
-    .. ";"
-    .. tahvpath
-    .. "\\python"
-  -- vim.env.PATH = tahvpath .. '\\python' .. ";" .. vim.env.PATH
-
-  vim.g.python3_host_prog = tahvpath .. "\\python\\python.exe"
+  -- Setup python
+  local pydir = vim.fs.joinpath(datadir, "python")
+  if not vim.uv.fs_stat(pydir) then
+    bootstrap_python()
+  end
+  vim.env.PATH = vim.env.PATH .. ";" .. pydir
+  vim.g.python3_host_prog = vim.fs.joinpath(pydir, "python.exe")
 end
 
 return M
