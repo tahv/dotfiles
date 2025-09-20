@@ -32,7 +32,7 @@ local bootstrap_python = function()
   end
 
   utils.download_file(
-    "https://github.com/astral-sh/python-build-standalone/releases/download/20250106/cpython-3.13.1+20250106-i686-pc-windows-msvc-shared-install_only.tar.gz",
+    "https://github.com/astral-sh/python-build-standalone/releases/download/20250918/cpython-3.13.7+20250918-x86_64-pc-windows-msvc-install_only.tar.gz",
     archive
   )
 
