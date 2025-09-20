@@ -9,7 +9,7 @@ vim.o.completeopt = "menu,menuone,noselect" -- Completion options
 
 -- Indentation
 vim.o.tabstop = 4 -- Tab width
-vim.o.expandtab = true -- Use soaces instead of tabs
+vim.o.expandtab = true -- Use spaces instead of tabs
 vim.o.autoindent = true -- Copy indent from current line
 vim.o.smartindent = true -- Smart auto-indenting
 

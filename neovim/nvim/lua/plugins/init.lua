@@ -3,15 +3,6 @@ return {
   -- 'tpope/vim-fugitive',
   -- 'tpope/vim-rhubarb',
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-  require("plugins.lsp"), -- LSP Configuration & Plugins
-  require("plugins.gitsigns"), -- Adds git signs to gutter and utilities for managing changes
-  require("plugins.lualine"), -- Set lualine as statusline
-  require("plugins.colorschemes"),
-  -- require("plugins.telescope"), -- Fuzzy Finder (files, lsp, etc)
-  -- require("plugins.nvim-cmp"), -- Autocompletion
-  require("plugins.blink-cmp"), -- Autocompletion
-  require("plugins.treesitter"),
-  require("plugins.snacks"),
   {
     -- Buffer-like file explorer
     "stevearc/oil.nvim",
@@ -231,6 +222,35 @@ return {
         "<leader>sp",
         function() require("pydoc").show_telescope_picker() end,
         desc = "[S]earch [P]ydoc",
+      },
+    },
+  },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      "folke/snacks.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    ft = "python",
+    keys = {
+      { "sv", "<cmd>VenvSelect<cr>", desc = "[s]elect Python [v]env" },
+    },
+    opts = {
+      -- enable_default_searches = false,
+      -- fd_binary_name = nil,
+      search = {
+        nushell_cwd = {
+          command = "ls ...(glob **/bin/python) | get name | to text",
+        },
+        -- workspace = {
+        --   command = "$FD '/bin/python$' '$WORKSPACE_PATH' --full-path --color never -E /proc -HI -a -L",
+        -- },
+        -- file = {
+        --   command = "$FD '/bin/python$' '$FILE_DIR' --full-path --color never -E /proc -HI -a -L",
+        -- },
+      },
+      options = {
+        picker = "snacks",
       },
     },
   },
