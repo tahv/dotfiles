@@ -1,28 +1,10 @@
-# config.nu
-#
-# Installed by:
-# version = "0.104.1"
-#
-# This file is used to override default Nushell settings, define
-# (or import) custom commands, or run any other startup tasks.
-# See https://www.nushell.sh/book/configuration.html
-#
-# This file is loaded after env.nu and before login.nu
-#
-# You can open this file in your default editor using:
-# config nu
-#
-# See `help config nu` for more options
-
 # setup config
 $env.config.buffer_editor = "nvim"
 $env.config.table.mode = "compact"
+# $env.config.show_banner = false
 
 # setup default vendor directory
 mkdir ($nu.data-dir | path join "vendor/autoload")
-
-# source "config-home.nu"
-# source "config-ubisoft.nu"
 
 source (
     if $nu.os-info.family == windows { 'config-ubisoft.nu' }
@@ -30,7 +12,23 @@ source (
 )
 
 # setup starship
-starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+if not (which starship | is-empty) {
+    starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+}
+
+# setup fnm
+if not (which fnm | is-empty) {
+    # From: https://github.com/Schniz/fnm/issues/463
+    ^fnm env --json | from json | load-env
+
+    $env.PATH = $env.PATH | prepend ($env.FNM_MULTISHELL_PATH | path join (if $nu.os-info.name == 'windows' {''} else {'bin'}))
+    $env.config.hooks.env_change.PWD = (
+        $env.config.hooks.env_change.PWD? | append {
+            condition: {|| ['.nvmrc' '.node-version', 'package.json'] | any {|el| $el | path exists}}
+            code: {|| ^fnm use --silent-if-unchanged --install-if-missing}
+        }
+    )
+}
 
 # source ../nu_scripts/custom-completions/git/git-completions.nu
 
