@@ -27,20 +27,6 @@ require("config.keymaps")
 require("config.autocmds")
 -- require("config.lsp")
 
-vim.lsp.enable({
-  "jsonls",
-  "lua_ls",
-  "powershell_es",
-  "pyright",
-  "ruff",
-  "rust_analyzer",
-  "taplo",
-  -- "ty"
-  "typos_lsp",
-  "yamlls",
-  "nushell",
-})
-
 require("lazy").setup({ require("plugins") }, {})
 
 vim.cmd.colorscheme("tokyonight-moon")

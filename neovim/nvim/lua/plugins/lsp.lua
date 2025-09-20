@@ -1,3 +1,37 @@
+---Automatically install the following Mason packages.
+local ensure_installed = {
+  "basedpyright",
+  "dockerfile-language-server",
+  -- "gopls",
+  "json-lsp",
+  "lua-language-server",
+  "markdownlint-cli2",
+  -- "pyright",
+  "ruff",
+  "rust-analyzer",
+  "stylua",
+  "taplo",
+  -- "ty"
+  "typos-lsp",
+  "yaml-language-server",
+}
+
+---Enable the following lsp packages.
+local enabled = {
+  "basedpyright",
+  "json-lsp",
+  "lua-language-server",
+  "powershell-editor-services",
+  -- "pyright",
+  "ruff",
+  "rust_analyzer",
+  "taplo",
+  -- "ty"
+  "typos-lsp",
+  "yaml-language-server",
+  "nushell",
+}
+
 ---@type LazySpec[]
 return {
   {
@@ -5,6 +39,23 @@ return {
     "williamboman/mason.nvim",
     ---@type MasonSettings
     opts = {},
+    config = function(_, opts)
+      local utils = require("utils")
+      require("mason").setup(opts)
+      -- Ensure installed
+      local installed = require("mason-registry").get_installed_package_names()
+      local missing = utils.difference(ensure_installed, installed)
+      if next(missing) ~= nil then
+        vim.cmd("MasonInstall " .. table.concat(missing, " "))
+      end
+      -- Remove unused
+      local remove = utils.difference(installed, ensure_installed)
+      if next(remove) ~= nil then
+        vim.cmd("MasonUninstall " .. table.concat(remove, " "))
+      end
+      -- Enable lsp
+      vim.lsp.enable(enabled)
+    end,
   },
   {
     -- Default LSP client configurations.

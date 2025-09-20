@@ -14,6 +14,42 @@ function M.user_stdpath(what)
   return dir
 end
 
+---List configured lsp under the `lsp/` directory.
+---@return string[]
+function M.configured_lsp()
+  ---@type string[]
+  local configured = {}
+  for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
+    -- keep tail (:t) and remove extension (:r)
+    local name = vim.fn.fnamemodify(f, ":t:r")
+    table.insert(configured, name)
+  end
+  return configured
+end
+
+---Returns elements in `a` that are not in `b`.
+---@param a any[]
+---@param b any[]
+---@return any[]
+function M.difference(a, b)
+  local aa = {}
+  for _, v in pairs(a) do
+    aa[v] = true
+  end
+  for _, v in pairs(b) do
+    aa[v] = nil
+  end
+  local ret = {}
+  local n = 0
+  for _, v in pairs(a) do
+    if aa[v] then
+      n = n + 1
+      ret[n] = v
+    end
+  end
+  return ret
+end
+
 ---@param url string
 ---@param file string
 function M.download_file(url, file)

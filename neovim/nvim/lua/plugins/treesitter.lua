@@ -1,5 +1,6 @@
 local iswin = vim.fn.has("win32") == 1
 
+---Install mingw64 on Windows for compiling treesitter parsers
 local function setup_mingw64()
   local utils = require("utils")
   local datadir = utils.user_stdpath("data")
@@ -78,6 +79,7 @@ return {
         "markdown",
         "markdown_inline",
         "mermaid",
+        "nu",
         "python",
         "regex",
         "requirements",
