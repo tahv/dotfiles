@@ -13,7 +13,7 @@ return {
   require("plugins.treesitter"),
   require("plugins.snacks"),
   {
-    -- Buffer-lile file explorer
+    -- Buffer-like file explorer
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false, -- Load the plugin eagerly so oil takes over netrw
@@ -208,17 +208,15 @@ return {
   },
   {
     -- A neovim plugin that helps managing crates.io dependencies
-    'saecki/crates.nvim',
+    "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    config = function()
-        require('crates').setup()
-    end,
+    config = function() require("crates").setup() end,
   },
   {
     "fredrikaverpil/pydoc.nvim",
     enabled = false,
     dependencies = {
-      { "nvim-telescope/telescope.nvim" },
+      -- { "nvim-telescope/telescope.nvim" },
       {
         "nvim-treesitter/nvim-treesitter",
         opts = {
