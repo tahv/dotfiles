@@ -80,6 +80,8 @@ return {
         function() Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } }) end,
         desc = "Toggle [t]erminal",
       },
+      -- Other
+      { "<leader>tn",  function() Snacks.notifier.show_history() end, desc = "[n]otification History" },
     },
   },
 }
