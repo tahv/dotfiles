@@ -19,16 +19,16 @@ local ensure_installed = {
 ---Enable the following lsp packages.
 local enabled = {
   "basedpyright",
-  "json-lsp",
-  "lua-language-server",
-  "powershell-editor-services",
+  "jsonls",
+  "lua_ls",
+  "powershell_es",
   -- "pyright",
   "ruff",
   "rust_analyzer",
   "taplo",
   -- "ty"
-  "typos-lsp",
-  "yaml-language-server",
+  "typos_lsp",
+  "yamlls",
   "nushell",
 }
 
