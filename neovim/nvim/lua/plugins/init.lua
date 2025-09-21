@@ -32,23 +32,6 @@ return {
     },
   },
   {
-    -- Indentation guides
-    "lukas-reineke/indent-blankline.nvim",
-    enabled = false, -- handled by Snacks
-    main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
-    opts = {
-      indent = {
-        char = "▏",
-      },
-      scope = {
-        show_start = false,
-        show_end = false,
-      },
-    },
-  },
-  {
     -- Remove buffers
     "echasnovski/mini.bufremove",
     enabled = false,
@@ -79,25 +62,6 @@ return {
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
-  },
-  {
-    -- Improve the default `vim.ui` interfaces
-    "stevearc/dressing.nvim",
-    lazy = true,
-    enabled = false,
-    opts = {},
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
   },
   {
     -- Smart and powerful comment plugin for Neovim
@@ -225,35 +189,6 @@ return {
     },
     keys = {
       { "<leader>sp", "<cmd>PyDoc<cr>", desc = "[s]earch [p]ydoc" },
-    },
-  },
-  {
-    "linux-cultist/venv-selector.nvim",
-    dependencies = {
-      "folke/snacks.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    ft = "python",
-    keys = {
-      { "sv", "<cmd>VenvSelect<cr>", desc = "[s]elect Python [v]env" },
-    },
-    opts = {
-      -- enable_default_searches = false,
-      -- fd_binary_name = nil,
-      search = {
-        nushell_cwd = {
-          command = "ls ...(glob **/bin/python) | get name | to text",
-        },
-        -- workspace = {
-        --   command = "$FD '/bin/python$' '$WORKSPACE_PATH' --full-path --color never -E /proc -HI -a -L",
-        -- },
-        -- file = {
-        --   command = "$FD '/bin/python$' '$FILE_DIR' --full-path --color never -E /proc -HI -a -L",
-        -- },
-      },
-      options = {
-        picker = "snacks",
-      },
     },
   },
 }
