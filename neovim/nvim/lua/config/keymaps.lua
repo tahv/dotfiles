@@ -21,9 +21,9 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Manage windows (tmux split keys)
-vim.keymap.set("n", '<leader>w"', "<C-W>s", { desc = "Split [W]indow below" })
-vim.keymap.set("n", "<leader>w%", "<C-w>v", { desc = "Split [W]indow right" })
-vim.keymap.set("n", "<leader>wd", "<C-w>c", { desc = "[W]indow [D]elete" })
+vim.keymap.set("n", '<leader>w"', "<C-W>s", { desc = "Split [w]indow below" })
+vim.keymap.set("n", "<leader>w%", "<C-w>v", { desc = "Split [w]indow right" })
+vim.keymap.set("n", "<leader>wd", "<C-w>c", { desc = "[w]indow [d]elete" })
 
 -- Navigate windows using <ctrl> hjkl keys
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })

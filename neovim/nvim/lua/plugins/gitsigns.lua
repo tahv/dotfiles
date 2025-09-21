@@ -52,16 +52,17 @@ return {
           "n",
           "<leader>tb",
           gs.toggle_current_line_blame,
-          { buffer = bufnr, desc = "[T]oggle line [B]lame" }
+          { buffer = bufnr, desc = "[t]oggle line [b]lame" }
         )
-
-        vim.keymap.set("n", "<leader>td", gs.toggle_deleted, { buffer = bufnr, desc = "git toggle [d]eleted" })
         vim.keymap.set("n", "<leader>gd", gs.diffthis, { buffer = bufnr, desc = "git [d]iff" })
         vim.keymap.set("n", "<leader>gp", gs.preview_hunk_inline, { buffer = bufnr, desc = "git [p]review hunk" })
         vim.keymap.set("n", "<leader>gh", gs.stage_hunk, { buffer = bufnr, desc = "git toggle stage [h]unk" })
-        vim.keymap.set("v", "<leader>gh", function()
-          gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-        end, { buffer = bufnr, desc = "git toggle stage [h]unk" })
+        vim.keymap.set(
+          "v",
+          "<leader>gh",
+          function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
+          { buffer = bufnr, desc = "git toggle stage [h]unk" }
+        )
       end,
     },
   },

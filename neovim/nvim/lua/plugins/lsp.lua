@@ -73,7 +73,6 @@ return {
     "j-hui/fidget.nvim",
     opts = {},
   },
-  -- TODO: try diagflow.nvim once this is fixed: https://github.com/dgagn/diagflow.nvim/issues/55
   {
     -- Lightweight formatter plugin for Neovim
     "stevearc/conform.nvim",

@@ -34,9 +34,10 @@ return {
   {
     -- Indentation guides
     "lukas-reineke/indent-blankline.nvim",
-    enabled = false,
+    enabled = false, -- handled by Snacks
     main = "ibl",
-    ---@type ibl.config.full
+    ---@module "ibl"
+    ---@type ibl.config
     opts = {
       indent = {
         char = "▏",
@@ -111,6 +112,7 @@ return {
   {
     -- Highlighting other uses of the word under cursor using LSP, Tree-sitter, or regex.
     "RRethy/vim-illuminate",
+    enabled = false, -- Handled by snacks
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     opts = {
       large_file_cutoff = 2000, -- number of lines at which to use large_file_overrides
@@ -187,6 +189,7 @@ return {
   },
   {
     "dgagn/diagflow.nvim",
+    --TODO: Wait for fix: https://github.com/dgagn/diagflow.nvim/issues/55
     enabled = false,
     event = "LspAttach",
     opts = {},
@@ -201,28 +204,27 @@ return {
     -- A neovim plugin that helps managing crates.io dependencies
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    config = function() require("crates").setup() end,
+    tag = "stable",
+    config = function() require("crates").setup({}) end,
   },
   {
     "fredrikaverpil/pydoc.nvim",
     enabled = false,
     dependencies = {
-      -- { "nvim-telescope/telescope.nvim" },
+      { "folke/snacks.nvim" },
       {
         "nvim-treesitter/nvim-treesitter",
-        opts = {
-          ensure_installed = { "markdown" },
-        },
+        opts = { ensure_installed = { "markdown" } },
       },
     },
     cmd = { "PyDoc" },
-    opts = {},
-    keys = {
-      {
-        "<leader>sp",
-        function() require("pydoc").show_telescope_picker() end,
-        desc = "[S]earch [P]ydoc",
+    opts = {
+      picker = {
+        type = "snacks",
       },
+    },
+    keys = {
+      { "<leader>sp", "<cmd>PyDoc<cr>", desc = "[s]earch [p]ydoc" },
     },
   },
   {

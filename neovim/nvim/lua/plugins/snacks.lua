@@ -41,6 +41,10 @@ return {
           current = true,
         },
       },
+      words = {
+        enabled = true,
+        debounce = 100,
+      },
     },
     keys = {
       -- Search
@@ -49,7 +53,11 @@ return {
       { "<leader>sd", function() Snacks.picker.diagnostics_buffer() end, desc = "search buffer [d]iagnostics" },
       { "<leader>sb", function() Snacks.picker.lines() end, desc = "search [b]uffer lines" },
       { "<leader>sf", function() Snacks.picker.files({ hidden = true }) end, desc = "search [f]iles" },
-      { "<leader>sc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "search [c]onfig files" },
+      {
+        "<leader>sc",
+        function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
+        desc = "search [c]onfig files",
+      },
       { "<leader>sg", function() Snacks.picker.grep() end, desc = "[g]rep" },
       { "<leader>sG", function() Snacks.picker.grep_word() end, desc = "[G]rep word" },
       { "<leader>sh", function() Snacks.picker.help() end, desc = "search [h]elp" },
@@ -80,8 +88,11 @@ return {
         function() Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } }) end,
         desc = "Toggle [t]erminal",
       },
+      -- Words
+      { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+      { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
       -- Other
-      { "<leader>tn",  function() Snacks.notifier.show_history() end, desc = "[n]otification History" },
+      { "<leader>tn", function() Snacks.notifier.show_history() end, desc = "[n]otification History" },
     },
   },
 }

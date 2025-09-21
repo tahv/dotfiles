@@ -117,7 +117,7 @@ return {
       max_lines = 3,
     },
     keys = {
-      { "<leader>tc", ":TSContextToggle<CR>", desc = "[T]oggle [C]ontext" },
+      { "<leader>tc", ":TSContextToggle<CR>", desc = "[t]oggle [c]ontext" },
     },
   },
   {
