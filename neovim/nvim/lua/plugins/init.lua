@@ -112,6 +112,7 @@ return {
         -- ["<leader>u"] = { name = "+[U]i" },
         { "<leader>w", group = "[w]indow", icon = "" },
         { "<leader>g", group = "[g]it", icon = "" },
+        { "gs", desc = "[s]urround" },
         { "grn", desc = "re[n]ame symbol" },
         { "gra", desc = "code [a]ction", mode = { "n", "v" } },
       })

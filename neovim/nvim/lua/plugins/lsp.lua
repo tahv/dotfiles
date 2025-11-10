@@ -84,6 +84,7 @@ return {
       -- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
       formatters_by_ft = {
         lua = { "stylua" },
+        rust = { "rustfmt", lsp_format = "fallback" },
         toml = { "taplo" },
         yaml = {}, -- use yamlls lsp
         markdown = { "markdownlint-cli2" },
