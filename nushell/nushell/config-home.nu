@@ -34,3 +34,4 @@ export def update_all_formulae [] {
 }
 
 alias yrs = yabai --restart-service
+alias fg = job unfreeze
