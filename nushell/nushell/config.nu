@@ -6,6 +6,7 @@ $env.config.table.mode = "compact"
 # setup default vendor directory
 mkdir ($nu.data-dir | path join "vendor/autoload")
 
+# site-specific config
 source (
     if $nu.os-info.family == windows { 'config-ubisoft.nu' }
     else { 'config-home.nu' }
@@ -30,7 +31,9 @@ if not (which fnm | is-empty) {
     )
 }
 
-# source ../nu_scripts/custom-completions/git/git-completions.nu
+# completions
+source just-completions.nu
+source uv-completions.nu
 
 # commands
 alias vim = nvim
