@@ -30,6 +30,7 @@ return {
       },
       float = { padding = 3 },
       skip_confirm_for_simple_edits = true,
+      delete_to_trash = true,
       keymaps = {
         ["<C-s>"] = false,
         ["<C-h>"] = false,
