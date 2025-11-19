@@ -9,7 +9,7 @@
 	p = pull
 	pr = pull --rebase
 	s = status --short --branch
-    gone = "!git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads/ | rg '^(\\S+) \\[gone\\]$' -r '$1'"
+    gone = "!git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads/ | rg --color=never '^(\\S+) \\[gone\\]$' -r '$1'"
     # bclean = "!git gone | xargs -r git branch -D"
     # up = !git pull --rebase --prune $@ && git submodule update --init --recursive
 
