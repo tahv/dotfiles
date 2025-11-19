@@ -87,7 +87,7 @@ return {
         rust = { "rustfmt", lsp_format = "fallback" },
         toml = { "taplo" },
         yaml = {}, -- use yamlls lsp
-        markdown = { "markdownlint-cli2" },
+        markdown = { "markdownlint-cli2", "trim_whitespace" },
         python = { "ruff_organize_imports", "ruff_format", "trim_whitespace" },
       },
     },
