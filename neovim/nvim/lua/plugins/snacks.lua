@@ -11,6 +11,16 @@ return {
         notify = true,
       },
       quickfile = { enabled = true },
+      dashboard = {
+        enabled = true,
+        sections = {
+          -- { section = "header" },
+          { section = "keys", gap = 1 },
+          -- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
+          -- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
+          -- { section = "startup" },
+        },
+      },
       dim = {
         enabled = false,
         animate = { enabled = false },
@@ -35,6 +45,7 @@ return {
       input = { enabled = true },
       notifier = { enabled = true },
       picker = {
+        show_delay = 0, -- ms to wait before showing the picker while no results yet
         ui_select = true, -- replace `vim.ui.select` with the snacks picker
         main = {
           file = false,
