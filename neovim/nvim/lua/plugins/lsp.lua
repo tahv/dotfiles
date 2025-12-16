@@ -14,6 +14,7 @@ local ensure_installed = {
   -- "ty"
   "typos-lsp",
   "yaml-language-server",
+  "ltex-ls-plus",
 }
 
 ---Enable the following lsp packages.
@@ -30,6 +31,7 @@ local enabled = {
   "typos_lsp",
   "yamlls",
   "nushell",
+  "ltex_plus",
 }
 
 ---@type LazySpec[]
