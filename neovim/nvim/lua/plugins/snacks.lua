@@ -93,6 +93,7 @@ return {
       { "<leader>bd", function() Snacks.bufdelete.delete() end, desc = "buffer [d]elete" },
       { "<leader>bD", function() Snacks.bufdelete.delete({ force = true }) end, desc = "buffer [D]elete (force)" },
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazy[g]it" },
+      { "z=", function() Snacks.picker.spelling() end, desc = "Spelling suggestions" },
       -- Floating terminal
       {
         "<leader>tt",
