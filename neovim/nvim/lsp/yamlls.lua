@@ -5,6 +5,7 @@ return {
     yaml = {
       validate = true,
       keyOrdering = false,
+      customTags = { "!reference sequence" },
       format = { enable = true },
       schemaStore = { enable = false },
       schemas = {
