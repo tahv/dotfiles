@@ -1,6 +1,6 @@
 ---Automatically install the following Mason packages.
 local ensure_installed = {
-  "basedpyright",
+  -- "basedpyright",
   "dockerfile-language-server",
   -- "gopls",
   "json-lsp",
@@ -11,7 +11,7 @@ local ensure_installed = {
   "rust-analyzer",
   "stylua",
   "taplo",
-  -- "ty"
+  "ty",
   "typos-lsp",
   "yaml-language-server",
   "ltex-ls-plus",
@@ -19,7 +19,7 @@ local ensure_installed = {
 
 ---Enable the following lsp packages.
 local enabled = {
-  "basedpyright",
+  -- "basedpyright",
   "jsonls",
   "lua_ls",
   "powershell_es",
@@ -27,7 +27,7 @@ local enabled = {
   "ruff",
   "rust_analyzer",
   "taplo",
-  -- "ty"
+  "ty",
   "typos_lsp",
   "yamlls",
   "nushell",
@@ -90,7 +90,12 @@ return {
         toml = { "taplo" },
         yaml = {}, -- use yamlls lsp
         markdown = { "markdownlint-cli2", "trim_whitespace" },
-        python = { "ruff_organize_imports", "ruff_format", "trim_whitespace" },
+        python = {
+          -- "ruff_fix",
+          "ruff_format",
+          "ruff_organize_imports",
+          "trim_whitespace",
+        },
       },
     },
     keys = {

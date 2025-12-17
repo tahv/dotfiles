@@ -5,7 +5,8 @@ return {
 
   settings = {
     basedpyright = {
-      disableOrganizeImports = true, -- Using Ruff's import organizer
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
     },
   },
 }

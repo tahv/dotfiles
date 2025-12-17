@@ -108,4 +108,3 @@ return {
     },
   },
 }
--- TODO: lazygit
