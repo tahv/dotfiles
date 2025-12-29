@@ -50,7 +50,20 @@ return {
     enabled = true,
     lazy = false,
     priority = 1000,
-    opts = {},
+    ---@class tokyonight.Config
+    opts = {
+      ---@param hl tokyonight.Highlights
+      ---@param c ColorScheme
+      on_highlights = function(hl, c)
+        -- local util = require("tokyonight.util")
+        -- local del_bg = util.darken(c.git.delete, 0.5)
+        -- hl.GitSignsDeleteVirtLnInline = { bg = del_bg }
+      end,
+    },
+  },
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    enabled = false,
   },
   {
     "0xstepit/flow.nvim",
