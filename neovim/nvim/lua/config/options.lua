@@ -37,6 +37,8 @@ vim.o.undofile = true -- Save undo history
 vim.o.updatetime = 250 -- Faster completion, decrease update time.
 vim.o.timeoutlen = 300 -- Key timeout duration
 
+vim.o.fillchars = "diff:╱"
+
 vim.diagnostic.config({
   jump = { float = true },
   virtual_text = {
