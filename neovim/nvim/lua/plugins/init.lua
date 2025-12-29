@@ -1,16 +1,10 @@
 ---@type LazySpec[]
 return {
-  -- 'tpope/vim-fugitive',
-  -- 'tpope/vim-rhubarb',
-  "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
   {
-    -- Remove buffers
-    "echasnovski/mini.bufremove",
-    enabled = false,
-    version = "*",
-    keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "[b]uffer [d]elete" },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "[b]uffer [D]elete (force)" },
+    -- Automatic indentation style detection for Neovim
+    "nmac427/guess-indent.nvim",
+    opts = {
+      override_editorconfig = false, -- override settings set by .editorconfig
     },
   },
   {
@@ -46,19 +40,6 @@ return {
     },
   },
   {
-    -- Highlighting other uses of the word under cursor using LSP, Tree-sitter, or regex.
-    "RRethy/vim-illuminate",
-    enabled = false, -- Handled by snacks
-    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-    opts = {
-      large_file_cutoff = 2000, -- number of lines at which to use large_file_overrides
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts) require("illuminate").configure(opts) end,
-  },
-  {
     -- Smoothly navigate between neovim and terminal multiplexer(s)
     "numToStr/Navigator.nvim",
     config = function(_, opts) require("Navigator").setup(opts) end,
@@ -86,6 +67,7 @@ return {
   {
     -- Preview Markdown in browser with synchronised scrolling
     "iamcco/markdown-preview.nvim",
+    enabled = true,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     -- https://github.com/iamcco/markdown-preview.nvim/issues/690
@@ -119,25 +101,6 @@ return {
     end,
   },
   {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    enabled = false,
-    event = "VeryLazy", -- Or `LspAttach`
-    opts = {},
-  },
-  {
-    "dgagn/diagflow.nvim",
-    --TODO: Wait for fix: https://github.com/dgagn/diagflow.nvim/issues/55
-    enabled = false,
-    event = "LspAttach",
-    opts = {},
-  },
-  {
-    "m4xshen/hardtime.nvim",
-    enabled = false,
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
-  },
-  {
     -- A neovim plugin that helps managing crates.io dependencies
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
@@ -145,23 +108,13 @@ return {
     config = function() require("crates").setup({}) end,
   },
   {
-    "fredrikaverpil/pydoc.nvim",
-    enabled = false,
-    dependencies = {
-      { "folke/snacks.nvim" },
-      {
-        "nvim-treesitter/nvim-treesitter",
-        opts = { ensure_installed = { "markdown" } },
-      },
-    },
-    cmd = { "PyDoc" },
+    "MeanderingProgrammer/py-requirements.nvim",
+    event = { "BufRead pyproject.toml" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    -- config = function() require("py-requirements").setup({}) end,
     opts = {
-      picker = {
-        type = "snacks",
-      },
-    },
-    keys = {
-      { "<leader>sp", "<cmd>PyDoc<cr>", desc = "[s]earch [p]ydoc" },
+      index_url = "https://pypi.org/simple/",
+      extra_index_url = nil, -- Fallback endpoint in case 'index_url' fails to find a package
     },
   },
 }
