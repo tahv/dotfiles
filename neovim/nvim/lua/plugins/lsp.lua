@@ -27,7 +27,7 @@ local enabled = {
   "ruff",
   "rust_analyzer",
   "taplo",
-  "ty",
+  -- "ty",
   "typos_lsp",
   "yamlls",
   "nushell",
