@@ -79,8 +79,9 @@ return {
       { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "search git log [L]ine" },
       { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "search git log [f]ile" },
       { "<leader>gs", function() Snacks.picker.git_status() end, desc = "search [g]it [s]tatus" },
-      { "<leader>gb", function() Snacks.git.blame_line() end, desc = "[b]lame line" },
-      { "<leader>go", function() Snacks.gitbrowse.open() end, desc = "[o]pen git repo" },
+      { "<leader>gB", function() Snacks.git.blame_line() end, desc = "[b]lame line" },
+      { "<leader>go", function() Snacks.gitbrowse.open({ what = "repo" }) end, desc = "[o]pen git repo" },
+      { "<leader>gO", function() Snacks.gitbrowse.open({ what = "file" }) end, desc = "[O]pen git file" },
       -- LSP
       { "gd", function() Snacks.picker.lsp_definitions() end, desc = "goto [d]efinition" },
       { "gD", function() Snacks.picker.lsp_declarations() end, desc = "goto [D]eclaration" },
