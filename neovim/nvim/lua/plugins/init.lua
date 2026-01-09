@@ -109,6 +109,7 @@ return {
   },
   {
     "MeanderingProgrammer/py-requirements.nvim",
+    enabled = false,
     event = { "BufRead pyproject.toml" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     -- config = function() require("py-requirements").setup({}) end,

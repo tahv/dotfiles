@@ -4,9 +4,11 @@ local ensure_installed = {
   "dockerfile-language-server",
   -- "gopls",
   "json-lsp",
+  "just-lsp",
   "lua-language-server",
   "markdownlint-cli2",
   -- "pyright",
+  "roslyn", -- registry: github:crashdummyy/mason-registry
   "ruff",
   "rust-analyzer",
   "stylua",
@@ -21,6 +23,7 @@ local ensure_installed = {
 local enabled = {
   -- "basedpyright",
   "jsonls",
+  "just",
   "lua_ls",
   "powershell_es",
   -- "pyright",
@@ -40,7 +43,13 @@ return {
     -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
     "williamboman/mason.nvim",
     ---@type MasonSettings
-    opts = {},
+    opts = {
+      registries = {
+        "github:mason-org/mason-registry",
+        -- https://github.com/mason-org/mason-registry/pull/6330
+        "github:crashdummyy/mason-registry",
+      },
+    },
     config = function(_, opts)
       local utils = require("utils")
       require("mason").setup(opts)
@@ -184,6 +193,14 @@ return {
         "Comment.nvim",
         "venv-selector.nvim",
       },
+    },
+  },
+  {
+    "seblyng/roslyn.nvim",
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+      broad_search = true,
     },
   },
 }
