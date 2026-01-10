@@ -11,7 +11,7 @@ vim.o.completeopt = "menu,menuone,noselect" -- Completion options
 vim.o.tabstop = 4 -- Tab width
 vim.o.expandtab = true -- Use spaces instead of tabs
 vim.o.autoindent = true -- Copy indent from current line
-vim.o.smartindent = true -- Smart auto-indenting
+vim.o.smartindent = false -- Smart auto-indenting
 
 -- Search settings
 vim.o.ignorecase = true -- Case insensitive search
