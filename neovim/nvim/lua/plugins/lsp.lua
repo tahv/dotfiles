@@ -196,11 +196,19 @@ return {
     },
   },
   {
+    -- C# Roslyn LSP
     "seblyng/roslyn.nvim",
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
     opts = {
       broad_search = true,
     },
+  },
+  {
+    -- Adds LSP support for inline metadata python scripts
+    -- This plugin replaces the native lsp enable for ty.
+    "Jay-Madden/tylsp-pep723.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
 }
