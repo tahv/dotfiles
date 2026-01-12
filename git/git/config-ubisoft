@@ -10,7 +10,7 @@
 	signingkey = C:/Users/tgambier/.ssh/id_ed25519.pub
 
 [credential "https://gitlab-ncsa.ubisoft.org"]
-	provider = gitlab
+	provider = generic
 
 [http]
 	sslBackend = schannel
