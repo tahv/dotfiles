@@ -2,7 +2,6 @@
 ---@type vim.lsp.Config
 return {
   cmd = { "basedpyright-langserver", "--stdio", "--ignoreexternal" },
-
   settings = {
     basedpyright = {
       -- Using Ruff's import organizer

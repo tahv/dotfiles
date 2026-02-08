@@ -6,13 +6,13 @@ local ensure_installed = {
   "json-lsp",
   "just-lsp",
   "lua-language-server",
-  "markdownlint-cli2",
   -- "pyright",
   "roslyn", -- registry: github:crashdummyy/mason-registry
   "ruff",
+  "rumdl",
   "rust-analyzer",
   "stylua",
-  "taplo",
+  "tombi",
   "ty",
   "typos-lsp",
   "yaml-language-server",
@@ -28,14 +28,51 @@ local enabled = {
   "powershell_es",
   -- "pyright",
   "ruff",
+  "rumdl",
   "rust_analyzer",
-  "taplo",
+  "tombi",
   -- "ty",
   "typos_lsp",
   "yamlls",
   "nushell",
   "ltex_plus",
 }
+
+--- Format current buffer with `conform.nvim` & report progression with `fidget.nvim`.
+--- Adapted from: https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
+---@param opts? conform.FormatOpts
+local function conform_format_with_progress(opts)
+  local conform = require("conform")
+  local have_fidget, fidget_progress = pcall(require, "fidget.progress")
+
+  if not have_fidget then
+    conform.format(opts)
+    return
+  end
+
+  local formatters = conform.list_formatters()
+  local fmt_names = {}
+  if not vim.tbl_isempty(formatters) then
+    fmt_names = vim.tbl_map(function(f) return f.name end, formatters)
+  elseif (opts ~= nil) and (opts["lsp_fallback"] == true) then
+    fmt_names = { "lsp" }
+  else
+    return
+  end
+
+  local msg_handle = fidget_progress.handle.create({
+    title = string.format("fmt: %s", table.concat(fmt_names, ", ")),
+    lsp_client = { name = "conform.nvim" },
+    percentage = nil,
+  })
+
+  conform.format(opts, function(err)
+    msg_handle:finish()
+    if err then
+      vim.notify(err, vim.log.levels.WARN, { title = "formatting failed" })
+    end
+  end)
+end
 
 ---@type LazySpec[]
 return {
@@ -96,9 +133,9 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         rust = { "rustfmt", lsp_format = "fallback" },
-        toml = { "taplo" },
+        toml = { "tombi" },
         yaml = {}, -- use yamlls lsp
-        markdown = { "markdownlint-cli2", "trim_whitespace" },
+        markdown = { "rumdl" },
         python = {
           -- "ruff_fix",
           "ruff_format",
@@ -111,45 +148,12 @@ return {
       {
         "<leader>cf",
         function()
-          -- Format with progression, adapted from:
-          -- https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
-          local format_args = {
+          conform_format_with_progress({
             timeout_ms = 3000,
             async = true,
             quiet = false,
             lsp_fallback = true,
-          } --[[@as conform.FormatOpts]]
-
-          local conform = require("conform")
-          local have_fidget, fidget_progress = pcall(require, "fidget.progress")
-
-          if not have_fidget then
-            conform.format(format_args)
-            return
-          end
-
-          local formatters = conform.list_formatters()
-          local fmt_names = {}
-          if not vim.tbl_isempty(formatters) then
-            fmt_names = vim.tbl_map(function(f) return f.name end, formatters)
-          elseif format_args["lsp_fallback"] == true then
-            fmt_names = { "lsp" }
-          else
-            return
-          end
-
-          local msg_handle = fidget_progress.handle.create({
-            title = string.format("fmt: %s", table.concat(fmt_names, ", ")),
-            lsp_client = { name = "conform.nvim" },
-            percentage = nil,
           })
-
-          conform.format(format_args, function(err)
-            msg_handle:finish()
-            if err then
-              vim.notify(err, vim.log.levels.WARN, { title = "formatting failed" })
-            end
-          end)
         end,
         mode = { "n", "v" },
         desc = "[f]ormat code",
@@ -168,6 +172,7 @@ return {
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         group = vim.api.nvim_create_augroup("lint", { clear = true }),
+        -- TODO(tga): progression: https://github.com/mfussenegger/nvim-lint/issues/906
         callback = function() require("lint").try_lint() end,
       })
     end,
