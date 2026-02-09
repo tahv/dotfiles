@@ -24,6 +24,13 @@ return {
     opts = {},
   },
   {
+    "AlexvZyl/nordic.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    -- config = function() require("nordic").load() end,
+  },
+  {
     "rebelot/kanagawa.nvim",
     enabled = false,
   },
@@ -80,6 +87,12 @@ return {
   {
     "ramojus/mellifluous.nvim",
     enabled = false,
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "serhez/teide.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
