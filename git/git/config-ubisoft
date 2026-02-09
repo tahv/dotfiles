@@ -27,7 +27,7 @@
 	gpgsign = true
 
 [tag]
-	gpgsign = true
+	gpgsign = false
 
 [ubisoft]
 	clonedirectory = D:\\square
