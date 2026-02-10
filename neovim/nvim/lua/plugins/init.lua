@@ -30,16 +30,6 @@ return {
     },
   },
   {
-    -- Smart and powerful comment plugin for Neovim
-    "numToStr/Comment.nvim",
-    ---@type CommentConfig
-    opts = {},
-    keys = {
-      "gc", -- Linewise comment
-      "gb", -- Blockwise comment
-    },
-  },
-  {
     -- Smoothly navigate between neovim and terminal multiplexer(s)
     "numToStr/Navigator.nvim",
     config = function(_, opts) require("Navigator").setup(opts) end,
