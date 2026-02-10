@@ -25,6 +25,7 @@ return {
   },
   {
     "AlexvZyl/nordic.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {},
@@ -93,6 +94,7 @@ return {
   },
   {
     "serhez/teide.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {},
