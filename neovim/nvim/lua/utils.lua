@@ -1,5 +1,6 @@
 local M = {}
--- local iswin = vim.fn.has("win32") == 1
+
+function M.is_win() return vim.uv.os_uname().sysname:find("Windows") ~= nil end
 
 ---Returns path to the user subdirectory under the |standard-path| directory.
 ---Directory is automatically created if it doesn't exist.
@@ -53,9 +54,9 @@ end
 ---@param url string
 ---@param file string
 function M.download_file(url, file)
-  print("[tahv] " .. "Downloading " .. url)
+  M.info("Downloading " .. url)
   vim.fn.system({ "curl", "-Lo", file, url })
-  print("[tahv] " .. "Downloaded " .. url .. " to '" .. file .. "'")
+  M.info("Downloaded " .. url .. " to '" .. file .. "'")
 end
 
 ---@param path string
@@ -83,13 +84,45 @@ function M.extract_7z_archive(archive, outdir)
     vim.fn.mkdir(outdir, "p")
   end
 
-  print("[tahv] " .. "Extracting '" .. archive .. "'")
+  M.info("Extracting '" .. archive .. "'")
   os.execute(exe_7z .. " x " .. archive .. " -o" .. outdir)
-  print("[tahv] " .. "Extracted " .. archive .. " to '" .. outdir .. "'")
+  M.info("Extracted " .. archive .. " to '" .. outdir .. "'")
 end
 
 -- Setup python with uv and venv
 -- https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
 -- https://neovim.io/doc/user/provider.html
+
+---@param msg string|string[]
+---@param schedule? boolean Schedule the echo call.
+---@param level integer
+function M.notify(msg, level, schedule)
+  if schedule then
+    vim.schedule(function() M.notify(msg, level, false) end)
+    return
+  end
+
+  if type(msg) == "table" then
+    msg = table.concat(msg, "\n")
+  end
+
+  if msg == "" then
+    return
+  end
+
+  vim.notify(msg, level, { title = "tahv.config" })
+end
+
+---@param msg string|string[]
+---@param schedule? boolean Schedule the echo call.
+function M.info(msg, schedule) M.notify(msg, vim.log.levels.INFO, schedule) end
+
+---@param msg string|string[]
+---@param schedule? boolean Schedule the echo call.
+function M.warn(msg, schedule) M.notify(msg, vim.log.levels.WARN, schedule) end
+
+---@param msg string|string[]
+---@param schedule? boolean Schedule the echo call.
+function M.err(msg, schedule) M.notify(msg, vim.log.levels.ERROR, schedule) end
 
 return M
