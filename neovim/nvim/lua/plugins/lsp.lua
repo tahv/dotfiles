@@ -1,43 +1,3 @@
----Automatically install the following Mason packages.
-local ensure_installed = {
-  -- "basedpyright",
-  "dockerfile-language-server",
-  -- "gopls",
-  "json-lsp",
-  "just-lsp",
-  "lua-language-server",
-  -- "pyright",
-  "roslyn", -- registry: github:crashdummyy/mason-registry
-  "ruff",
-  "rumdl",
-  "rust-analyzer",
-  "stylua",
-  "tombi",
-  "ty",
-  "typos-lsp",
-  "yaml-language-server",
-  "ltex-ls-plus",
-}
-
----Enable the following lsp packages.
-local enabled = {
-  -- "basedpyright",
-  "jsonls",
-  "just",
-  "lua_ls",
-  "powershell_es",
-  -- "pyright",
-  "ruff",
-  "rumdl",
-  "rust_analyzer",
-  "tombi",
-  -- "ty",
-  "typos_lsp",
-  "yamlls",
-  "nushell",
-  "ltex_plus",
-}
-
 --- Format current buffer with `conform.nvim` & report progression with `fidget.nvim`.
 --- Adapted from: https://github.com/stevearc/conform.nvim/issues/250#issuecomment-1871929168
 ---@param opts? conform.FormatOpts
@@ -79,30 +39,70 @@ return {
   {
     -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
     "williamboman/mason.nvim",
-    ---@type MasonSettings
+    ---@class tahv.MasonSettings: MasonSettings
     opts = {
       registries = {
         "github:mason-org/mason-registry",
-        -- https://github.com/mason-org/mason-registry/pull/6330
-        "github:crashdummyy/mason-registry",
+        "github:crashdummyy/mason-registry", -- https://github.com/mason-org/mason-registry/pull/6330
+      },
+      ensure_installed = { ---@type string[] Automatically install the following Mason packages
+        -- "basedpyright",
+        "dockerfile-language-server",
+        -- "gopls",
+        "json-lsp",
+        "just-lsp",
+        "lua-language-server",
+        -- "pyright",
+        "roslyn", -- registry: github:crashdummyy/mason-registry
+        "ruff",
+        "rumdl",
+        "rust-analyzer",
+        "stylua",
+        "tombi",
+        "tree-sitter-cli", -- required by `nvim-treesitter`
+        "ty",
+        "typos-lsp",
+        "yaml-language-server",
+        "ltex-ls-plus",
+      },
+      enabled = { ---@type string[] Enable the following lsp packages
+        -- "basedpyright",
+        "jsonls",
+        "just",
+        "lua_ls",
+        "powershell_es",
+        -- "pyright",
+        "ruff",
+        "rumdl",
+        "rust_analyzer",
+        "tombi",
+        -- "ty",
+        "typos_lsp",
+        "yamlls",
+        "nushell",
+        "ltex_plus",
       },
     },
+    ---@param opts tahv.MasonSettings
     config = function(_, opts)
-      local utils = require("utils")
       require("mason").setup(opts)
-      -- Ensure installed
+      local utils = require("utils")
+
+      -- Install missing
       local installed = require("mason-registry").get_installed_package_names()
-      local missing = utils.difference(ensure_installed, installed)
+      local missing = utils.difference(opts.ensure_installed, installed)
       if next(missing) ~= nil then
         vim.cmd("MasonInstall " .. table.concat(missing, " "))
       end
+
       -- Remove unused
-      local remove = utils.difference(installed, ensure_installed)
+      local remove = utils.difference(installed, opts.ensure_installed)
       if next(remove) ~= nil then
         vim.cmd("MasonUninstall " .. table.concat(remove, " "))
       end
+
       -- Enable lsp
-      vim.lsp.enable(enabled)
+      vim.lsp.enable(opts.enabled)
     end,
   },
   {
