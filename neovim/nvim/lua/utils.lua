@@ -51,6 +51,21 @@ function M.difference(a, b)
   return ret
 end
 
+---Remove the first item from the list whose value is equal to `value`.
+---@param t table
+---@param value any Value to remove
+---@return boolean `true` if `value` was found in `t` and removed, `false` otherwise.
+function M.tbl_remove(t, value)
+  vim.validate("t", t, "table")
+  for pos, v in pairs(t) do
+    if v == value then
+      table.remove(t, pos)
+      return true
+    end
+  end
+  return false
+end
+
 ---@param url string
 ---@param file string
 function M.download_file(url, file)

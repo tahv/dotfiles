@@ -34,6 +34,46 @@ local function conform_format_with_progress(opts)
   end)
 end
 
+---Adds LSP support for PEP 723 inline metadata scripts via `ty` lsp.
+---Issue: https://github.com/astral-sh/ty/issues/691
+---Inspired by: https://github.com/Jay-Madden/tylsp-pep723.nvim
+local function setup_ty_autocmd()
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function(_)
+      local utils = require("utils")
+
+      if vim.lsp.is_enabled("ty") then
+        utils.err("'ty' LSP is already globally enabled")
+        return
+      end
+
+      local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
+      local has_inline_metadata = first_line:match("^# /// script") ~= nil
+
+      if not has_inline_metadata then
+        local config = vim.lsp.config["ty"]
+        if config ~= nil then
+          vim.lsp.start(config)
+        end
+        return
+      end
+
+      local filepath = vim.fn.expand("%:p")
+      local filename = vim.fn.fnamemodify(filepath, ":t")
+      local relpath = vim.fn.fnamemodify(filepath, ":.")
+      local config = vim.deepcopy(vim.lsp.config["ty"] or {}) ---@type table
+      config = vim.tbl_extend("force", config, {
+        name = "ty-" .. filename,
+        cmd = { "uvx", "--with-requirements", relpath, "ty", "server" },
+        root_dir = vim.fn.fnamemodify(filepath, ":h"),
+      })
+      utils.info("Starting " .. config["name"])
+      vim.lsp.start(config)
+    end,
+  })
+end
+
 ---@type LazySpec[]
 return {
   {
@@ -45,7 +85,7 @@ return {
         "github:mason-org/mason-registry",
         "github:crashdummyy/mason-registry", -- https://github.com/mason-org/mason-registry/pull/6330
       },
-      ensure_installed = { ---@type string[] Automatically install the following Mason packages
+      ensure_installed = { ---@type string[] automatically install the following packages
         -- "basedpyright",
         "dockerfile-language-server",
         -- "gopls",
@@ -76,7 +116,7 @@ return {
         "rumdl",
         "rust_analyzer",
         "tombi",
-        -- "ty",
+        "ty",
         "typos_lsp",
         "yamlls",
         "nushell",
@@ -101,20 +141,22 @@ return {
         vim.cmd("MasonUninstall " .. table.concat(remove, " "))
       end
 
+      -- Enable ty with support for inline metadata
+      if utils.tbl_remove(opts.enabled, "ty") then
+        setup_ty_autocmd()
+      end
+
       -- Enable lsp
       vim.lsp.enable(opts.enabled)
     end,
   },
   {
     -- Default LSP client configurations.
-    -- No need to load the plugin, adding the plugin directory to runtimepath
-    -- is enough to load `lsp/` configs.
+    -- No need to load the plugin,
+    -- adding the plugin directory to runtimepath is enough to load `lsp/` configs.
     "neovim/nvim-lspconfig",
     lazy = true,
-    init = function()
-      local lazy_config = require("lazy.core.config")
-      vim.opt.runtimepath:prepend(lazy_config.options.root .. "/nvim-lspconfig")
-    end,
+    init = function() vim.opt.runtimepath:prepend(require("lazy.core.config").options.root .. "/nvim-lspconfig") end,
   },
   {
     -- Display LSP progress messages in the bottom right corner.
@@ -136,24 +178,14 @@ return {
         toml = { "tombi" },
         yaml = {}, -- use yamlls lsp
         markdown = { "rumdl" },
-        python = {
-          -- "ruff_fix",
-          "ruff_format",
-          "ruff_organize_imports",
-          "trim_whitespace",
-        },
+        python = { "ruff_format", "ruff_organize_imports", "trim_whitespace" },
       },
     },
     keys = {
       {
         "<leader>cf",
         function()
-          conform_format_with_progress({
-            timeout_ms = 3000,
-            async = true,
-            quiet = false,
-            lsp_fallback = true,
-          })
+          conform_format_with_progress({ timeout_ms = 3000, async = true, quiet = false, lsp_fallback = true })
         end,
         mode = { "n", "v" },
         desc = "[f]ormat code",
@@ -164,9 +196,7 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local lint = require("lint")
-
-      lint.linters_by_ft = {
+      require("lint").linters_by_ft = {
         python = { "mypy" },
       }
 
@@ -186,17 +216,13 @@ return {
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        "lazy.nvim",
+        { path = "lazy.nvim", words = { "LazyVim" } },
+        { path = "snacks.nvim", words = { "Snacks" } },
         "mason.nvim",
         "tokyonight.nvim",
         "gitsigns.nvim",
-        "snacks.nvim",
         "lazydev.nvim",
         "nvim-treesitter-context",
-        "neogit",
-        "indent-blankline.nvim",
-        "Comment.nvim",
-        "venv-selector.nvim",
       },
     },
   },
@@ -208,12 +234,5 @@ return {
     opts = {
       broad_search = true,
     },
-  },
-  {
-    -- Adds LSP support for inline metadata python scripts
-    -- This plugin replaces the native lsp enable for ty.
-    "Jay-Madden/tylsp-pep723.nvim",
-    event = "VeryLazy",
-    opts = {},
   },
 }
