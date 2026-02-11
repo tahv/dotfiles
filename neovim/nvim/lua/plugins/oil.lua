@@ -45,9 +45,9 @@ return {
     },
   },
   -- https://github.com/benomahony/oil-git.nvim/issues/13
-  -- {
-  --   "benomahony/oil-git.nvim",
-  --   lazy = false,
-  --   dependencies = { "stevearc/oil.nvim" },
-  -- },
+  {
+    "malewicz1337/oil-git.nvim",
+    lazy = false,
+    dependencies = { "stevearc/oil.nvim" },
+  },
 }
