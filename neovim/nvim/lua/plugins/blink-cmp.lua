@@ -9,14 +9,16 @@ return {
     ---@type blink.cmp.Config
     opts = {
       keymap = {
+        preset = "none", -- set to 'none' to disable the 'default' preset
         -- TODO: snippets
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide", "fallback" },
         ["<Tab>"] = { "select_next", "fallback" },
         ["<S-Tab>"] = { "select_prev", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
-        ["<C-e>"] = { "hide", "fallback" },
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-b>"] = { "scroll_documentation_up", "fallback" },
         ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
       },
       completion = {
         list = { selection = { preselect = false, auto_insert = true } },
@@ -33,7 +35,10 @@ return {
         default = { "lsp", "path", "snippets", "buffer" },
       },
       cmdline = { enabled = false },
-      signature = { enabled = false }, -- Handled by vim.lsp
+      signature = {
+        enabled = true,
+        window = { border = "single" },
+      },
     },
   },
 }

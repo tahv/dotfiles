@@ -110,13 +110,9 @@ vim.keymap.set("n", "grR", function()
   vim.cmd("edit")
 end, { desc = "[R]estart LSP" })
 
--- map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
--- map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
 map("n", "grc", "<cmd>checkhealth vim.lsp<cr><esc>", { desc = "[c]heck health lsp" })
 map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "Hover Documentation" })
-map("n", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })
-map("i", "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "signature help" })
-vim.keymap.del("n", "gO") -- Disable default keymap of 'vim.lsp.buf.document_symbol'
+-- map({ "n", "i" }, "<C-s>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end, { desc = "[s]ignature help" })
 
 map("n", "<leader>th", function()
   local toggle = not vim.lsp.inlay_hint.is_enabled()

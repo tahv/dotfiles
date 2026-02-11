@@ -86,8 +86,14 @@ return {
         { "<leader>w", group = "[w]indow", icon = "" },
         { "<leader>g", group = "[g]it", icon = "" },
         { "gs", desc = "[s]urround" },
-        { "grn", desc = "re[n]ame symbol" },
-        { "gra", desc = "code [a]ction", mode = { "n", "v" } },
+        -- default LSP keymaps
+        { "grn", desc = "LSP re[n]ame", mode = "n" },
+        { "gra", desc = "LSP code [a]ction", mode = { "n", "x" } },
+        { "grr", desc = "LSP [r]eferences", mode = "n" },
+        { "gri", desc = "LSP [i]implementation", mode = "n" },
+        { "grt", desc = "LSP [t]ype definition", mode = "n" },
+        { "gO", desc = "LSP document symb[O]ls", mode = "n" },
+        { "<C-S>", desc = "[s]ignature help", mode = { "i", "s" } },
       })
     end,
   },
