@@ -32,7 +32,8 @@ return {
   {
     -- Smoothly navigate between neovim and terminal multiplexer(s)
     "numToStr/Navigator.nvim",
-    config = function(_, opts) require("Navigator").setup(opts) end,
+    enabled = false,
+    opts = {},
     keys = {
       -- Navigate windows using <ctrl> hjkl keys
       { "<C-h>", "<CMD>NavigatorLeft<CR>", desc = "Go to left window" },
@@ -95,14 +96,13 @@ return {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     tag = "stable",
-    config = function() require("crates").setup({}) end,
+    opts = {},
   },
   {
     "MeanderingProgrammer/py-requirements.nvim",
     enabled = false,
     event = { "BufRead pyproject.toml" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    -- config = function() require("py-requirements").setup({}) end,
     opts = {
       index_url = "https://pypi.org/simple/",
       extra_index_url = nil, -- Fallback endpoint in case 'index_url' fails to find a package

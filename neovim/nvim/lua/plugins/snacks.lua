@@ -87,9 +87,9 @@ return {
       { "gD", function() Snacks.picker.lsp_declarations() end, desc = "goto [D]eclaration" },
       { "grr", function() Snacks.picker.lsp_references() end, desc = "goto [r]eferences" },
       { "gri", function() Snacks.picker.lsp_implementations() end, desc = "goto [i]mplementation" },
-      -- { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "goto t[y]pe definition" },
       { "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "goto t[y]pe definition" },
-      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "search buffer [s]ymbols" },
+      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "search document [s]ymbols" },
+      { "gO", function() Snacks.picker.lsp_symbols() end, desc = "search document symb[O]ls" },
       { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "search workspace [S]ymbols" },
       -- Other
       { "<leader>bd", function() Snacks.bufdelete.delete() end, desc = "buffer [d]elete" },
