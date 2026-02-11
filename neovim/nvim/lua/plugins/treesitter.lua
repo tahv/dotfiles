@@ -168,6 +168,7 @@ return {
         "python",
         "regex",
         "requirements",
+        "rst",
         "rust",
         "toml",
         "vim",
