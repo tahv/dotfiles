@@ -45,14 +45,20 @@ return {
   {
     -- Improve viewing Markdown files
     "MeanderingProgrammer/render-markdown.nvim",
-    enabled = false,
-    opts = {},
+    enabled = true,
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      enabled = false,
+      render_modes = { "n", "c", "t" },
+      -- completions = { lsp = { enabled = true } },
+    },
     dependencies = {
       "nvimq-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "[T]oggle render [M]arkdown" },
+      { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "toggle render [m]arkdown" },
     },
   },
   {
