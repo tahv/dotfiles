@@ -46,6 +46,7 @@ return {
     -- Improve viewing Markdown files
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = true,
+    lazy = true,
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
@@ -62,9 +63,23 @@ return {
     },
   },
   {
+    -- Preview Markdown, HTML, AsciiDoc, SVG files in a web browser with live updates.
+    "brianhuster/live-preview.nvim",
+    lazy = true,
+    cmd = { "LivePreview" },
+    opts = {
+      address = "127.0.0.1",
+      port = 5500,
+    },
+    keys = {
+      { "<leader>tp", ":LivePreview start<CR>", desc = "live [p]review current file" },
+      { "<leader>tP", ":LivePreview pick<CR>", desc = "select and live [p]review file" },
+    },
+  },
+  {
     -- Preview Markdown in browser with synchronised scrolling
     "iamcco/markdown-preview.nvim",
-    enabled = true,
+    enabled = false,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     -- https://github.com/iamcco/markdown-preview.nvim/issues/690
