@@ -44,8 +44,8 @@ return {
       { "<leader>E", function() require("oil.actions").open_cwd.callback() end, desc = "[E]xplorer (root)" },
     },
   },
-  -- https://github.com/benomahony/oil-git.nvim/issues/13
   {
+    -- Async Git status integration for oil.nvim
     "malewicz1337/oil-git.nvim",
     lazy = false,
     dependencies = { "stevearc/oil.nvim" },
