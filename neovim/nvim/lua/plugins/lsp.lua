@@ -216,9 +216,10 @@ return {
     opts = {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        { path = "lazy.nvim", words = { "LazyVim" } },
+        { path = "lazy.nvim", words = { "Lazy" } },
         { path = "snacks.nvim", words = { "Snacks" } },
         "mason.nvim",
+        "render-markdown.nvim",
         "tokyonight.nvim",
         "gitsigns.nvim",
         "lazydev.nvim",
