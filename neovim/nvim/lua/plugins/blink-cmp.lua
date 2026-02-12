@@ -37,7 +37,7 @@ return {
       cmdline = { enabled = false },
       signature = {
         enabled = true,
-        window = { border = "single" },
+        window = { border = "rounded" },
       },
     },
   },
