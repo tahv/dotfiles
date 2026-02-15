@@ -65,6 +65,7 @@ return {
         function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
         desc = "search [c]onfig files",
       },
+      { "<leader>sC", function() Snacks.picker.colorschemes() end, desc = "select [c]olorschemes" },
       { "<leader>sg", function() Snacks.picker.grep() end, desc = "[g]rep" },
       { "<leader>sG", function() Snacks.picker.grep_word() end, desc = "[G]rep word" },
       { "<leader>sh", function() Snacks.picker.help() end, desc = "search [h]elp" },
