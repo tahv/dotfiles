@@ -45,13 +45,14 @@ return {
   {
     -- Improve viewing Markdown files
     "MeanderingProgrammer/render-markdown.nvim",
-    enabled = true,
+    enabled = false,
     lazy = true,
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
     opts = {
       enabled = false,
       render_modes = { "n", "c", "t" },
+      nested = false,
       -- completions = { lsp = { enabled = true } },
     },
     dependencies = {
