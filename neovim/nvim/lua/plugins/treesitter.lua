@@ -198,6 +198,7 @@ return {
         treesitter.uninstall(remove)
       end
 
+      -- TODO(tga): install automatically: https://aliou.me/posts/upgrading-nvim-treesitter/
       -- enable features per-file
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("treesitter-features", { clear = true }),
@@ -206,18 +207,19 @@ return {
           if vim.treesitter.language.get_lang(args.match) == nil then
             return
           end
-          -- highlighting
+          -- syntax highlighting
           if opts.highlight.enable ~= false then
             pcall(vim.treesitter.start, args.buf)
           end
-          -- indents
+          -- indentation
           if opts.indent.enable ~= false then
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
           end
           -- folds
           if opts.folds.enable ~= false then
-            vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            vim.wo[0][0].foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.wo[0][0].foldmethod = "expr"
           end
         end,
       })
@@ -231,7 +233,8 @@ return {
     ---@type TSContext.UserConfig
     opts = {
       mode = "cursor",
-      max_lines = 3,
+      max_lines = 5,
+      multiline_threshold = 1, -- line per context
     },
     keys = {
       { "<leader>tc", ":TSContext toggle<CR>", desc = "[t]oggle code [c]ontext" },
