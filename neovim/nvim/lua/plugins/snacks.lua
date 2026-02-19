@@ -56,6 +56,11 @@ return {
     keys = {
       -- Search
       { "<leader><space>", function() Snacks.picker.buffers() end, desc = "[ ] search buffers" },
+      {
+        "<leader>sm",
+        function() Snacks.picker.buffers({ modified = true }) end,
+        desc = "search [m]odified buffers",
+      },
       { "<leader>sD", function() Snacks.picker.diagnostics() end, desc = "search [D]iagnostics" },
       { "<leader>sd", function() Snacks.picker.diagnostics_buffer() end, desc = "search buffer [d]iagnostics" },
       { "<leader>sb", function() Snacks.picker.lines() end, desc = "search [b]uffer lines" },

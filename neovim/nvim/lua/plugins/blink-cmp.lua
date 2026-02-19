@@ -27,6 +27,9 @@ return {
           auto_show = true,
           auto_show_delay_ms = 500,
         },
+        menu = {
+          border = "rounded",
+        },
         -- Disable auto brackets
         -- NOTE: some LSPs may add auto brackets themselves anyway
         accept = { auto_brackets = { enabled = false } },
