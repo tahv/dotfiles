@@ -3,6 +3,7 @@ return {
   {
     -- Automatic indentation style detection for Neovim
     "nmac427/guess-indent.nvim",
+    enabled = false,
     opts = {
       override_editorconfig = false, -- override settings set by .editorconfig
     },
@@ -41,50 +42,6 @@ return {
       { "<C-k>", "<CMD>NavigatorUp<CR>", desc = "Go to upper window" },
       { "<C-l>", "<CMD>NavigatorRight<CR>", desc = "Go to right window" },
     },
-  },
-  {
-    -- Improve viewing Markdown files
-    "MeanderingProgrammer/render-markdown.nvim",
-    enabled = false,
-    lazy = true,
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {
-      enabled = false,
-      render_modes = { "n", "c", "t" },
-      nested = false,
-      -- completions = { lsp = { enabled = true } },
-    },
-    dependencies = {
-      "nvimq-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    keys = {
-      { "<leader>tm", ":RenderMarkdown toggle<CR>", desc = "toggle render [m]arkdown" },
-    },
-  },
-  {
-    -- Preview Markdown, HTML, AsciiDoc, SVG files in a web browser with live updates.
-    "brianhuster/live-preview.nvim",
-    lazy = true,
-    cmd = { "LivePreview" },
-    opts = {
-      address = "127.0.0.1",
-      port = 5500,
-    },
-    keys = {
-      { "<leader>tp", ":LivePreview start<CR>", desc = "live [p]review current file" },
-      { "<leader>tP", ":LivePreview pick<CR>", desc = "select and live [p]review file" },
-    },
-  },
-  {
-    -- Preview Markdown in browser with synchronised scrolling
-    "iamcco/markdown-preview.nvim",
-    enabled = false,
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    -- https://github.com/iamcco/markdown-preview.nvim/issues/690
-    build = ":call mkdp#util#install()",
   },
   {
     -- Displays a popup with possible keybindings of the command you started typing.

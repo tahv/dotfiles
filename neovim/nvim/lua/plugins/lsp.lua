@@ -217,6 +217,7 @@ return {
       library = {
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         { path = "lazy.nvim", words = { "Lazy" } },
+        { path = "markview.nvim", words = { "markview" } },
         { path = "snacks.nvim", words = { "Snacks" } },
         "mason.nvim",
         "render-markdown.nvim",
