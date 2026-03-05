@@ -3,7 +3,6 @@
 Personal dotfiles and install instructions.
 
 <!-- TODO: nushell -->
-<!-- TODO: clink -->
 <!-- TODO: starship -->
 <!-- TODO: tmux -->
 <!-- TODO: windows-terminal -->
@@ -46,6 +45,27 @@ rm -rf ~/.config/alacritty
 ```bat
 winget uninstall --exact --id Alacritty.Alacritty
 rd /q /s "%APPDATA%\alacritty"
+```
+
+## [clink](https://chrisant996.github.io/clink)
+
+### Installation: Windows
+
+> [!WARNING]
+> `mklink` requires **admin** privileges.
+
+```bat
+winget install --exact --id chrisant996.Clink
+clink installscripts "%cd%\clink\scripts"
+mklink "%LOCALAPPDATA%\clink\clink_settings" "%cd%\clink\clink_settings"
+```
+
+### Uninstallation: Windows
+
+```bat
+winget uninstall --exact --id chrisant996.Clink
+clink uninstallscripts "%cd%\clink\scripts"
+rd /q /s "%LOCALAPPDATA%\clink" 2>nul
 ```
 
 ## git
