@@ -56,8 +56,8 @@ rd /q /s "%APPDATA%\alacritty"
 
 ```bat
 winget install --exact --id chrisant996.Clink
-clink installscripts "%cd%\clink\scripts"
 mklink "%LOCALAPPDATA%\clink\clink_settings" "%cd%\clink\clink_settings"
+clink installscripts "%cd%\clink\scripts"
 ```
 
 ### Uninstallation: Windows
