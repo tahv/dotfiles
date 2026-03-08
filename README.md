@@ -6,7 +6,6 @@ Personal dotfiles and install instructions.
 <!-- TODO: starship -->
 <!-- TODO: tmux -->
 <!-- TODO: windows-terminal -->
-<!-- TODO: yabai -->
 
 ## [alacritty](github.com/alacritty/alacritty)
 
@@ -210,3 +209,22 @@ Manually remove the fonts in **Font settings**.
 del /q /f /s /a %LOCALAPPDATA%\Microsoft\Windows\Fonts\FiraCodeNerdFontMono*.ttf
 ```
 -->
+
+## [yabai](https://github.com/koekeishiya/yabai)
+
+### Installation: macOS
+
+<!-- TODO: move ./yabai/yabai -> ./yabai -->
+
+```bash
+brew install asmvik/formulae/yabai jq
+ln -s $(pwd)/yabai/yabai ~/.config/yabai
+yabai --restart-service
+```
+
+### Uninstallation: macOS
+
+```bash
+brew uninstall asmvik/formulae/yabai
+rm -rf ~/.config/yabai
+```
