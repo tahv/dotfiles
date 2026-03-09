@@ -3,7 +3,7 @@ return {
   {
     -- Automatic indentation style detection for Neovim
     "nmac427/guess-indent.nvim",
-    enabled = false,
+    enabled = true,
     opts = {
       override_editorconfig = false, -- override settings set by .editorconfig
     },
