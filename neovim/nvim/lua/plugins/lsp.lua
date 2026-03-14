@@ -86,13 +86,11 @@ return {
         "github:crashdummyy/mason-registry", -- https://github.com/mason-org/mason-registry/pull/6330
       },
       ensure_installed = { ---@type string[] automatically install the following packages
-        -- "basedpyright",
         "dockerfile-language-server",
-        -- "gopls",
         "json-lsp",
         "just-lsp",
         "lua-language-server",
-        -- "pyright",
+        "mpls",
         "roslyn", -- registry: github:crashdummyy/mason-registry
         "ruff",
         "rumdl",
@@ -106,12 +104,10 @@ return {
         "ltex-ls-plus",
       },
       enabled = { ---@type string[] Enable the following lsp packages
-        -- "basedpyright",
         "jsonls",
         "just",
         "lua_ls",
         "powershell_es",
-        -- "pyright",
         "ruff",
         "rumdl",
         "rust_analyzer",
@@ -119,6 +115,7 @@ return {
         "ty",
         "typos_lsp",
         "yamlls",
+        "mpls",
         "nushell",
         "ltex_plus",
       },
