@@ -75,6 +75,13 @@ end, { desc = "Resize window right" })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>td", function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.disable()
+  else
+    vim.diagnostic.enable()
+  end
+end, { desc = "Toggle [d]iagnostics" })
 
 -- Center buffer when moving
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move half screen up" })
