@@ -101,7 +101,7 @@ return {
       -- Floating terminal
       {
         "<leader>tt",
-        function() Snacks.terminal.toggle(nil, { win = { position = "float", border = "rounded" } }) end,
+        function() Snacks.terminal(nil, { win = { position = "float", border = "rounded" } }) end,
         desc = "Toggle [t]erminal",
       },
       -- Words
