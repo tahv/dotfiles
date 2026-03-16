@@ -175,7 +175,8 @@ return {
         toml = { "tombi" },
         yaml = {}, -- use yamlls lsp
         markdown = { "rumdl" },
-        python = { "ruff_format", "ruff_organize_imports", "trim_whitespace" },
+        python = { "ruff_organize_imports", "ruff_format" },
+        ["_"] = { "trim_newlines", "trim_whitespace" },
       },
     },
     keys = {
