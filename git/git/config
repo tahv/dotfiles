@@ -17,7 +17,7 @@
 
 [user]
 	name = Thibaud Gambier
-	email = thibaud.gambier@gmail.com
+	email = account+git@tgambier.fr
 
 [push]
 	autoSetupRemote = true
@@ -41,6 +41,12 @@
     meta = yellow bold
     new = green bold
     old = red bold
+
+[includeIf "hasconfig:remote.*.url:https://gitlab.com/**"]
+    path = config-gitlab
+
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:*/**"]
+    path = config-gitlab
 
 [includeIf "hasconfig:remote.*.url:https://gitlab-ncsa.ubisoft.org/**"]
     path = config-ubisoft
