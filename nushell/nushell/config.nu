@@ -33,7 +33,6 @@ if not (which fnm | is-empty) {
 
 # completions
 source just-completions.nu
-# source uv-completions.nu
 
 # commands
 alias vim = nvim
