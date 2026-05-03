@@ -7,7 +7,7 @@ Personal dotfiles and install instructions.
 <!-- TODO: tmux -->
 <!-- TODO: windows-terminal -->
 
-## [alacritty](github.com/alacritty/alacritty)
+## [alacritty](https://github.com/alacritty/alacritty)
 
 ### Installation: macOS
 
