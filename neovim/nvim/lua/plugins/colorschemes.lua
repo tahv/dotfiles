@@ -106,4 +106,26 @@ return {
     priority = 1000,
     opts = {},
   },
+  {
+    "https://codeberg.org/evergarden/nvim.git",
+    name = "evergarden",
+    priority = 1000,
+    opts = {
+      theme = {
+        variant = "winter",
+        -- accent = "green",
+      },
+      editor = {
+        transparent_background = false,
+        sign = { color = "none" },
+        float = {
+          color = "mantle",
+          solid_border = false,
+        },
+        completion = {
+          color = "surface0",
+        },
+      },
+    },
+  },
 }
