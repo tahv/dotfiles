@@ -175,7 +175,7 @@ return {
         lua = { "stylua" },
         rust = { "rustfmt", lsp_format = "fallback" },
         toml = { "tombi" },
-        yaml = { lsp_format = "first" },
+        yaml = { lsp_format = "first", "trim_newlines", "trim_whitespace"  },
         markdown = { "rumdl", "trim_newlines", "trim_whitespace" },
         python = { "ruff_organize_imports", "ruff_format" },
         json = { lsp_format = "first" },
