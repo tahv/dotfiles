@@ -38,6 +38,23 @@ local function setup_ty_autocmd()
   })
 end
 
+local function select_python_lsp()
+  local py_clients = { "pyrefly", "ty", "zuban" }
+  vim.ui.select(py_clients, {
+    prompt = "Select LSP client",
+  }, function(choice)
+    if choice == nil then
+      return
+    end
+    vim.lsp.enable(py_clients, false)
+    require("utils").info("Disabled LSP: " .. table.concat(py_clients, ", "))
+    vim.lsp.enable(choice)
+    require("utils").info("Enabled LSP: " .. choice)
+  end)
+end
+
+vim.api.nvim_create_user_command("SelectPyLsp", select_python_lsp, {})
+
 ---@type LazySpec[]
 return {
   {
@@ -63,27 +80,29 @@ return {
         "stylua",
         "tombi",
         "tree-sitter-cli", -- required by `nvim-treesitter`
-        -- "ty",
+        "ty",
         "typos-lsp",
         "yaml-language-server",
         "ltex-ls-plus",
+        "zuban",
       },
       enabled = { ---@type string[] Enable the following lsp packages
         "jsonls",
         "just",
         "lua_ls",
         "powershell_es",
-        "pyrefly",
+        -- "pyrefly",
         "ruff",
         "rumdl",
         "rust_analyzer",
         "tombi",
-        -- "ty",
+        "ty",
         "typos_lsp",
         "yamlls",
         "mpls",
         "nushell",
         "ltex_plus",
+        -- "zuban",
       },
     },
     ---@param opts tahv.MasonSettings
@@ -104,10 +123,10 @@ return {
         vim.cmd("MasonUninstall " .. table.concat(remove, " "))
       end
 
-      -- Enable ty with support for inline metadata
-      if utils.tbl_remove(opts.enabled, "ty") then
-        setup_ty_autocmd()
-      end
+      -- -- Enable ty with support for inline metadata
+      -- if utils.tbl_remove(opts.enabled, "ty") then
+      --   setup_ty_autocmd()
+      -- end
 
       -- Enable lsp
       vim.lsp.enable(opts.enabled)
