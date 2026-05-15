@@ -55,6 +55,14 @@ return {
         json = { lsp_format = "first" },
         ["_"] = { "trim_newlines", "trim_whitespace" },
       },
+      formatters = {
+        rustfmt = {
+          options = {
+            default_edition = "2024",
+            nightly = true,
+          },
+        },
+      },
     },
     keys = {
       {
