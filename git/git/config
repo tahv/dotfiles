@@ -2,6 +2,7 @@
 	adog = log --all --decorate --oneline --graph
 	b = branch --show-current
 	cl = log --pretty='- %s'
+	cliff = !git-cliff
 	cp = cherry-pick
 	wt = worktree
 	f = fetch
