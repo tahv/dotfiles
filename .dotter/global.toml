@@ -1,0 +1,78 @@
+[settings]
+default_target_type = "symbolic"
+
+# macOS ------------------------------------------------------------------------
+
+[macos.files."alacritty.toml"]
+target = "~/.config/alacritty/alacritty.toml"
+type = "symbolic"
+
+[macos.files.git]
+target = "~/.config/git"
+type = "symbolic"
+recurse = false
+
+[macos.files."config.ghostty"]
+target = "~/.config/ghostty/config.ghostty"
+type = "symbolic"
+
+[macos.files.nvim]
+target = "~/.config/nvim"
+type = "symbolic"
+recurse = false
+
+[macos.files.nushell]
+target = "~/Library/Application Support/nushell"
+type = "symbolic"
+recurse = false
+
+[macos.files."starship.toml"]
+target = "~/.config/starship.toml"
+type = "symbolic"
+
+[macos.files.".tmux.conf"]
+target = "~/.tmux.conf"
+type = "symbolic"
+
+[macos.files."yabai"]
+target = "~/.config/yabai"
+type = "symbolic"
+recurse = false
+
+# Windows ----------------------------------------------------------------------
+
+[windows.files."alacritty.toml"]
+target = "~/AppData/Roaming/alacritty/alacritty.toml"
+type = "symbolic"
+
+[windows.files."clink/clink_settings"]
+target = "~/AppData/Local/clink/clink_settings"
+type = "symbolic"
+
+[windows.files."clink/scripts"]
+target = "~/AppData/Local/clink/scripts"
+type = "symbolic"
+recurse = false
+
+[windows.files.git]
+target = "~/.config/git"
+type = "symbolic"
+recurse = false
+
+[windows.files.nvim]
+target = "~/AppData/Local/nvim"
+type = "symbolic"
+recurse = false
+
+[windows.files.nushell]
+target = "~/AppData/Roaming/nushell"
+type = "symbolic"
+recurse = false
+
+[windows.files."starship.toml"]
+target = "~/.config/starship.toml"
+type = "symbolic"
+
+[windows.files."WindowsTerminal.json"]
+target = "~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+type = "symbolic"

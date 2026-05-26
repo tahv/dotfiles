@@ -1,3 +1,5 @@
+clink.path = ~/AppData/local/clink/scripts
+
 # name: Show usage hint for automatic suggestions
 # type: boolean
 autosuggest.hint = False

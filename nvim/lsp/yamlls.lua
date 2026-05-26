@@ -6,7 +6,11 @@ return {
       validate = true,
       keyOrdering = false,
       customTags = { "!reference sequence" },
-      format = { enable = true },
+      format = {
+        enable = false,
+        proseWrap = "never",
+        printWidth = 999,
+      },
       schemaStore = { enable = false },
       schemas = {
         ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",

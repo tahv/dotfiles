@@ -1,179 +1,117 @@
 # dotfiles
 
-My personal dotfiles, with installation instructions.
+Personal dotfiles, using [dotter](https://github.com/SuperCuber/dotter) for symlinking.
 
-## [alacritty](https://github.com/alacritty/alacritty)
-
-### Install - macOS
-
-> [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
+Install dotter:
 
 ```bash
+# on macOS with homebrew
+brew install dotter
+
+# on Windows with winget
+winget install --exact --id SuperCuber.Dotter
+```
+
+Symlink the files & directories:
+
+> [!WARNING]
+> On Windows, in order to create symbolic links, either
+> [**Developer Mode**](https://learn.microsoft.com/en-us/windows/advanced-settings/developer-mode)
+> must be enabled, or the command must be **run as administrator**.
+
+```bash
+dotter deploy
+
+# don't deploy, just print information
+dotter deploy --dry-run
+
+# force deployment if targets already exists
+dotter deploy --force
+```
+
+When editing existing config, changes are immediately active, no rebuild needed.
+
+## Installations
+
+<details>
+<summary><b>alacritty</b></summary>
+
+> [!NOTE]
+> Requires `nerd-fonts`.
+
+```bash
+# macOS
 brew install alacritty
-ln -s $(pwd)/alacritty ~/.config/alacritty
-```
 
-### Install - Windows
-
-> [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
+# Windows
 winget install --exact --id Alacritty.Alacritty
-mklink /D "%APPDATA%\alacritty" "%cd%\alacritty"
 ```
 
-### Uninstall - macOS
+</details>
+
+<details>
+<summary><b>clink</b></summary>
 
 ```bash
-brew uninstall alacritty
-rm -rf ~/.config/alacritty
-```
-
-### Uninstall - Windows
-
-```bat
-winget uninstall --exact --id Alacritty.Alacritty
-rd /q /s "%APPDATA%\alacritty"
-```
-
-## [clink](https://chrisant996.github.io/clink)
-
-### Install - Windows
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
-winget install --exact --id chrisant996.Clink
-mklink "%LOCALAPPDATA%\clink\clink_settings" "%cd%\clink\clink_settings"
-clink installscripts "%cd%\clink\scripts"
-```
-
-### Uninstall - Windows
-
-```bat
+# Windows
 winget uninstall --exact --id chrisant996.Clink
-clink uninstallscripts "%cd%\clink\scripts"
-rd /q /s "%LOCALAPPDATA%\clink" 2>nul
 ```
 
-## git
+</details>
 
-### Install - macOS
-
-<!-- TODO: move ./git/git -> ./git -->
+<details>
+<summary><b>git</b></summary>
 
 ```bash
+# macOS
 brew install git
-ln -s $(pwd)/git/git ~/.config/git
-```
 
-### Install - Windows
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
+# Windows
 winget install --exact --id Git.Git
-mkdir "%USERPROFILE%\.config" 2>nul
-mklink /D "%USERPROFILE%\.config\git" "%cd%\git\git"
 ```
 
-### Uninstall - macOS
+</details>
+
+<details>
+<summary><b>ghostty</b></summary>
 
 ```bash
-brew uninstall git
-rm -rf ~/.config/git
-```
-
-### Uninstall - Windows
-
-```bat
-winget uninstall --exact --id Git.Git
-rd /q /s "%USERPROFILE%\.config\git" 2>nul
-```
-
-## [ghostty](https://github.com/ghostty-org/ghostty)
-
-### Install - macOS
-
-> [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
-
-```bash
+# macOS
 brew install --cask ghostty
-ln -s $(pwd)/ghostty ~/.config/ghostty
 ```
 
-### Uninstall - macOS
+</details>
 
-```bash
-brew uninstall --cask ghostty
-rm -rf ~/.config/ghostty
-```
-
-## [neovim](https://github.com/neovim/neovim)
-
-### Install - macOS
+<details>
+<summary><b>neovim</b></summary>
 
 > [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
+> Requires `nerd-fonts`.
 
 ```bash
-brew install neovim
-brew install ripgrep
-ln -s $(pwd)/neovim/nvim ~/.config/nvim
-```
+# macOS
+brew install neovim ripgrep
 
-### Install - Windows
-
-> [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
+# windows
 winget install --exact --id Neovim.Neovim
 winget install --exact --id BurntSushi.ripgrep.MSVC
-mklink /D "%LOCALAPPDATA%\nvim" "%cd%\neovim\nvim"
-echo @nvim.exe %*> "C:\Program Files\Neovim\bin\vim.bat"
 ```
 
-### Uninstall - macOS
+</details>
 
-```bash
-brew uninstall neovim
-rm -rf ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
-```
+<details>
+<summary><b>nerd-fonts</b></summary>
 
-### Uninstall - Windows
-
-```bat
-winget uninstall --exact --id Neovim.Neovim
-rd /q /s "%LOCALAPPDATA%\nvim" 2>nul
-rd /q /s "%LOCALAPPDATA%\nvim-data" 2>nul
-```
-
-## [nerd-fonts](https://github.com/ryanoasis/nerd-fonts>)
-
-### Install - macOS
-
-```bash
-brew install font-fira-code-nerd-font
-```
-
-### Install - Windows
+### macOS
 
 > [!NOTE]
 > [WinGet font support ryanoasis/nerd-fonts#1935](https://github.com/ryanoasis/nerd-fonts/issues/1935)
 
-```bat
+```bash
+# macOS
+brew install font-fira-code-nerd-font
+
+# Windows
 if exist %TEMP%\nerdfont (rmdir /s /q %TEMP%\nerdfont)
 mkdir %TEMP%\nerdfont
 curl -fLO --output-dir %TEMP%\nerdfont https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/FiraCode/Bold/FiraCodeNerdFontMono-Bold.ttf
@@ -186,149 +124,77 @@ powershell -Command "Get-ChildItem -Path $env:TEMP\nerdfont | % { (New-Object -C
 rmdir /s /q %TEMP%\nerdfont
 ```
 
-### Uninstall - macOS
-
-```bash
-brew uninstall font-fira-code-nerd-font
-```
-
-### Uninstall - Windows
-
-Manually remove the fonts in **Font settings**.
-
 <!-- TODO: Investigate uninstall script
-
-<https://www.powershellgallery.com/packages/PSWinGlue/0.5.5/Content/Scripts%5CUninstall-Font.ps1>
+https://www.powershellgallery.com/packages/PSWinGlue/0.5.5/Content/Scripts%5CUninstall-Font.ps1
 
 ```bat
 del /q /f /s /a %LOCALAPPDATA%\Microsoft\Windows\Fonts\FiraCodeNerdFontMono*.ttf
 ```
 -->
 
-## [nushell](https://www.nushell.sh/)
+</details>
 
-### Install - macOS
+<details>
+<summary><b>nushell</b></summary>
 
 ```bash
+# macOS
 brew install nushell
-ln -s $(pwd)/nushell/nushell ~/Library/Application\ Support/nushell
-```
 
-### Install - Windows
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
+# windows
 winget install nushell
-mklink /D "%APPDATA%\nushell" "%cd%\nushell\nushell"
 ```
 
-### Uninstall - macOS
+</details>
 
-```bash
-brew uninstall nushell
-rm -rf ~/Library/Application\ Support/nushell
-```
-
-### Uninstall - Windows
-
-```bat
-winget install nushell
-rd /q /s "%APPDATA%\nushell" 2>nul
-```
-
-## [starship](https://github.com/starship/starship)
-
-### Install - macOS
+<details>
+<summary><b>starship</b></summary>
 
 > [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
+> Requires `nerd-fonts` (and `clink` on Windows).
 
-<!-- TODO: require bashrc dotfile -->
+<!-- TODO: require bashrc dotfile on unix -->
 
 ```bash
+# macOS
 brew install starship
-ln -s $(pwd)/starship/starship.toml ~/.config/starship.toml
-```
 
-### Install - Windows
-
-> [!NOTE]
-> Requires [clink](#clink) and [nerd-fonts](#nerd-fonts)
-
-```bat
+# windows
 winget install --exact --id Starship.Starship
-mklink "%USERPROFILE%\.config\starship.toml" "%cd%\starship\starship.toml"
 ```
 
-### Uninstall - macOS
+</details>
+
+<details>
+<summary><b>tmux</b></summary>
 
 ```bash
-brew uninstall starship
-rm -f ~/.config/starship.toml
-```
-
-### Uninstall - Windows
-
-```bat
-winget uninstall --id Starship.Starship
-del /f /q "%USERPROFILE%\.config\starship.toml"
-```
-
-## [tmux](https://github.com/tmux/tmux)
-
-### Install - macOS
-
-```bash
+# macOS
 brew install tmux
-ln -s $(pwd)/tmux/.tmux.conf ~/.tmux.conf
 ```
 
-### Uninstall - macOS
+</details>
 
-```bash
-brew uninstall tmux
-rm -f ~/.tmux.conf
-```
-
-## [Windows Terminal](https://github.com/microsoft/terminal)
-
-### Install - Windows
+<details>
+<summary><b>Windows Terminal</b></summary>
 
 > [!NOTE]
-> Requires [nerd-fonts](#nerd-fonts)
-
-> [!WARNING]
-> `mklink` requires **admin** privileges.
-
-```bat
-winget install --exact --id Microsoft.WindowsTerminal
-mklink "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" "%cd%\windows-terminal\settings.json"
-```
-
-### Uninstall - Windows
-
-```bat
-winget install --exact --id Microsoft.WindowsTerminal
-del /f /q "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-```
-
-## [yabai](https://github.com/koekeishiya/yabai)
-
-### Install - macOS
-
-<!-- TODO: move ./yabai/yabai -> ./yabai -->
+> Requires `nerd-fonts`.
 
 ```bash
+# Windows
+winget install --exact --id Microsoft.WindowsTerminal
+```
+
+</details>
+
+<details>
+<summary><b>yabai</b></summary>
+
+```bash
+# macOS
 brew install asmvik/formulae/yabai jq
-ln -s $(pwd)/yabai/yabai ~/.config/yabai
 yabai --restart-service
 ```
 
-### Uninstall - macOS
-
-```bash
-brew uninstall asmvik/formulae/yabai
-rm -rf ~/.config/yabai
-```
+</details>
