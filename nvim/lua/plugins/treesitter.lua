@@ -130,8 +130,20 @@ end
 ---@type LazySpec[]
 return {
   {
+    -- WASM-first tree-sitter parser manager
+    "arborist-ts/arborist.nvim",
+    build = function(plugin) check_treesitter_cli() end,
+    opts = {
+      prefer_wasm = true,
+      update_cadence = "weekly",
+      install_popular = true,
+      ensure_installed = {},
+    },
+  },
+  {
     -- Treesitter configurations and abstraction layer
     "nvim-treesitter/nvim-treesitter",
+    enabled = false,
     lazy = false,
     branch = "main",
     build = function(plugin)
