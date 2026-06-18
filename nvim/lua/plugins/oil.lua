@@ -16,9 +16,11 @@ end
 return {
   {
     -- Buffer-lile file explorer
-    "stevearc/oil.nvim",
+    -- "stevearc/oil.nvim",
+    "barrettruth/canola.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false, -- Load the plugin eagerly so oil takes over netrw
+    main = "oil",
     ---@type oil.setupOpts
     opts = {
       win_options = {
@@ -48,6 +50,6 @@ return {
     -- Async Git status integration for oil.nvim
     "malewicz1337/oil-git.nvim",
     lazy = false,
-    dependencies = { "stevearc/oil.nvim" },
+    -- dependencies = { "stevearc/oil.nvim" },
   },
 }
