@@ -54,6 +54,7 @@ return {
     -- Preview Markdown, HTML, AsciiDoc, SVG files in a web browser with live updates.
     "brianhuster/live-preview.nvim",
     lazy = true,
+    enabled = false,
     cmd = { "LivePreview" },
     opts = {
       address = "127.0.0.1",
