@@ -6,6 +6,7 @@
 "conda:zensical" = "0.0.53"
 "conda:zuban" = "0.9.1"
 git-cliff = "2.13.1"
+"github:agavra/tuicr" = "0.21.0"
 go = "1.26.5"
 hatch = "1.17.1"
 jq = "1.8.2"
