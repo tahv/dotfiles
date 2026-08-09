@@ -104,6 +104,16 @@ return {
         function() Snacks.terminal(nil, { win = { position = "float", border = "rounded" } }) end,
         desc = "Toggle [t]erminal",
       },
+      {
+        "<leader>tr",
+        function()
+          Snacks.terminal.toggle(
+            "tuicr --theme tokyo-night-storm",
+            { win = { position = "float", border = "rounded" } }
+          )
+        end,
+        desc = "tuic[r]",
+      },
       -- Words
       { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "next LSP reference", mode = { "n", "t" } },
       { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "previous LSP reference", mode = { "n", "t" } },
