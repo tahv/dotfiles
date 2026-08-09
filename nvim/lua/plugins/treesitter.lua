@@ -132,110 +132,16 @@ return {
   {
     -- WASM-first tree-sitter parser manager
     "arborist-ts/arborist.nvim",
-    build = function(plugin) check_treesitter_cli() end,
+    build = function(plugin)
+      check_treesitter_cli()
+      ensure_mingw64_on_windows()
+    end,
     opts = {
       prefer_wasm = true,
       update_cadence = "weekly",
       install_popular = true,
       ensure_installed = {},
     },
-  },
-  {
-    -- Treesitter configurations and abstraction layer
-    "nvim-treesitter/nvim-treesitter",
-    enabled = false,
-    lazy = false,
-    branch = "main",
-    build = function(plugin)
-      check_treesitter_cli()
-      ensure_mingw64_on_windows()
-      -- Update all parsers
-      require("lazy.core.loader").load(plugin, { task = "build" })
-      local cmd = vim.api.nvim_parse_cmd("TSUpdate", {}) --[[@as vim.api.keyset.cmd]]
-      vim.api.nvim_cmd(cmd, { output = true })
-    end,
-    ---@alias lazyvim.TSFeat { enable?: boolean }
-    ---@class tahv.TSConfig: TSConfig
-    opts = {
-      indent = { enable = true }, ---@type lazyvim.TSFeat enable indentation based on the `=` operator
-      highlight = { enable = true }, ---@type lazyvim.TSFeat enable syntax highlighting
-      folds = { enable = false }, ---@type lazyvim.TSFeat
-      ensure_installed = { ---@type string[]
-        "bash",
-        "c_sharp",
-        "diff",
-        "dockerfile",
-        "gitignore",
-        "json",
-        "jsonc",
-        "just",
-        "lua",
-        "luadoc",
-        "luap",
-        "make",
-        "markdown",
-        "markdown_inline",
-        "mermaid",
-        "nu",
-        "python",
-        "regex",
-        "requirements",
-        "rst",
-        "rust",
-        "toml",
-        "vim",
-        "vimdoc",
-        "yaml",
-      },
-    },
-    ---@param opts tahv.TSConfig
-    config = function(_, opts)
-      local utils = require("utils")
-      local treesitter = require("nvim-treesitter")
-
-      if utils.is_win() then
-        local bin = vim.fs.joinpath(utils.user_stdpath("data"), "mingw64", "bin")
-        vim.env.PATH = vim.env.PATH .. ";" .. bin
-      end
-
-      treesitter.setup()
-
-      -- install missing
-      treesitter.install(opts.ensure_installed)
-
-      -- remove unused
-      local installed = treesitter.get_installed()
-      local remove = utils.difference(installed, opts.ensure_installed)
-      if next(remove) ~= nil then
-        treesitter.uninstall(remove)
-      end
-
-      -- TODO(tga): install automatically: https://aliou.me/posts/upgrading-nvim-treesitter/
-      -- enable features per-file
-      vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("treesitter-features", { clear = true }),
-        callback = function(args)
-          -- filter installed filetype
-          if vim.treesitter.language.get_lang(args.match) == nil then
-            return
-          end
-          -- syntax highlighting
-          if opts.highlight.enable ~= false then
-            pcall(vim.treesitter.start, args.buf)
-          end
-          -- indentation
-          if opts.indent.enable ~= false then
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
-          -- folds
-          if opts.folds.enable ~= false then
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            -- vim.wo[0][0].foldmethod = "expr"
-          end
-        end,
-      })
-    end,
   },
   {
     -- Show code context
