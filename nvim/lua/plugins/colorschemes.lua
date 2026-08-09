@@ -1,7 +1,6 @@
 ---@type LazySpec[]
 return {
   {
-    -- Colorscheme based on Atom's One Dark and Light theme.
     "navarasu/onedark.nvim",
     enabled = false,
     priority = 1000,
@@ -15,117 +14,17 @@ return {
       },
     },
   },
-  {
-    -- Soothing pastel theme.
-    "catppuccin/nvim",
-    enabled = false,
-    name = "catppuccin",
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "AlexvZyl/nordic.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    -- config = function() require("nordic").load() end,
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    enabled = false,
-  },
-  {
-    "mellow-theme/mellow.nvim",
-    enabled = false,
-  },
-  {
-    "sho-87/kanagawa-paper.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "rose-pine/neovim",
-    enabled = false,
-    name = "rose-pine",
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "folke/tokyonight.nvim",
-    enabled = true,
-    lazy = false,
-    priority = 1000,
-    ---@class tokyonight.Config
-    opts = {
-      ---@param hl tokyonight.Highlights
-      ---@param c ColorScheme
-      on_highlights = function(hl, c)
-        -- local util = require("tokyonight.util")
-        -- local del_bg = util.darken(c.git.delete, 0.5)
-        -- hl.GitSignsDeleteVirtLnInline = { bg = del_bg }
-      end,
-    },
-  },
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    enabled = false,
-  },
-  {
-    "0xstepit/flow.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {
-      transparent = false,
-      fluo_color = "pink",
-      mode = "desaturate",
-      aggressive_spell = false,
-    },
-  },
-  {
-    "ramojus/mellifluous.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "serhez/teide.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "vague-theme/vague.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "https://codeberg.org/evergarden/nvim.git",
-    name = "evergarden",
-    priority = 1000,
-    opts = {
-      theme = {
-        variant = "winter",
-        -- accent = "green",
-      },
-      editor = {
-        transparent_background = false,
-        sign = { color = "none" },
-        float = {
-          color = "mantle",
-          solid_border = false,
-        },
-        completion = {
-          color = "surface0",
-        },
-      },
-    },
-  },
+  { "catppuccin/nvim", enabled = false, priority = 1000, name = "catppuccin" },
+  { "AlexvZyl/nordic.nvim", enabled = false, priority = 1000 },
+  -- { "zenbones-theme/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
+  -- { "savq/melange-nvim", enabled = true },
+  -- { "HoNamDuong/hybrid.nvim", priority = 1000 },
+  -- { "rebelot/kanagawa.nvim", priority = 1000 },
+  { "thesimonho/kanagawa-paper.nvim", priority = 1000 },
+  -- { "mellow-theme/mellow.nvim", priority = 1000 },
+  -- { "rose-pine/neovim", priority = 1000, name = "rose-pine" },
+  { "folke/tokyonight.nvim", priority = 1000 },
+  -- { "nyoom-engineering/oxocarbon.nvim", priority = 1000 } },
+  -- { "ramojus/mellifluous.nvim", priority = 1000 },
+  -- { "vague-theme/vague.nvim", priority = 1000 },
 }
