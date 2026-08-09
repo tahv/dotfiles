@@ -38,6 +38,15 @@ local function setup_ty_autocmd()
   })
 end
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client ~= nil and client.name == "tombi" then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
+  end,
+})
+
 local function select_python_lsp()
   local py_clients = { "pyrefly", "ty", "zuban" }
   vim.ui.select(py_clients, {
