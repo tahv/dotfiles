@@ -16,6 +16,10 @@ recurse = false
 target = "~/.config/ghostty/config.ghostty"
 type = "symbolic"
 
+[macos.files."mise.toml"]
+target = "~/.config/mise/config.toml"
+type = "symbolic"
+
 [macos.files.nvim]
 target = "~/.config/nvim"
 type = "symbolic"

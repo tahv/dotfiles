@@ -1,0 +1,24 @@
+[tools]
+"conda:mypy" = "2.3.0"
+"conda:pynvim" = "0.6.0"
+"conda:pyrefly" = "1.2.0"
+"conda:towncrier" = "25.8.0"
+"conda:zensical" = "0.0.53"
+"conda:zuban" = "0.9.1"
+git-cliff = "2.13.1"
+go = "1.26.5"
+hatch = "1.17.1"
+jq = "1.8.2"
+just = "1.58.0"
+maturin = "1.14.1"
+node = "26.7.0"
+pre-commit = "4.6.1"
+prek = "0.4.12"
+ripgrep = "15.2.0"
+ruff = "0.16.2"
+ty = "0.0.69"
+typos = "1.49.0"
+uv = "0.12.3"
+# fd
+# lazygit
+# starship
