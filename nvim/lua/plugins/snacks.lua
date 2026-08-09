@@ -13,24 +13,7 @@ return {
       quickfile = { enabled = true },
       dashboard = {
         enabled = true,
-        preset = {
-          header = [[
- .          .
- ';;,.        ::'
- ,:::;,,        :ccc,
-,::c::,,,,.     :cccc,
-,cccc:;;;;;.    cllll,
-,cccc;.;;;;;,   cllll;
-:cccc; .;;;;;;. coooo;
-;llll;   ,:::::'loooo;
-;llll:    ':::::loooo:
-:oooo:     .::::llodd:
-.;ooo:       ;cclooo:.
-.;oc        'coo;.
- .'         .,.]],
-        },
         sections = {
-          { section = "header" },
           { section = "keys", gap = 1 },
         },
       },
