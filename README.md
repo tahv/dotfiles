@@ -83,6 +83,18 @@ brew install --cask ghostty
 </details>
 
 <details>
+<summary><b>mise</b></summary>
+
+Activate on Clink with [mise-clink](https://github.com/binyaminyblatt/mise-clink)
+
+```bash
+git clone https://github.com/binyaminyblatt/mise-clink
+clink installscripts %cd%\mise-clink
+```
+
+</details>
+
+<details>
 <summary><b>neovim</b></summary>
 
 > [!NOTE]
