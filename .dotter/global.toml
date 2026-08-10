@@ -63,6 +63,10 @@ target = "~/.config/git"
 type = "symbolic"
 recurse = false
 
+[windows.files."mise.toml"]
+target = "~/.config/mise/config.toml"
+type = "symbolic"
+
 [windows.files.nvim]
 target = "~/AppData/Local/nvim"
 type = "symbolic"
