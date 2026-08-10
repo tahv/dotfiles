@@ -3,6 +3,7 @@ clink.path = ~/AppData/local/clink/scripts
 # name: Show usage hint for automatic suggestions
 # type: boolean
 autosuggest.hint = False
+autosuggest.inline = True
 
 # name: Controls how suggestions are chosen
 # type: string
@@ -139,4 +140,5 @@ match.expand_envvars = True
 # name: Try substring if no prefix matches
 # type: boolean
 match.substring = True
+match.ignore_case = relaxed
 
