@@ -29,13 +29,12 @@ style = "bright-black"
 
 [git_status]
 format = "[($untracked$modified$staged$renamed$deleted )](218)[($ahead_behind )]($style)"
-# format = "[($ahead_behind )]($style)"
 style = "cyan"
 ahead = "${count}⇡"
 behind = "${count}⇣"
 deleted = "-"
-# deleted = "✕"
 diverged = "${behind_count}⇣${ahead_count}⇡"
+use_git_executable = false
 
 [character]
 success_symbol = "[❯](green)"
