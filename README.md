@@ -53,8 +53,20 @@ winget install --exact --id Alacritty.Alacritty
 <summary><b>clink</b></summary>
 
 ```bash
-# Windows
-winget uninstall --exact --id chrisant996.Clink
+winget install --exact --id chrisant996.Clink
+```
+
+Invoke `clink.bat` from a directory in `PATH`.
+
+```bash
+echo @"C:/Program Files (x86)/clink/clink.bat" %* > %USERPROFILE%/.local/bin/clink.bat
+```
+
+Auto-activate `mise` with [mise-clink](https://github.com/binyaminyblatt/mise-clink).
+
+```bash
+git clone https://github.com/binyaminyblatt/mise-clink
+clink installscripts %cd%\mise-clink
 ```
 
 </details>
@@ -78,18 +90,6 @@ winget install --exact --id Git.Git
 ```bash
 # macOS
 brew install --cask ghostty
-```
-
-</details>
-
-<details>
-<summary><b>mise</b></summary>
-
-Activate on Clink with [mise-clink](https://github.com/binyaminyblatt/mise-clink)
-
-```bash
-git clone https://github.com/binyaminyblatt/mise-clink
-clink installscripts %cd%\mise-clink
 ```
 
 </details>
@@ -163,7 +163,7 @@ winget install nushell
 <summary><b>starship</b></summary>
 
 > [!NOTE]
-> Requires `nerd-fonts` (and `clink` on Windows).
+> Requires `nerd-fonts` (and `Clink` on Windows).
 
 <!-- TODO: require bashrc dotfile on unix -->
 
