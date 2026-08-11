@@ -13,3 +13,5 @@ alias("rgf", "rg --files ^| rg $*")
 alias("which", "where $*")
 alias("pp", '@for %g in ("%PATH:;=" "%")Do @Echo(%~g')
 alias("mr", "mise run $*")
+
+load(io.popen("starship init cmd"):read("*a"))()
