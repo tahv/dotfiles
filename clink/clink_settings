@@ -4,6 +4,7 @@ autosuggest.strategy = completion
 clink.default_bindings = bash
 clink.logo = short
 cmd.auto_answer = answer_yes
+cmd.ctrld_exits = False
 history.max_lines = 1000
 history.time_stamp = show
 mise.async_hook = True
