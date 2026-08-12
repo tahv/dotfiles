@@ -18,6 +18,7 @@ return {
   {
     -- Surround actions
     "echasnovski/mini.surround",
+    enabled = false,
     opts = {
       mappings = {
         add = "gsa", -- Add surrounding in Normal and Visual modes
