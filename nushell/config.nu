@@ -1,10 +1,27 @@
-# setup config
 $env.config.buffer_editor = "nvim"
 $env.config.table.mode = "compact"
+
 # $env.config.show_banner = false
 
-# setup default vendor directory
-mkdir ($nu.data-dir | path join "vendor/autoload")
+let vendor_autoload = $"($nu.data-dir)/vendor/autoload"
+mkdir $vendor_autoload
+
+if (which starship | is-not-empty) {
+    starship init nu | save -f $"($vendor_autoload)/starship.nu"
+}
+
+if (which mise | is-not-empty) {
+    mise activate nu | save -f $"($vendor_autoload)/mise.nu"
+    # TODO: completion: https://github.com/jdx/mise/discussions/4974
+}
+
+if (which just | is-not-empty) {
+    just --completions nushell | save -f $"($vendor_autoload)/just-completion.nu"
+}
+
+if (which uv | is-not-empty) {
+    uv generate-shell-completion nushell | save -f $"($vendor_autoload)/uv-completion.nu"
+}
 
 # site-specific config
 source (
@@ -12,29 +29,8 @@ source (
     else { 'config-home.nu' }
 )
 
-# setup starship
-if not (which starship | is-empty) {
-    starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
-}
-
-# setup fnm
-if not (which fnm | is-empty) {
-    # From: https://github.com/Schniz/fnm/issues/463
-    ^fnm env --json | from json | load-env
-
-    $env.PATH = $env.PATH | prepend ($env.FNM_MULTISHELL_PATH | path join (if $nu.os-info.name == 'windows' {''} else {'bin'}))
-    $env.config.hooks.env_change.PWD = (
-        $env.config.hooks.env_change.PWD? | append {
-            condition: {|| ['.nvmrc' '.node-version', 'package.json'] | any {|el| $el | path exists}}
-            code: {|| ^fnm use --silent-if-unchanged --install-if-missing}
-        }
-    )
-}
-
-# completions
-source just-completions.nu
-
-# commands
 alias vim = nvim
 alias v = nvim
-def ll [] { ls -la | select mode user size modified name target }
+def ll [] {
+    ls -la | select mode user size modified name target
+}

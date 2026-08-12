@@ -5,7 +5,7 @@ path add "~/.cargo/bin"
 path add "/opt/homebrew/bin"
 path add "~/.orbstack/bin"
 
-# Display macbook battery health info
+# print MacBook battery health information
 export def battery [] {
     system_profiler SPPowerDataType -json
     | from json
@@ -14,11 +14,11 @@ export def battery [] {
     | get 0.sppower_battery_health_info
 }
 
-# Quickly cd to dev directory
+# cd to dev directories
 module cdd {
     const dev = '~/dev' | path expand
-    def completion [] { 
-        ls -s $dev | where type != file | get name 
+    def completion [] {
+        ls -s $dev | where type != file | get name
     }
     export def --env main [dir?: string@completion] {
         cd ($dev | path join $'($dir)')
@@ -26,11 +26,11 @@ module cdd {
 }
 use cdd
 
-# Update homebrew packages
-export def update_all_formulae [] {
-    brew update   # update homebrew
-    brew upgrade  # update packages
-    brew cleanup  # remove old versions
+# update homebrew and upgrade all formulaes
+export def brew_up [] {
+    brew update
+    brew upgrade
+    brew cleanup
 }
 
 alias yrs = yabai --restart-service

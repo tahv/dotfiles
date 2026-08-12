@@ -1,10 +1,10 @@
 use std/util "path add"
 
-# Quickly cd to dev directory
+# cd to dev directories
 module cdd {
-    const dev = 'D:\dev' | path expand
-    def completion [] { 
-        ls -s $dev | where type != file | get name 
+    const dev = 'D:\dev'
+    def completion [] {
+        ls -s $dev | where type != file | get name
     }
     export def --env main [dir?: string@completion] {
         cd ($dev | path join $'($dir)')
