@@ -1,18 +1,13 @@
---- Register a doskey
----@param short string
----@param long string
-local function alias(short, long)
-	os.execute("doskey " .. short .. "=" .. long)
-end
+os.setenv("CLINK_COLORTHEME", "Tomorrow Night")
 
-alias("cdd", "cd /D D:\\dev\\$1")
-alias("cdp", "cd /D D:\\p4ws\\$1")
-alias("ls", "dir /B $*")
-alias("clear", "cls")
-alias("which", "where $*")
-alias("cat", "type $*")
-alias("pp", 'cmd /v:on /c "for %p in ("!path:;=" "!") do @echo(%~p"')
-alias("mr", "mise run $*")
--- alias("rgf", "rg --files ^| rg $*")
+os.setalias("cdd", [[cd /D D:\dev\$*]])
+os.setalias("cdp", [[cd /D D:\p4ws\$*]])
+os.setalias("ls", "dir /B $*")
+os.setalias("clear", "cls")
+os.setalias("which", "where $*")
+os.setalias("cat", "type $*")
+os.setalias("pp", 'cmd /v:on /c "for %p in ("!path:;=" "!") do @echo(%~p"')
+os.setalias("mr", "mise run $*")
+-- os.setalias("rgf", "rg --files ^| rg $*")
 
 load(io.popen("starship init cmd"):read("*a"))()
