@@ -12,6 +12,7 @@ export def battery [] {
     | get SPPowerDataType
     | where {|x| $x._name == spbattery_information }
     | get 0.sppower_battery_health_info
+    | rename --block { str title-case | split words | slice 2.. | str join " "}
 }
 
 # cd to dev directories
