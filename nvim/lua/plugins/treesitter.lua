@@ -136,18 +136,78 @@ end, { force = true, all = false })
 ---@type LazySpec[]
 return {
   {
-    -- WASM-first tree-sitter parser manager
-    "arborist-ts/arborist.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    enabled = true,
+    lazy = false,
+    branch = "main",
     build = function(plugin)
       check_treesitter_cli()
       ensure_mingw64_on_windows()
+      -- Update all parsers
+      require("lazy.core.loader").load(plugin, { task = "build" })
+      vim.api.nvim_cmd(vim.api.nvim_parse_cmd("TSUpdate", {}), { output = true })
     end,
+    ---@alias tahv.TSFeat { enable?: boolean }
+    ---@class tahv.TSConfig: TSConfig
     opts = {
-      prefer_wasm = true,
-      update_cadence = "weekly",
-      install_popular = true,
-      ensure_installed = {},
+      indent = { enable = true }, ---@type tahv.TSFeat enable indentation based on the `=` operator
+      highlight = { enable = true }, ---@type tahv.TSFeat enable syntax highlighting
+      folds = { enable = false }, ---@type tahv.TSFeat enable folding
+      ensure_installed = {}, ---@type string[]
+      ignore = { ---@type string[] ignore auto-install for languages
+        "fidget",
+        "snacks_notif",
+        "oil",
+      },
     },
+    ---@param opts tahv.TSConfig
+    config = function(_, opts)
+      local treesitter = require("nvim-treesitter")
+      local utils = require("utils")
+
+      if utils.is_win() then
+        local bin = vim.fs.joinpath(utils.user_stdpath("data"), "mingw64", "bin")
+        vim.env.PATH = vim.env.PATH .. ";" .. bin
+      end
+
+      treesitter.install(opts.ensure_installed)
+
+      -- auto-install & enable features per-file
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("treesitter-features", { clear = true }),
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(args.match)
+
+          if vim.list_contains(opts.ignore, lang) then
+            return
+          end
+
+          -- install missing langage
+          local ok, task = pcall(treesitter.install, { lang }, { summary = true })
+          if not ok then
+            return
+          end
+
+          -- enable features
+          task:await(function()
+            if opts.highlight.enable ~= false then
+              pcall(vim.treesitter.start, args.buf)
+            end
+
+            if opts.indent.enable ~= false then
+              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
+
+            if opts.folds.enable ~= false then
+              vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+              vim.wo.foldmethod = "expr"
+              -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+              -- vim.wo[0][0].foldmethod = "expr"
+            end
+          end)
+        end,
+      })
+    end,
   },
   {
     -- Show code context
