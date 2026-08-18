@@ -1,5 +1,5 @@
 $env.config.buffer_editor = "nvim"
-$env.config.table.mode = "compact"
+$env.config.table.mode = "light"
 $env.config.show_banner = "short"
 
 print $"(ansi ($env.config.color_config?.banner_highlight1? | default "green"))(ansi attr_bold)Nushell (ansi reset)v(version | get version)(ansi reset)"
