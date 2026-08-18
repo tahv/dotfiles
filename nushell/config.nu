@@ -22,9 +22,7 @@ hide make-vendor-file
 
 alias vim = nvim
 alias v = nvim
-def ll [] {
-    ls -la | select mode? user? size modified name target
-}
+def ll [] { ls -la | select mode? user? size modified name target }
 
 source (
     if $nu.os-info.family == windows { 'config-ubisoft.nu' }
