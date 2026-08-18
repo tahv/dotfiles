@@ -111,11 +111,8 @@ vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev se
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
 -- LSP
-
-vim.keymap.set("n", "grR", function()
-  vim.lsp.stop_client(vim.lsp.get_clients())
-  vim.cmd("edit")
-end, { desc = "[R]estart LSP" })
+-- TODO(Tga): LspStart, LspStop, LspRestart:
+-- https://github.com/neovim/nvim-lspconfig/blob/51dbf5359da86721662c87ca10eb73add973737b/plugin/lspconfig.lua
 
 map("n", "grc", "<cmd>checkhealth vim.lsp<cr><esc>", { desc = "[c]heck health lsp" })
 map("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, { desc = "Hover Documentation" })
