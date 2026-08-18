@@ -4,27 +4,21 @@ $env.config.show_banner = "short"
 
 print $"(ansi ($env.config.color_config?.banner_highlight1? | default "green"))(ansi attr_bold)Nushell (ansi reset)v(version | get version)(ansi reset)"
 
-let vendor_autoload = $"($nu.data-dir)/vendor/autoload"
-mkdir $vendor_autoload
-
-if (which starship | is-not-empty) {
-    starship init nu | save -f $"($vendor_autoload)/starship.nu"
+# Helper function for creating files in 'vendor/autoload'
+def make-vendor-file [app: string, activate: closure, filename: string] {
+    let filepath = $"($nu.data-dir)" | path join vendor autoload $filename
+    if ($filepath | path exists) { return }
+    if (which $app | is-empty) { return }
+    mkdir ($filepath | path dirname)
+    do $activate | save -f $filepath
 }
 
-# TODO: completion: https://github.com/jdx/mise/discussions/4974
-if (which mise | is-not-empty) {
-    mise activate nu | save -f $"($vendor_autoload)/mise.nu"
-}
-
-if (which just | is-not-empty) {
-    just --completions nushell
-    | save -f $"($vendor_autoload)/just-completion.nu"
-}
-
-if (which uv | is-not-empty) {
-    uv generate-shell-completion nushell
-    | save -f $"($vendor_autoload)/uv-completion.nu"
-}
+make-vendor-file "starship" {|| starship init nu } "starship.nu"
+make-vendor-file "mise" {|| mise activate nu } "mise.nu"
+make-vendor-file "just" {|| just --completions nushell } "just-completion.nu"
+make-vendor-file "uv" {|| uv generate-shell-completion nushell } "uv-completion.nu"
+# TODO: mise-completion.nu: https://github.com/jdx/mise/discussions/4974
+hide make-vendor-file
 
 alias vim = nvim
 alias v = nvim
