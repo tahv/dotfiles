@@ -48,7 +48,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         rust = { "rustfmt", lsp_format = "fallback" },
-        nu = { "nufmt", lsp_format = "fallback" },
+        nu = { "nufmt", "trim_newlines", "trim_whitespace" },
         toml = { "tombi" },
         yaml = { lsp_format = "first", "trim_newlines", "trim_whitespace" },
         markdown = { "rumdl", "trim_newlines", "trim_whitespace" },
