@@ -11,3 +11,5 @@ module cdd {
     }
 }
 use cdd
+
+alias cat = open -r
