@@ -154,11 +154,7 @@ return {
       highlight = { enable = true }, ---@type tahv.TSFeat enable syntax highlighting
       folds = { enable = false }, ---@type tahv.TSFeat enable folding
       ensure_installed = {}, ---@type string[]
-      ignore = { ---@type string[] ignore auto-install for languages
-        "fidget",
-        "snacks_notif",
-        "oil",
-      },
+      ignore = {}, ---@type string[] ignore auto-install for languages
     },
     ---@param opts tahv.TSConfig
     config = function(_, opts)
@@ -179,6 +175,10 @@ return {
           local lang = vim.treesitter.language.get_lang(args.match)
 
           if vim.list_contains(opts.ignore, lang) then
+            return
+          end
+
+          if not vim.list_contains(treesitter.get_available(), lang) then
             return
           end
 
