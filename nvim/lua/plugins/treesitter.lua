@@ -174,10 +174,17 @@ return {
         callback = function(args)
           local lang = vim.treesitter.language.get_lang(args.match)
 
+          -- skip ignored
           if vim.list_contains(opts.ignore, lang) then
             return
           end
 
+          -- skip already installed
+          if vim.list_contains(treesitter.get_installed(), lang) then
+            return
+          end
+
+          -- skip unavailable language
           if not vim.list_contains(treesitter.get_available(), lang) then
             return
           end
