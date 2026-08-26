@@ -11,10 +11,9 @@ def make-vendor [apps: list<string>, activate: closure, filename: string] {
     print $"Created '($filepath)'"
 }
 
-make-vendor [mise] { ^mise activate nu } "mise.nu"
 (make-vendor
     [mise, usage]
-    { ^mise usage | ^usage g completion nu mise -f - }
+    { ^mise usage | ^usage g completion nu mise --file - }
     "completion-mise.nu"
 )
 make-vendor [starship] { ^starship init nu } "starship.nu"
