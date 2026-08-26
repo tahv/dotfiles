@@ -1,6 +1,9 @@
 # dotfiles
 
-Personal dotfiles, using [dotter](https://github.com/SuperCuber/dotter) for symlinking.
+Personal dotfiles, using [dotter](https://github.com/SuperCuber/dotter)
+for symlinking.
+([wiki](https://github.com/SuperCuber/dotter/wiki),
+[reference](https://dotter-documentation.vercel.app/docs/quick-reference))
 
 Install dotter:
 
