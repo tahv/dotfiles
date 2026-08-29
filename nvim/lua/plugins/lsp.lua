@@ -82,6 +82,7 @@ return {
         "lua-language-server",
         "mpls",
         "pyrefly",
+        "qmlls",
         "roslyn", -- registry: github:crashdummyy/mason-registry
         "ruff",
         "rumdl",
@@ -101,6 +102,7 @@ return {
         "lua_ls",
         "powershell_es",
         -- "pyrefly",
+        "qmlls",
         "ruff",
         "rumdl",
         "rust_analyzer",
