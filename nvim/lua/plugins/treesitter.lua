@@ -46,6 +46,59 @@ local function ensure_mingw64_on_windows()
   utils.extract_7z_archive(archive, datadir)
 end
 
+---Ensure `filetype` TS parser is installed
+---@param filetype string
+---@param ignore string[]
+---@return async.Task? task the install task, if conditions are met
+local function ts_install(filetype, ignore)
+  local treesitter = require("nvim-treesitter")
+  local lang = vim.treesitter.language.get_lang(filetype)
+
+  -- skip ignored
+  if vim.list_contains(ignore, lang) then
+    return
+  end
+
+  -- skip already installed
+  if vim.list_contains(treesitter.get_installed(), lang) then
+    return
+  end
+
+  -- skip unavailable language
+  if not vim.list_contains(treesitter.get_available(), lang) then
+    return
+  end
+
+  -- install missing langage
+  local ok, task = pcall(treesitter.install, { lang }, { summary = true })
+  if not ok then
+    return
+  end
+
+  return task
+end
+
+---@param buf integer
+---@param highlight boolean
+---@param indent boolean
+---@param folds boolean
+local function ts_features(buf, highlight, indent, folds)
+  if highlight == true then
+    pcall(vim.treesitter.start, buf)
+  end
+
+  if indent == true then
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+
+  if folds == true then
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.wo.foldmethod = "expr"
+    -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    -- vim.wo[0][0].foldmethod = "expr"
+  end
+end
+
 ---@class tahv.RepeatableMoveModule
 ---@field builtin_F_expr function
 ---@field builtin_T_expr function
@@ -172,46 +225,14 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("treesitter-features", { clear = true }),
         callback = function(args)
-          local lang = vim.treesitter.language.get_lang(args.match)
-
-          -- skip ignored
-          if vim.list_contains(opts.ignore, lang) then
-            return
+          local task = ts_install(args.match, opts.ignore)
+          if task == nil then
+            ts_features(args.buf, opts.highlight.enable, opts.indent.enable, opts.folds.enable)
+          else
+            task:await(
+              function() ts_features(args.buf, opts.highlight.enable, opts.indent.enable, opts.folds.enable) end
+            )
           end
-
-          -- skip already installed
-          if vim.list_contains(treesitter.get_installed(), lang) then
-            return
-          end
-
-          -- skip unavailable language
-          if not vim.list_contains(treesitter.get_available(), lang) then
-            return
-          end
-
-          -- install missing langage
-          local ok, task = pcall(treesitter.install, { lang }, { summary = true })
-          if not ok then
-            return
-          end
-
-          -- enable features
-          task:await(function()
-            if opts.highlight.enable ~= false then
-              pcall(vim.treesitter.start, args.buf)
-            end
-
-            if opts.indent.enable ~= false then
-              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-            end
-
-            if opts.folds.enable ~= false then
-              vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-              vim.wo.foldmethod = "expr"
-              -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-              -- vim.wo[0][0].foldmethod = "expr"
-            end
-          end)
         end,
       })
     end,
