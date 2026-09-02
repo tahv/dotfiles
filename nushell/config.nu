@@ -29,8 +29,8 @@ alias vim = nvim
 
 const config = (
     if (sys host).hostname == "ANN-WKS-100027" { "config-work.nu" }
-    else if (sys host).hostname == "macbookpro.home" { "config-macbook.nu" }
     else if (sys host).hostname == "tgambier-macbookpro.local" { "config-macbook.nu" }
+    else if (sys host).hostname == "tgambier-macbookpro" { "config-macbook.nu" }
     else { null }
 )
 print-info "Loading:" ($config | default "no local config")
