@@ -1,5 +1,5 @@
--- Declare a global function to retrieve the current directory
--- https://github.com/stevearc/oil.nvim/blob/master/doc/recipes.md#show-cwd-in-the-winbar
+--- Show CWD in the winbar
+--- :h oil-recipe-cwd-winbar
 ---@diagnostic disable-next-line: duplicate-set-field
 function _G.get_oil_winbar()
   local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
@@ -7,7 +7,6 @@ function _G.get_oil_winbar()
   if dir then
     return vim.fn.fnamemodify(dir, ":~")
   else
-    -- If there is no current directory (e.g. over ssh), just show the buffer name
     return vim.api.nvim_buf_get_name(0)
   end
 end
@@ -15,22 +14,24 @@ end
 ---@type LazySpec[]
 return {
   {
-    -- Buffer-lile file explorer
-    -- "stevearc/oil.nvim",
     "barrettruth/canola.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false, -- Load the plugin eagerly so oil takes over netrw
     main = "oil",
     ---@type oil.setupOpts
     opts = {
+      lsp_file_methods = {
+        enabled = true,
+      },
       win_options = {
         winbar = "%!v:lua.get_oil_winbar()",
-        signcolumn = "yes",
       },
       view_options = {
         show_hidden = true,
       },
-      float = { padding = 3 },
+      float = {
+        padding = 3,
+      },
       skip_confirm_for_simple_edits = true,
       delete_to_trash = true,
       keymaps = {
@@ -46,10 +47,5 @@ return {
       { "<leader>E", function() require("oil.actions").open_cwd.callback() end, desc = "[E]xplorer (root)" },
     },
   },
-  {
-    -- Async Git status integration for oil.nvim
-    "malewicz1337/oil-git.nvim",
-    lazy = false,
-    -- dependencies = { "stevearc/oil.nvim" },
-  },
+  { "malewicz1337/oil-git.nvim" },
 }
