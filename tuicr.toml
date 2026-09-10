@@ -1,0 +1,5 @@
+# https://github.com/agavra/tuicr/blob/main/docs/CONFIG.md
+comment_vim = true
+editor = "nvim"
+appearance = "dark"
+theme = "tokyo-night-storm"

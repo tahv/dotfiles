@@ -38,6 +38,10 @@ type = "symbolic"
 target = "~/.tmux.conf"
 type = "symbolic"
 
+[macos.files."tuicr.toml"]
+target = "~/.config/tuicr/config.toml"
+type = "symbolic"
+
 [macos.files."yabai"]
 target = "~/.config/yabai"
 type = "symbolic"
@@ -79,6 +83,10 @@ recurse = false
 
 [windows.files."starship.toml"]
 target = "~/.config/starship.toml"
+type = "symbolic"
+
+[windows.files."tuicr.toml"]
+target = "~/AppData/Roaming/tuicr/config.toml"
 type = "symbolic"
 
 [windows.files."WindowsTerminal.json"]
