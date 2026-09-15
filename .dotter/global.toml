@@ -30,6 +30,10 @@ target = "~/Library/Application Support/nushell"
 type = "symbolic"
 recurse = false
 
+[macos.files."omniwm.toml"]
+target = "~/.config/omniwm/settings.toml"
+type = "symbolic"
+
 [macos.files."starship.toml"]
 target = "~/.config/starship.toml"
 type = "symbolic"
