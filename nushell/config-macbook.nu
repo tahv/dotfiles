@@ -9,6 +9,8 @@ export-env {
 
 alias yrs = yabai --restart-service
 alias fg = job unfreeze
+alias preview = ^open -a Preview
+
 
 export def ll [] {
     ls -la | select mode user size modified name target
