@@ -74,7 +74,7 @@ return {
         map("n", "[H", function() gs.nav_hunk("first") end, "First [H]unk")
         map("n", "]H", function() gs.nav_hunk("last") end, "Last [H]unk")
         map("n", "<leader>gd", gs.preview_hunk_inline, "preview hunk inline")
-        map("n", "<leader>gD", gs.diffthis, "[D]iff this")
+        map("n", "<leader>gD", function() gs.diffthis(nil, { unified = true }) end, "[D]iff this")
         map("n", "<leader>gb", gs.toggle_current_line_blame, "Toggle line [b]lame")
         map("n", "<leader>gB", function() gs.blame() end, "Blame [B]uffer")
         map("n", "<leader>gh", gs.stage_hunk, "Stage [h]unk")
