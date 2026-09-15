@@ -54,6 +54,7 @@ return {
         markdown = { "rumdl", "trim_newlines", "trim_whitespace" },
         python = { "ruff_organize_imports", "ruff_format" },
         json = { lsp_format = "first" },
+        just = { "just", lsp_format = "first"  },
         ["_"] = { "trim_newlines", "trim_whitespace" },
       },
       formatters = {
