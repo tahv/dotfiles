@@ -42,6 +42,7 @@ source ("vendor" | path join "completion-mise.nu")
 use ("vendor" | path join "starship.nu")
 use ("vendor" | path join "completion-just.nu") *
 use ("vendor" | path join "completion-uv.nu") *
+use ("vendor" | path join "completion-jj.nu") *
 
 hide print-info
 hide make-autoload

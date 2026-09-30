@@ -16,6 +16,11 @@ recurse = false
 target = "~/.config/ghostty/config.ghostty"
 type = "symbolic"
 
+[macos.files.jj]
+target = "~/.config/jj"
+type = "symbolic"
+recurse = false
+
 [macos.files."mise.toml"]
 target = "~/.config/mise/config.toml"
 type = "symbolic"
@@ -68,6 +73,11 @@ recurse = false
 
 [windows.files.git]
 target = "~/.config/git"
+type = "symbolic"
+recurse = false
+
+[windows.files.jj]
+target = "~/AppData/Roaming/jj"
 type = "symbolic"
 recurse = false
 

@@ -19,5 +19,6 @@ def make-vendor [apps: list<string>, activate: closure, filename: string] {
 make-vendor [starship] { ^starship init nu } "starship.nu"
 make-vendor [just] { ^just --completions nushell } "completion-just.nu"
 make-vendor [uv] { ^uv generate-shell-completion nushell } "completion-uv.nu"
+make-vendor [jj] { ^jj util completion nushell } "completion-jj.nu"
 
 hide make-vendor

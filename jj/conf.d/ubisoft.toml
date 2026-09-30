@@ -1,0 +1,5 @@
+--when.hostnames = ["ANN-WKS-100027"]
+
+[user]
+name = "Thibaud Gambier"
+email = "thibaud.gambier@ubisoft.com"
