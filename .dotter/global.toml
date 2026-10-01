@@ -16,8 +16,12 @@ recurse = false
 target = "~/.config/ghostty/config.ghostty"
 type = "symbolic"
 
-[macos.files.jj]
-target = "~/.config/jj"
+[macos.files."jj/config.toml"]
+target = "~/.config/jj/config.toml"
+type = "symbolic"
+
+[macos.files."jj/conf.d"]
+target = "~/.config/jj/conf.d"
 type = "symbolic"
 recurse = false
 
@@ -76,8 +80,12 @@ target = "~/.config/git"
 type = "symbolic"
 recurse = false
 
-[windows.files.jj]
-target = "~/AppData/Roaming/jj"
+[windows.files."jj/config.toml"]
+target = "~/AppData/Roaming/jj/config.toml"
+type = "symbolic"
+
+[windows.files."jj/conf.d"]
+target = "~/AppData/Roaming/jj/conf.d"
 type = "symbolic"
 recurse = false
 
