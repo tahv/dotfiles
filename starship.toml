@@ -12,6 +12,9 @@ $git_state\
 $git_status\
 $character"""
 
+[username]
+aliases = { "Administrator" = "admin" }
+
 [directory]
 style = "blue"
 truncate_to_repo = true
