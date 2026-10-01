@@ -88,8 +88,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move half screen up" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move half screen down" })
 vim.keymap.set("n", "gg", "ggzz", { desc = "Go to the first line of the document" })
 vim.keymap.set("n", "G", "Gzz", { desc = "Go to the last line of the document" })
-vim.keymap.set("n", "n", "nzz", { desc = "Repeat search in same direction" })
-vim.keymap.set("n", "N", "Nzz", { desc = "Repeat search in opposite direction" })
 vim.keymap.set("n", "<C-o>", "<C-o>zz", { desc = "Go to older position in jump list" })
 vim.keymap.set("n", "<C-i>", "<C-i>zz", { desc = "Go to newer position in jump list" })
 
@@ -101,12 +99,12 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent" })
 -- The direction of n and N depends on whether / (forward) or ? (backward) was used.
 -- Remapping 'n' to always search forward and 'N' backward.
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-vim.keymap.set("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-vim.keymap.set("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-vim.keymap.set("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
-vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+vim.keymap.set("n", "n", "(v:searchforward ? 'nzz' : 'Nzz')", { expr = true, desc = "Next search result" })
+vim.keymap.set("x", "n", "(v:searchforward ? 'nzz' : 'Nzz')", { expr = true, desc = "Next search result" })
+vim.keymap.set("o", "n", "(v:searchforward ? 'nzz' : 'Nzz')", { expr = true, desc = "Next search result" })
+vim.keymap.set("n", "N", "(v:searchforward ? 'Nzz' : 'nzz')", { expr = true, desc = "Prev search result" })
+vim.keymap.set("x", "N", "(v:searchforward ? 'Nzz' : 'nzz')", { expr = true, desc = "Prev search result" })
+vim.keymap.set("o", "N", "(v:searchforward ? 'Nzz' : 'nzz')", { expr = true, desc = "Prev search result" })
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit Terminal mode" })
 
