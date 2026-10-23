@@ -7,6 +7,7 @@
 	wt = worktree
 	f = fetch
     l = log --pretty='%C(yellow)%h %C(cyan)%ad %C(blue)%an%C(auto)%d %s' --date='format:%d/%m/%y %H:%M:%S'
+    whatadded = l --diff-filter=A
 	p = pull
 	pr = pull --rebase
 	s = status --short --branch
