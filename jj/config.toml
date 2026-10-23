@@ -7,3 +7,8 @@ editor = "nvim"
 [user]
 name = "Thibaud Gambier"
 email = "account+git@tgambier.fr"
+
+[templates]
+commit_trailers = '''
+format_signed_off_by_trailer(self)
+'''
