@@ -25,6 +25,11 @@ target = "~/.config/jj/conf.d"
 type = "symbolic"
 recurse = false
 
+[macos.files."lazygit.yml"]
+# target = "~/.config/lazygit/config.yml"
+target = '~/Library/Application Support/lazygit/config.yml'
+type = "symbolic"
+
 [macos.files."mise.toml"]
 target = "~/.config/mise/config.toml"
 type = "symbolic"
@@ -88,6 +93,10 @@ type = "symbolic"
 target = "~/AppData/Roaming/jj/conf.d"
 type = "symbolic"
 recurse = false
+
+[windows.files."lazygit.yml"]
+target = "~/AppData/Local/lazygit/config.yml"
+type = "symbolic"
 
 [windows.files."mise.toml"]
 target = "~/.config/mise/config.toml"
