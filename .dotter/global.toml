@@ -71,6 +71,10 @@ recurse = false
 target = "~/AppData/Roaming/alacritty/alacritty.toml"
 type = "symbolic"
 
+[windows.files."bash/.bashrc"]
+target = "~/.bashrc"
+type = "symbolic"
+
 [windows.files."clink/clink_settings"]
 target = "~/AppData/Local/clink/clink_settings"
 type = "symbolic"
