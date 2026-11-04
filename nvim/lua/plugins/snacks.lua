@@ -67,8 +67,11 @@ return {
       { "<leader>sf", function() Snacks.picker.files({ hidden = true }) end, desc = "search [f]iles" },
       {
         "<leader>sc",
-        function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end,
-        desc = "search [c]onfig files",
+        function()
+          local dir = vim.fs.dirname(vim.uv.fs_realpath(vim.fn.stdpath("config")))
+          Snacks.picker.files({ cwd = dir, hidden = true })
+        end,
+        desc = "search [c]onfig dotfiles",
       },
       { "<leader>sC", function() Snacks.picker.colorschemes() end, desc = "select [c]olorschemes" },
       { "<leader>sg", function() Snacks.picker.grep() end, desc = "[g]rep" },
