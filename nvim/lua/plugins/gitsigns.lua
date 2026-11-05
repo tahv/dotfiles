@@ -1,28 +1,3 @@
-local function next_hunk()
-  if vim.wo.diff then
-    -- jump to start of next change
-    vim.cmd.normal({ "]c", bang = true })
-  else
-    require("gitsigns").nav_hunk("next")
-  end
-end
-
-local function prev_hunk()
-  if vim.wo.diff then
-    -- jump to start of previous change
-    vim.cmd.normal({ "[c", bang = true })
-  else
-    require("gitsigns").nav_hunk("prev")
-  end
-end
-
----@return [integer,integer]
-local function visual_range()
-  local start = vim.fn.line(".")
-  local stop = vim.fn.line("v")
-  return { start, stop }
-end
-
 ---@type LazySpec[]
 return {
   {
@@ -69,20 +44,30 @@ return {
 
         local gs = require("gitsigns")
 
-        map("n", "]h", next_hunk, "Next [h]unk")
-        map("n", "[h", prev_hunk, "Previous [h]unk")
+        map("n", "]h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            require("gitsigns").nav_hunk("next")
+          end
+        end, "Next [h]unk")
+        map("n", "[h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            require("gitsigns").nav_hunk("prev")
+          end
+        end, "Previous [h]unk")
         map("n", "[H", function() gs.nav_hunk("first") end, "First [H]unk")
         map("n", "]H", function() gs.nav_hunk("last") end, "Last [H]unk")
-        map("n", "<leader>gd", gs.preview_hunk_inline, "preview hunk inline")
-        map("n", "<leader>gD", function() gs.diffthis(nil, { unified = true }) end, "[D]iff this")
+        map("n", "<leader>gd", function() gs.diffthis(nil, { unified = true }) end, "[D]iff this")
         map("n", "<leader>gb", gs.toggle_current_line_blame, "Toggle line [b]lame")
         map("n", "<leader>gB", function() gs.blame() end, "Blame [B]uffer")
         map("n", "<leader>gh", gs.stage_hunk, "Stage [h]unk")
-        map("x", "<leader>gh", function() gs.stage_hunk(visual_range()) end, "Stage [h]unk")
+        map("x", "<leader>gh", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage [h]unk")
         map("n", "<leader>gR", gs.reset_hunk, "[R]eset hunk")
-        map("x", "<leader>gR", function() gs.reset_hunk(visual_range()) end, "[R]eset hunk")
+        map("x", "<leader>gR", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "[R]eset hunk")
         -- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-        -- TODO: https://github.com/lewis6991/gitsigns.nvim/discussions/1343
       end,
     },
   },
