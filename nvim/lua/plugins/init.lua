@@ -9,11 +9,24 @@ return {
     },
   },
   {
-    -- Automatically manage character pairs
-    "echasnovski/mini.pairs",
-    event = "VeryLazy",
+    "saghen/blink.pairs",
+    dependencies = { "saghen/blink.lib" },
     version = "*",
-    opts = {},
+    enabled = true,
+    -- download prebuilt binaries from github releases:
+    -- https://github.com/saghen/blink.pairs/releases
+    build = function() require("blink.pairs").download():pwait(60000) end,
+    --- @module 'blink.pairs'
+    --- @type blink.pairs.Config
+    opts = {
+      highlights = {
+        groups = { "BlinkPairs" },
+      },
+      mappings = {
+        enabled = false,
+        wrap = {},
+      },
+    },
   },
   {
     -- Surround actions
