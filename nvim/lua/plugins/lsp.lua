@@ -1,43 +1,3 @@
----Adds LSP support for PEP 723 inline metadata scripts via `ty` lsp.
----Issue: https://github.com/astral-sh/ty/issues/691
----Inspired by: https://github.com/Jay-Madden/tylsp-pep723.nvim
-local function setup_ty_autocmd()
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "python",
-    callback = function(_)
-      local utils = require("utils")
-
-      if vim.lsp.is_enabled("ty") then
-        utils.err("'ty' LSP is already globally enabled")
-        return
-      end
-
-      local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ""
-      local has_inline_metadata = first_line:match("^# /// script") ~= nil
-
-      if not has_inline_metadata then
-        local config = vim.lsp.config["ty"]
-        if config ~= nil then
-          vim.lsp.start(config)
-        end
-        return
-      end
-
-      local filepath = vim.fn.expand("%:p")
-      local filename = vim.fn.fnamemodify(filepath, ":t")
-      local relpath = vim.fn.fnamemodify(filepath, ":.")
-      local config = vim.deepcopy(vim.lsp.config["ty"] or {}) ---@type table
-      config = vim.tbl_extend("force", config, {
-        name = "ty-" .. filename,
-        cmd = { "uvx", "--with-requirements", relpath, "ty", "server" },
-        root_dir = vim.fn.fnamemodify(filepath, ":h"),
-      })
-      utils.info("Starting " .. config["name"])
-      vim.lsp.start(config)
-    end,
-  })
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -133,11 +93,6 @@ return {
       if next(remove) ~= nil then
         vim.cmd("MasonUninstall " .. table.concat(remove, " "))
       end
-
-      -- -- Enable ty with support for inline metadata
-      -- if utils.tbl_remove(opts.enabled, "ty") then
-      --   setup_ty_autocmd()
-      -- end
 
       -- Enable lsp
       vim.lsp.enable(opts.enabled)
