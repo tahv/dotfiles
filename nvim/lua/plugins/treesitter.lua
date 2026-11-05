@@ -186,6 +186,20 @@ require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, 
   return string.match(filename, ".*mise.*%.toml$") ~= nil
 end, { force = true, all = false })
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  callback = function()
+    vim.api.nvim_set_hl(0, '@lsp.typemod.string.documentation.python', {})
+    vim.api.nvim_set_hl(0, '@lsp.type.string.python', {})
+    require("nvim-treesitter.parsers").pydoc = {
+      install_info = {
+        url = "https://github.com/LiHRaM/tree-sitter-pydoc",
+        revision = "06a7719313f27998aff756815e2943688a88610d",
+      },
+    }
+  end,
+})
+
 ---@type LazySpec[]
 return {
   {
