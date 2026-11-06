@@ -23,7 +23,6 @@ return {
         groups = { "BlinkPairs" },
       },
       mappings = {
-        enabled = false,
         wrap = {},
       },
     },
